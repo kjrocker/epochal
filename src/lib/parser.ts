@@ -66,7 +66,7 @@ export type ParseResult = {
   end: Date;
 };
 
-export const parseTextToDate = (text: string): ParseResult | undefined => {
+export const parseTextToDate = (text: string): [Date, Date] | undefined => {
   const date = parseSingleDate(text) as Required<RawParseResult> | undefined;
   if (!date) return undefined;
   const { year, month = 1, day = 1, era = "CE", precision } = date;
@@ -86,7 +86,7 @@ export const parseTextToDate = (text: string): ParseResult | undefined => {
     getEndDate(baseDate, precision),
   ];
   if (isValid(start) && isValid(end)) {
-    return { start, end };
+    return [start, end];
   } else {
     return undefined;
   }

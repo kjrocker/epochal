@@ -24,9 +24,9 @@ yarn add epochal
 Here's how you can use `epochal` in your TypeScript projects:
 
 ```typescript
-import { parseTextToDate } from "epochal";
+import { epochize } from "epochal";
 
-const { start, end } = parseTextToDate("4th millenium BC");
+const [start, end] = epochize("4th millenium BC");
 
 console.log(start);
 // January 1st, 4000 BC
@@ -37,12 +37,12 @@ console.log(end);
 
 ## API Reference
 
-### `parseTextToDate`
+### `epochize`
 
-The `parseTextToDate` function allows you to convert ambiguous historical date text into a precise date range.
+The `epochize` function allows you to convert ambiguous historical date text into a precise date range.
 
 ```typescript
-function parseTextToDate(text: string): { start: Date; end: Date };
+function epochize(text: string): [Date, Date];
 ```
 
 ## Tests
