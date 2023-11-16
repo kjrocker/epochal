@@ -2,19 +2,26 @@
 
 ## Description
 
-Designed for ambiguous historical dates going as far back as we can, `epochal` came out of my experiments with plotting fuzzy ancient historical events on timelines dynamically. The basic concept is that while "December 4th, 2020" is a perfectly reasonable single date, "4th millenium" is really an interval that starts January 1st, 4000 BC and ends on December 31st, 3001 BC.
+Designed for handling ambiguous historical dates, `epochal` is a library born out of my experiments with dynamically plotting fuzzy ancient historical events on timelines. The fundamental idea behind this library is that while "December 4th, 2020" represents a specific date, "4th millennium" actually denotes an interval that starts on January 1st, 4000 BC, and ends on December 31st, 3001 BC.
 
-Turns out, natural language historical intervals are complicated. So I took all that work that would otherwise never see the light of day, and I've repackaged it here as a standalone library.
+Working with natural language historical intervals can be quite complex. With `epochal` I've taken all the work I've done in this area and packaged it into a standalone library that anyone can use.
 
 ## Installation
+
+You can install `epochal` via npm or yarn:
 
 ```bash
 npm install --save epochal
 
+# or
+
 yarn add epochal
+
 ```
 
 ## Usage
+
+Here's how you can use `epochal` in your TypeScript projects:
 
 ```typescript
 import { parseTextToDate } from "epochal";
@@ -30,13 +37,17 @@ console.log(end);
 
 ## API Reference
 
-### parseTextToDate
+### `parseTextToDate`
+
+The `parseTextToDate` function allows you to convert ambiguous historical date text into a precise date range.
 
 ```typescript
 function parseTextToDate(text: string): { start: Date; end: Date };
 ```
 
 ## Tests
+
+You can run tests for `epochal` using the following commands:
 
 ```bash
 npm test
