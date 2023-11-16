@@ -1,3 +1,1 @@
-export const parse = (input: string) => {
-  return input;
-};
+export * from "./lib/parser";
