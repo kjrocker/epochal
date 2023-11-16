@@ -1,0 +1,31 @@
+# Ignore TypeScript source files
+**/*.ts
+!**/*.d.ts
+
+# Ignore test and coverage reports
+__tests__
+coverage
+
+# Ignore development configuration files
+.tsconfig.json
+jest.config.js
+
+# Ignore development and debug files
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Ignore IDE and editor files
+.idea
+.vscode
+*.swp
+*.swo
+*.swn
+*.bak
+*.orig
+*.kate-swp
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db

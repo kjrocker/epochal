@@ -4,6 +4,7 @@
   "description": "Convert ambiguous historical dates into precise start and end dates with ease ",
   "main": "src/index.ts",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
