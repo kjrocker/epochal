@@ -2,12 +2,18 @@
   "name": "epochal",
   "version": "0.0.1",
   "description": "Convert ambiguous historical dates into precise start and end dates with ease ",
-  "main": "src/index.ts",
+  "main": "build/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "keywords": [
+    "date",
+    "time",
+    "parse",
+    "utility"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kjrocker/epochal.git"
