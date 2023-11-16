@@ -64,7 +64,6 @@ const getEndDate = (date: Date, precision: TimePrecision): Date => {
 export type ParseResult = {
   start: Date;
   end: Date;
-  precision: TimePrecision;
 };
 
 export const parseTextToDate = (text: string): ParseResult | undefined => {
@@ -87,7 +86,7 @@ export const parseTextToDate = (text: string): ParseResult | undefined => {
     getEndDate(baseDate, precision),
   ];
   if (isValid(start) && isValid(end)) {
-    return { start, end, precision };
+    return { start, end };
   } else {
     return undefined;
   }
