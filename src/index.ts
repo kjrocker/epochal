@@ -1,1 +1,1 @@
-export * from "./lib/parser";
+export { parseTextToDate as epochize } from "./lib/parser";
