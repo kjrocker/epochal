@@ -24,6 +24,17 @@ export class Maybe<T> {
     return this.value === null ? defaultValue : this.value;
   }
 
+  // Try each function in sequence, returning the first non-null result
+  tryEach<R>(...args: Array<(wrapped: T) => Maybe<R>>): Maybe<R> {
+    for (let idx = 0; idx < args.length; idx++) {
+      const result = this.flatMap(args[idx]);
+      if (result.value !== null) {
+        return result;
+      }
+    }
+    return Maybe.none<R>();
+  }
+
   flatMap<R>(f: (wrapped: T) => Maybe<R>): Maybe<R> {
     if (this.value === null) {
       return Maybe.none<R>();
