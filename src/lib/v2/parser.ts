@@ -1,9 +1,14 @@
 import { clean } from "../parser/util";
+import { handleCentury } from "./century";
 import { Maybe } from "./maybe";
 import { handleMillenium } from "./millenium";
 
 export const epochize = (input: string): [Date, Date] | null => {
-  return handleMillenium(
-    Maybe.fromValue(input).flatMap((string) => Maybe.fromValue(clean(string)))
-  ).get();
+  const value = Maybe.fromValue(clean(input));
+  return value
+    .tryEach<[Date, Date]>(
+      (text) => handleMillenium(Maybe.fromValue(text)),
+      (text) => handleCentury(Maybe.fromValue(text))
+    )
+    .get();
 };
