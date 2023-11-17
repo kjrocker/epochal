@@ -1,4 +1,4 @@
-import { TimePrecision } from "../types";
+import { TimePrecision } from "./types";
 
 export type ParseResult = {
   era?: "CE" | "BCE";
