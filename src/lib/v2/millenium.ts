@@ -26,8 +26,8 @@ const noEraMatch = (text: string): number | null => {
 // Convert a millenium string to an integer, positive for AD, negative for BC
 const milleniumToOrdinal = (text: string): Maybe<number> => {
   return Maybe.fromValue(text).tryEach(
-    (text) => Maybe.fromValue(eraMatch(text)),
-    (text) => Maybe.fromValue(noEraMatch(text))
+    (text) => eraMatch(text),
+    (text) => noEraMatch(text)
   );
 };
 
@@ -36,8 +36,7 @@ const MILLENIUM_MIDPOINT = -14831769600000; // January 1st, 1500...
 const MILLENIUM_MIDPOINT_INDEX = 2; // ...in the 2nd millenium
 
 // Convert a millenium number to a date by adding/subtracting 1000 years from 1500 AD
-const milleniumToDate = (millenium: number): Date | null => {
-  if (!millenium) return null;
+const milleniumToDate = (millenium: number): Date => {
   const offset =
     ((millenium < 0 ? millenium + 1 : millenium) - MILLENIUM_MIDPOINT_INDEX) *
     MILLENIUM_LENGTH;
@@ -47,8 +46,6 @@ const milleniumToDate = (millenium: number): Date | null => {
 export const handleMillenium = (input: Maybe<string>): Maybe<[Date, Date]> => {
   return input
     .flatMap((string) => milleniumToOrdinal(string))
-    .flatMap((ordinal) => Maybe.fromValue(milleniumToDate(ordinal)))
-    .flatMap((date) =>
-      Maybe.fromValue([startOfMillenium(date), endOfMillenium(date)])
-    );
+    .map((ordinal) => milleniumToDate(ordinal))
+    .map((date) => [startOfMillenium(date), endOfMillenium(date)]);
 };

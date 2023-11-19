@@ -25,9 +25,31 @@ export class Maybe<T> {
   }
 
   // Try each function in sequence, returning the first non-null result
-  tryEach<R>(...args: Array<(wrapped: T) => Maybe<R>>): Maybe<R> {
+  flatTryEach<R>(...args: Array<(wrapped: T) => Maybe<R>>): Maybe<R> {
     for (let idx = 0; idx < args.length; idx++) {
       const result = this.flatMap(args[idx]);
+      if (result.value !== null) {
+        return result;
+      }
+    }
+    return Maybe.none<R>();
+  }
+
+  tryEach<R>(...args: Array<(wrapped: T) => R | null>): Maybe<R> {
+    for (let idx = 0; idx < args.length; idx++) {
+      const result = this.map(args[idx]);
+      if (result.value !== null) {
+        return result;
+      }
+    }
+    return Maybe.none<R>();
+  }
+
+  // Get it? Flat -> Regular -> Curved :D :D :D
+  // Just like tryEach, but for functions that expect Maybe already.
+  curvedTryEach<R>(...args: Array<(wrapped: Maybe<T>) => Maybe<R>>): Maybe<R> {
+    for (let idx = 0; idx < args.length; idx++) {
+      const result = args[idx](this);
       if (result.value !== null) {
         return result;
       }
@@ -40,6 +62,14 @@ export class Maybe<T> {
       return Maybe.none<R>();
     } else {
       return f(this.value);
+    }
+  }
+
+  map<R>(f: (wrapped: T) => R | null): Maybe<R> {
+    if (this.value === null) {
+      return Maybe.none<R>();
+    } else {
+      return Maybe.fromValue(f(this.value));
     }
   }
 }
