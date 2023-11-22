@@ -23,3 +23,15 @@ describe("consistency", () => {
     }
   );
 });
+
+describe("equivalence", () => {
+  test.each([
+    ["2000", "2000 AD"],
+    ["03/92", "3/92"],
+  ])(`consistency - end - %s | %s`, (first, second) => {
+    const [oneStart, oneEnd] = epochize(first)!;
+    const [twoStart, twoEnd] = epochize(second)!;
+    expect(oneStart).toEqual(twoStart);
+    expect(oneEnd).toEqual(twoEnd);
+  });
+});
