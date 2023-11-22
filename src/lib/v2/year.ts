@@ -32,10 +32,10 @@ const yearToNumber = (text: string): Maybe<number> => {
 export const handleYear = (input: Maybe<string>): Maybe<[Date, Date]> => {
   return input
     .flatMap((string) => yearToNumber(string))
-    .flatMap((year) => {
+    .map((year) => {
       const date = new Date(year, 4, 1);
       date.setFullYear(year < 0 ? year + 1 : year);
-      return Maybe.fromValue(date);
+      return date;
     })
-    .flatMap((date) => Maybe.fromValue([startOfYear(date), endOfYear(date)]));
+    .map((date) => [startOfYear(date), endOfYear(date)]);
 };
