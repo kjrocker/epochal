@@ -1,8 +1,8 @@
 import startOfMonth from "date-fns/startOfMonth";
-import { Maybe } from "./maybe";
+import { Maybe } from "./util/maybe";
 import { endOfMonth } from "date-fns";
-import { lookupMonth } from "./util";
-import { EN_MONTHS } from "./regex";
+import { lookupMonth } from "./util/util";
+import { EN_MONTHS } from "./util/regex";
 
 type GetMonthYear = (input: string) => { year: number; month: number } | null;
 

@@ -1,8 +1,8 @@
-import { Maybe } from "./maybe";
-import { lookupMonth } from "./util";
+import { Maybe } from "./util/maybe";
+import { lookupMonth } from "./util/util";
 import startOfDay from "date-fns/startOfDay";
 import endOfDay from "date-fns/endOfDay";
-import { EN_MONTHS } from "./regex";
+import { EN_MONTHS } from "./util/regex";
 
 type GetMonthYearDay = (
   input: string
