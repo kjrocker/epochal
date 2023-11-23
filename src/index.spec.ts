@@ -88,6 +88,17 @@ const MONTH_TEST_CASES = [
   ["Jan 1", "0001-01-01T00:00:00.000Z", "0001-01-31T23:59:59.999Z"],
 ];
 
+const DAY_TEST_CASES = [
+  ["Dec 31 1 BC", "0000-12-31T00:00:00.000Z", "0000-12-31T23:59:59.999Z"],
+  ["Jan 1 1", "0001-01-01T00:00:00.000Z", "0001-01-01T23:59:59.999Z"],
+  ["December 31 1 BC", "0000-12-31T00:00:00.000Z", "0000-12-31T23:59:59.999Z"],
+  ["January 1 1", "0001-01-01T00:00:00.000Z", "0001-01-01T23:59:59.999Z"],
+  ["12/31/1 BC", "0000-12-31T00:00:00.000Z", "0000-12-31T23:59:59.999Z"],
+  ["1/1/1", "0001-01-01T00:00:00.000Z", "0001-01-01T23:59:59.999Z"],
+  ["3/12/1001", "1001-03-12T00:00:00.000Z", "1001-03-12T23:59:59.999Z"],
+  ["Jan 1 2000", "2000-01-01T00:00:00.000Z", "2000-01-01T23:59:59.999Z"],
+];
+
 describe("parser", () => {
   it("handles undefined", () => {
     // @ts-expect-error
@@ -133,6 +144,15 @@ describe("parser", () => {
 
   test.each(MONTH_TEST_CASES)(
     `month - parses '%s' correctly`,
+    (input, expectedStart, expectedEnd) => {
+      const [start, end] = epochize(input)!;
+      expect(start.toISOString()).toBe(expectedStart);
+      expect(end.toISOString()).toBe(expectedEnd);
+    }
+  );
+
+  test.each(DAY_TEST_CASES)(
+    `day - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const [start, end] = epochize(input)!;
       expect(start.toISOString()).toBe(expectedStart);

@@ -47,13 +47,10 @@ const decadeToDate = (decade: number): Date | null => {
 };
 
 export const handleDecade = (input: Maybe<string>): Maybe<[Date, Date]> => {
-  return (
-    input
-      // .map((s) => (s === "00s" ? s : null))
-      .flatMap((string) => decadeToOrdinal(string))
-      .map((ordinal) => decadeToDate(ordinal))
-      .map((date) => {
-        return [startOfDecade(date), endOfDecade(date)];
-      })
-  );
+  return input
+    .flatMap(decadeToOrdinal)
+    .map(decadeToDate)
+    .map((date) => {
+      return [startOfDecade(date), endOfDecade(date)];
+    });
 };

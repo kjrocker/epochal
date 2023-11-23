@@ -27,8 +27,9 @@ describe("consistency", () => {
 describe("equivalence", () => {
   test.each([
     ["2000", "2000 AD"],
+    ["Jan 1 2000", "1/1/2000"],
     ["03/92", "3/92"],
-  ])(`consistency - end - %s | %s`, (first, second) => {
+  ])(`equivalence - %s | %s`, (first, second) => {
     const [oneStart, oneEnd] = epochize(first)!;
     const [twoStart, twoEnd] = epochize(second)!;
     expect(oneStart).toEqual(twoStart);
