@@ -1,4 +1,4 @@
-import { epochize } from "./parser";
+import { epochize } from ".";
 
 /**
  * Validating that certain strings start OR end at the same time.

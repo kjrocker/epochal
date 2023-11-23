@@ -1,5 +1,5 @@
 import startOfYear from "date-fns/startOfYear";
-import { Maybe } from "./maybe";
+import { Maybe } from "./util/maybe";
 import endOfYear from "date-fns/endOfYear";
 import { clean } from "../parser/util";
 

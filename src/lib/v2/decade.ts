@@ -1,5 +1,5 @@
 import { endOfDecade, startOfDecade } from "../date-fns";
-import { Maybe } from "./maybe";
+import { Maybe } from "./util/maybe";
 
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>\w*)$/);

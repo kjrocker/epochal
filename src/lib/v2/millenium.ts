@@ -1,5 +1,5 @@
 import { endOfMillenium, startOfMillenium } from "../date-fns";
-import { Maybe } from "./maybe";
+import { Maybe } from "./util/maybe";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
