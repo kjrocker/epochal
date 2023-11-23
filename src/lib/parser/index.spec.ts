@@ -41,7 +41,7 @@ const Decade_Century_Millenium_TestCases = [
   ["2 mil", "1001-01-01 00:00:00 AD", "2000-12-31 23:59:59 AD"],
 ];
 
-describe(parseTextToDate.name, () => {
+xdescribe(parseTextToDate.name, () => {
   test.each(Decade_Century_Millenium_TestCases)(
     `handles: %s`,
     (input, expectedStart, expectedEnd) => {

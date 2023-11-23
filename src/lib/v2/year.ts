@@ -4,7 +4,7 @@ import endOfYear from "date-fns/endOfYear";
 import { clean } from "../parser/util";
 
 const eraMatch = (text: string): number | null => {
-  const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>\w+)$/);
+  const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>\w*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
   if (era.startsWith("b")) {

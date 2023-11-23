@@ -15,8 +15,8 @@ export const epochize = (input: string): [Date, Date] | null => {
       (text) => handleMonth(text),
       (text) => handleYear(text),
       (text) => handleDecade(text),
-      (text) => handleMillenium(text),
-      (text) => handleCentury(text)
+      (text) => handleCentury(text),
+      (text) => handleMillenium(text)
     )
     .get();
 };
