@@ -26,8 +26,10 @@ describe("consistency", () => {
 
 describe("equivalence", () => {
   test.each([
+    ["  2000  ", "2000"],
     ["2000", "2000 AD"],
     ["Jan 1 2000", "1/1/2000"],
+    ["Jan 1st 2000", "Jan 1 2000"],
     ["03/92", "3/92"],
   ])(`equivalence - %s | %s`, (first, second) => {
     const [oneStart, oneEnd] = epochize(first)!;
