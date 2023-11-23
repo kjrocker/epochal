@@ -1,4 +1,5 @@
 import { epochize } from "./index";
+import { epochizeTuple } from "./lib/v2";
 
 describe("Timezones", () => {
   it("should always be UTC", () => {
@@ -86,6 +87,7 @@ const MONTH_TEST_CASES = [
   ["January 1", "0001-01-01T00:00:00.000Z", "0001-01-31T23:59:59.999Z"],
   ["Dec 1 BC", "0000-12-01T00:00:00.000Z", "0000-12-31T23:59:59.999Z"],
   ["Jan 1", "0001-01-01T00:00:00.000Z", "0001-01-31T23:59:59.999Z"],
+  ["Jan 2001", "2001-01-01T00:00:00.000Z", "2001-01-31T23:59:59.999Z"],
 ];
 
 const DAY_TEST_CASES = [
@@ -145,7 +147,9 @@ describe("parser", () => {
   test.each(MONTH_TEST_CASES)(
     `month - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const [start, end] = epochize(input)!;
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handleMonth");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -154,7 +158,9 @@ describe("parser", () => {
   test.each(DAY_TEST_CASES)(
     `day - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const [start, end] = epochize(input)!;
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handleDay");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }

@@ -1,8 +1,10 @@
 import { endOfDecade, startOfDecade } from "../date-fns";
 import { Maybe } from "./util/maybe";
+import { Tuple } from "./util/tuple";
+import { attachMetadata } from "./util/util";
 
 const eraMatch = (text: string): number | null => {
-  const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>\w*)$/);
+  const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>[a-z]*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
   const numInt = Number.parseInt(num) / 10 + 1;
@@ -31,11 +33,14 @@ const decadeToDate = (decade: number): Date | null => {
   return new Date(DECADE_MIDPOINT + offset);
 };
 
-export const handleDecade = (input: Maybe<string>): Maybe<[Date, Date]> => {
+export const handleDecade = (
+  input: Maybe<string>
+): Maybe<Tuple<[Date, Date]>> => {
   return input
     .flatMap(decadeToOrdinal)
     .map(decadeToDate)
-    .map((date) => {
+    .map((date): [Date, Date] => {
       return [startOfDecade(date), endOfDecade(date)];
-    });
+    })
+    .map(attachMetadata("handleDecade", input.getOrElse("")));
 };

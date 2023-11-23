@@ -20,6 +20,10 @@ export class Maybe<T> {
     return this.value;
   }
 
+  getOrElse(defaultValue: T): T {
+    return this.value ?? defaultValue;
+  }
+
   // Try each function in sequence, returning the first non-null result
   flatTryEach<R>(...args: Array<(wrapped: T) => Maybe<R>>): Maybe<R> {
     for (let idx = 0; idx < args.length; idx++) {
