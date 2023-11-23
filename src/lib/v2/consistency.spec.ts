@@ -28,9 +28,13 @@ describe("equivalence", () => {
   test.each([
     ["  2000  ", "2000"],
     ["2000", "2000 AD"],
-    ["Jan 1 2000", "1/1/2000"],
+    ["Jan 1 2000", "2000/1/1"],
     ["Jan 1st 2000", "Jan 1 2000"],
-    ["03/92", "3/92"],
+    ["April 3 2000", "Apr 3rd 2000"],
+    ["June 3 2000", "Jun. 3rd 2000"],
+    ["June 3, 2000", "Jun. 3rd, 2000"],
+    ["June 3, 2000", "3 Jun 2000"],
+    ["92/3", "92/3"],
   ])(`equivalence - %s | %s`, (first, second) => {
     const [oneStart, oneEnd] = epochize(first)!;
     const [twoStart, twoEnd] = epochize(second)!;

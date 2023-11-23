@@ -1,11 +1,9 @@
-import { isValid } from "date-fns";
 import { endOfCentury, startOfCentury } from "../date-fns";
 import { Maybe } from "./maybe";
-import { isValidDate } from "./util";
 
-const eraMatch = (text: string): number | null => {
+const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s+(?<era>\w+)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>\w*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
@@ -14,21 +12,6 @@ const eraMatch = (text: string): number | null => {
   } else {
     return Number.parseInt(num);
   }
-};
-
-const noEraMatch = (text: string): number | null => {
-  const noEraMatches = text.match(/^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)$/);
-  if (!noEraMatches?.groups) return null;
-  const { num } = noEraMatches?.groups;
-  return Number.parseInt(num);
-};
-
-// Convert a century string to an integer, positive for AD, negative for BC
-const centuryToOrdinal = (text: string): Maybe<number> => {
-  return Maybe.fromValue(text).tryEach(
-    (text) => eraMatch(text),
-    (text) => noEraMatch(text)
-  );
 };
 
 const CENTURY_LENGTH = 1000 * 60 * 60 * 24 * 365.25 * 100;
@@ -46,7 +29,7 @@ const centuryToDate = (century: number): Date | null => {
 
 export const handleCentury = (input: Maybe<string>): Maybe<[Date, Date]> => {
   return input
-    .flatMap((string) => centuryToOrdinal(string))
+    .map((string) => centuryToOrdinal(string))
     .map((ordinal) => centuryToDate(ordinal))
     .map((date) => [startOfCentury(date), endOfCentury(date)]);
 };

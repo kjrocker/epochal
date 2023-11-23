@@ -1,10 +1,8 @@
-import { isValid } from "date-fns";
 import { endOfDecade, startOfDecade } from "../date-fns";
 import { Maybe } from "./maybe";
-import { isValidDate } from "./util";
 
 const eraMatch = (text: string): number | null => {
-  const eraMatches = text.match(/^(?<num>[0-9]+)s\s(?<era>\w+)$/);
+  const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>\w*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
   const numInt = Number.parseInt(num) / 10 + 1;
@@ -15,22 +13,9 @@ const eraMatch = (text: string): number | null => {
   }
 };
 
-// [/^([0-9]+)s$/, decade],
-//   [/^([0-9]+)s\s*(\w+)$/, decade],
-
-const noEraMatch = (text: string): number | null => {
-  const noEraMatches = text.match(/^(?<num>[0-9]+)s$/);
-  if (!noEraMatches?.groups) return null;
-  const { num } = noEraMatches?.groups;
-  return Number.parseInt(num) / 10 + 1;
-};
-
 // Convert a decade string to an integer, positive for AD, negative for BC
 const decadeToOrdinal = (text: string): Maybe<number> => {
-  return Maybe.fromValue(text).tryEach(
-    (text) => eraMatch(text),
-    (text) => noEraMatch(text)
-  );
+  return Maybe.fromValue(text).map((text) => eraMatch(text));
 };
 
 const DECADE_LENGTH = 1000 * 60 * 60 * 24 * 365.25 * 10;

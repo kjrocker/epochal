@@ -1,9 +1,9 @@
 import { endOfMillenium, startOfMillenium } from "../date-fns";
 import { Maybe } from "./maybe";
 
-const eraMatch = (text: string): number | null => {
+const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)\s+(?<era>\w+)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)\s*(?<era>\w*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
@@ -12,20 +12,6 @@ const eraMatch = (text: string): number | null => {
   } else {
     return Number.parseInt(num);
   }
-};
-
-const noEraMatch = (text: string): number | null => {
-  const noEraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)$/
-  );
-  if (!noEraMatches?.groups) return null;
-  const { num } = noEraMatches?.groups;
-  return Number.parseInt(num);
-};
-
-// Convert a millenium string to an integer, positive for AD, negative for BC
-const milleniumToOrdinal = (text: string): Maybe<number> => {
-  return Maybe.fromValue(text).tryEach(eraMatch, noEraMatch);
 };
 
 const MILLENIUM_LENGTH = 1000 * 60 * 60 * 24 * 365.25 * 1000;
@@ -42,7 +28,7 @@ const milleniumToDate = (millenium: number): Date => {
 
 export const handleMillenium = (input: Maybe<string>): Maybe<[Date, Date]> => {
   return input
-    .flatMap(milleniumToOrdinal)
+    .map(milleniumToOrdinal)
     .map(milleniumToDate)
     .map((date) => [startOfMillenium(date), endOfMillenium(date)]);
 };
