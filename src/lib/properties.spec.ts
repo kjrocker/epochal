@@ -2,7 +2,7 @@ import fc from "fast-check";
 import { epochize } from ".";
 import format from "date-fns/format";
 
-describe("format consistence", () => {
+describe("format IN matches start/end format OUT", () => {
   const TEST_FORMATS = [
     "yyyy",
     "yyyy/MM",
@@ -42,7 +42,7 @@ describe("format consistence", () => {
           expect(format(result[1], fmt)).toBe(formattedDate);
         }
       ),
-      { numRuns: 1000 }
+      { numRuns: 10000 }
     );
   });
 
@@ -65,7 +65,7 @@ describe("format consistence", () => {
           expect(format(result[1], fmt)).toBe(formattedDate);
         }
       ),
-      { numRuns: 1000 }
+      { numRuns: 10000 }
     );
   });
 });

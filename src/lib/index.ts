@@ -22,6 +22,7 @@ export const epochizeMaybeTuple = (
   );
 };
 
+// Unwrapping the types to various degrees for testing/debugging/type purposes.
 export const epochizeTuple = (input: string): Tuple<[Date, Date]> | null =>
   epochizeMaybeTuple(input).get();
 

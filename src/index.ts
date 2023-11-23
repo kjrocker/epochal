@@ -1,1 +1,1 @@
-export { epochize } from "./lib/v2/index";
+export { epochize } from "./lib/index";

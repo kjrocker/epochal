@@ -1,5 +1,4 @@
-import { epochize } from "./index";
-import { epochizeTuple } from "./lib/v2";
+import { epochize, epochizeTuple } from ".";
 
 describe("Timezones", () => {
   it("should always be UTC", () => {
@@ -79,7 +78,7 @@ const DECADE_TEST_CASES = [
 
 const MONTH_TEST_CASES = [
   ["92/3", "0092-03-01T00:00:00.000Z", "0092-03-31T23:59:59.999Z"],
-  // ["3/92 BC", "-000091-03-01T00:00:00.000Z", "-000091-03-31T23:59:59.999Z"],
+  ["92/3 BC", "-000091-03-01T00:00:00.000Z", "-000091-03-31T23:59:59.999Z"],
   ["1/12 BC", "0000-12-01T00:00:00.000Z", "0000-12-31T23:59:59.999Z"],
   ["1/1", "0001-01-01T00:00:00.000Z", "0001-01-31T23:59:59.999Z"],
   ["1/12 BC", "0000-12-01T00:00:00.000Z", "0000-12-31T23:59:59.999Z"],
@@ -111,7 +110,9 @@ describe("parser", () => {
   test.each(MILLENIUM_TEST_CASES)(
     `millennium - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const [start, end] = epochize(input)!;
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handleMillenium");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -120,7 +121,9 @@ describe("parser", () => {
   test.each(CENTURY_TEST_CASES)(
     `century - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const [start, end] = epochize(input)!;
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handleCentury");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -129,7 +132,9 @@ describe("parser", () => {
   test.each(YEAR_TEST_CASES)(
     `year - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const [start, end] = epochize(input)!;
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handleYear");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -138,7 +143,9 @@ describe("parser", () => {
   test.each(DECADE_TEST_CASES)(
     `decade - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const [start, end] = epochize(input)!;
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handleDecade");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }

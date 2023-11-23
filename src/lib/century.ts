@@ -1,4 +1,4 @@
-import { endOfCentury, startOfCentury } from "../date-fns";
+import { endOfCentury, startOfCentury } from "./date-fns";
 import { Maybe } from "./util/maybe";
 import { Tuple } from "./util/tuple";
 import { attachMetadata } from "./util/util";

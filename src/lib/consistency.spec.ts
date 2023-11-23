@@ -36,7 +36,7 @@ describe("equivalence", () => {
     ["June 3 2000", "Jun. 3rd 2000"],
     ["June 3, 2000", "Jun. 3rd, 2000"],
     ["June 3, 2000", "3 Jun 2000"],
-    ["92/3", "92/3"],
+    ["92/3", "92/03"],
   ])(`equivalence - %s | %s`, (first, second) => {
     const one = epochizeTuple(first)!;
     const two = epochizeTuple(second)!;

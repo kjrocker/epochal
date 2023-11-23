@@ -1,4 +1,4 @@
-import { endOfDecade, startOfDecade } from "../date-fns";
+import { endOfDecade, startOfDecade } from "./date-fns";
 import { Maybe } from "./util/maybe";
 import { Tuple } from "./util/tuple";
 import { attachMetadata } from "./util/util";
@@ -22,7 +22,7 @@ const decadeToOrdinal = (text: string): Maybe<number> => {
 
 const DECADE_LENGTH = 1000 * 60 * 60 * 24 * 365.25 * 10;
 const DECADE_MIDPOINT = 157770000000; // January 1st, 1975...
-const DECADE_MIDPOINT_INDEX = 198; // ...in the 20th decade
+const DECADE_MIDPOINT_INDEX = 198; // ...in the 198th decade
 
 // Convert a decade number to a date by adding/subtracting 1000 years from 1500 AD
 const decadeToDate = (decade: number): Date | null => {
