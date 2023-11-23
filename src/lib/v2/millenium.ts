@@ -1,9 +1,11 @@
 import { endOfMillenium, startOfMillenium } from "../date-fns";
 import { Maybe } from "./util/maybe";
+import { Tuple } from "./util/tuple";
+import { attachMetadata } from "./util/util";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)\s*(?<era>\w*)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)\s*(?<era>[a-z]*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
@@ -26,9 +28,12 @@ const milleniumToDate = (millenium: number): Date => {
   return new Date(MILLENIUM_MIDPOINT + offset);
 };
 
-export const handleMillenium = (input: Maybe<string>): Maybe<[Date, Date]> => {
+export const handleMillenium = (
+  input: Maybe<string>
+): Maybe<Tuple<[Date, Date]>> => {
   return input
     .map(milleniumToOrdinal)
     .map(milleniumToDate)
-    .map((date) => [startOfMillenium(date), endOfMillenium(date)]);
+    .map((date): [Date, Date] => [startOfMillenium(date), endOfMillenium(date)])
+    .map(attachMetadata("handleMillenium", input.getOrElse("")));
 };

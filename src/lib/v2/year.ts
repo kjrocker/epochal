@@ -2,9 +2,11 @@ import startOfYear from "date-fns/startOfYear";
 import { Maybe } from "./util/maybe";
 import endOfYear from "date-fns/endOfYear";
 import { clean } from "../parser/util";
+import { Tuple } from "./util/tuple";
+import { attachMetadata } from "./util/util";
 
 const eraMatch = (text: string): number | null => {
-  const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>\w*)$/);
+  const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>[a-z]*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
   if (era.startsWith("b")) {
@@ -29,7 +31,9 @@ const yearToNumber = (text: string): Maybe<number> => {
   );
 };
 
-export const handleYear = (input: Maybe<string>): Maybe<[Date, Date]> => {
+export const handleYear = (
+  input: Maybe<string>
+): Maybe<Tuple<[Date, Date]>> => {
   return input
     .flatMap((string) => yearToNumber(string))
     .map((year) => {
@@ -37,5 +41,6 @@ export const handleYear = (input: Maybe<string>): Maybe<[Date, Date]> => {
       date.setFullYear(year < 0 ? year + 1 : year);
       return date;
     })
-    .map((date) => [startOfYear(date), endOfYear(date)]);
+    .map((date): [Date, Date] => [startOfYear(date), endOfYear(date)])
+    .map(attachMetadata("handleYear", input.getOrElse("")));
 };

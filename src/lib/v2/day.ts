@@ -1,8 +1,9 @@
 import { Maybe } from "./util/maybe";
-import { lookupMonth } from "./util/util";
+import { attachMetadata, lookupMonth } from "./util/util";
 import startOfDay from "date-fns/startOfDay";
 import endOfDay from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
+import { Tuple } from "./util/tuple";
 
 type GetMonthYearDay = (
   input: string
@@ -24,7 +25,7 @@ const mapMatchGroups = (input: { [key: string]: string }) => {
 const dayMonthNameYearEra: GetMonthYearDay = (input) => {
   const matches = input.match(
     RegExp(
-      `^(?<day>[0-9]+)\\s+${EN_MONTHS.source}\\s+(?<year>[0-9]+)\\s*(?<era>\\w*)$`
+      `^(?<day>[0-9]+)\\s+${EN_MONTHS.source}\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
     )
   );
   if (!matches?.groups) return null;
@@ -42,7 +43,7 @@ const yearSlashMonthSlashDayEra: GetMonthYearDay = (input) => {
 const fullMonthNameDayYearEra: GetMonthYearDay = (input) => {
   const matches = input.match(
     RegExp(
-      `^${EN_MONTHS.source}\\s*(?<day>[0-9]+)\\w{0,2},?\\s*(?<year>[0-9]+)\\s*(?<era>\\w*)$`
+      `^${EN_MONTHS.source}\\s*(?<day>[0-9]+)\\w{0,2},?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
     )
   );
   if (!matches?.groups) return null;
@@ -59,7 +60,7 @@ const textToYearMonthDay = (
   );
 };
 
-export const handleDay = (input: Maybe<string>): Maybe<[Date, Date]> => {
+export const handleDay = (input: Maybe<string>): Maybe<Tuple<[Date, Date]>> => {
   return input
     .flatMap((string) => textToYearMonthDay(string))
     .map(({ year, month, day }) => {
@@ -67,5 +68,6 @@ export const handleDay = (input: Maybe<string>): Maybe<[Date, Date]> => {
       date.setFullYear(year);
       return date;
     })
-    .map((date) => [startOfDay(date), endOfDay(date)]);
+    .map((date): [Date, Date] => [startOfDay(date), endOfDay(date)])
+    .map(attachMetadata("handleDay", input.getOrElse("")));
 };

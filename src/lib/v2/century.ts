@@ -1,9 +1,11 @@
 import { endOfCentury, startOfCentury } from "../date-fns";
 import { Maybe } from "./util/maybe";
+import { Tuple } from "./util/tuple";
+import { attachMetadata } from "./util/util";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>\w*)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>[a-z]*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
@@ -27,9 +29,12 @@ const centuryToDate = (century: number): Date | null => {
   return new Date(CENTURY_MIDPOINT + offset);
 };
 
-export const handleCentury = (input: Maybe<string>): Maybe<[Date, Date]> => {
+export const handleCentury = (
+  input: Maybe<string>
+): Maybe<Tuple<[Date, Date]>> => {
   return input
     .map((string) => centuryToOrdinal(string))
     .map((ordinal) => centuryToDate(ordinal))
-    .map((date) => [startOfCentury(date), endOfCentury(date)]);
+    .map((date): [Date, Date] => [startOfCentury(date), endOfCentury(date)])
+    .map(attachMetadata("handleCentury", input.getOrElse("")));
 };
