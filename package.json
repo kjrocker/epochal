@@ -1,6 +1,6 @@
 {
   "name": "epochal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Convert ambiguous historical dates into precise start and end dates with ease ",
   "main": "build/index.js",
   "scripts": {

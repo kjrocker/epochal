@@ -1,7 +1,6 @@
 import startOfYear from "date-fns/startOfYear";
 import { Maybe } from "./util/maybe";
 import endOfYear from "date-fns/endOfYear";
-import { clean } from "../parser/util";
 import { Tuple } from "./util/tuple";
 import { attachMetadata } from "./util/util";
 
@@ -25,7 +24,7 @@ const noEraMatch = (text: string): number | null => {
 
 // Convert a millenium string to an integer, positive for AD, negative for BC
 const yearToNumber = (text: string): Maybe<number> => {
-  return Maybe.fromValue(clean(text)).flatTryEach(
+  return Maybe.fromValue(text).flatTryEach(
     (text) => Maybe.fromValue(eraMatch(text)),
     (text) => Maybe.fromValue(noEraMatch(text))
   );
