@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { endOfCentury, endOfMillenium, startOfMillenium } from "./util";
+import { endOfCentury, endOfMillenium, startOfCentury, startOfMillenium } from "./util";
 
 describe("startOfMillenium", () => {
   it("returns the start of the current millenium", () => {
@@ -46,6 +46,30 @@ describe("endOfMillenium", () => {
     expect(result).toEqual(expected);
   });
 });
+
+describe("startOfCentury", () => {
+  it("returns the start of the current century", () => {
+    const date = new Date("2020-08-01T00:00:00.000Z");
+    const expected = new Date("2001-01-01T00:00:00.000Z");
+    const result = startOfCentury(date);
+    expect(result).toEqual(expected);
+  });
+
+  it("returns the start of the previous century", () => {
+    const date = new Date("1910-01-01T00:00:00.000Z");
+    const expected = new Date("1901-01-01T00:00:00.000Z");
+    const result = startOfCentury(date);
+    expect(result).toEqual(expected);
+  });
+
+  it("returns the start of the next century", () => {
+    const date = new Date("2101-01-01T00:00:00.000Z");
+    const expected = new Date("2101-01-01T00:00:00.000Z");
+    const result = startOfCentury(date);
+    expect(result).toEqual(expected);
+  });
+});
+
 
 describe("endOfCentury", () => {
   it("returns the end of the current century", () => {
