@@ -7,12 +7,14 @@ import { handleYear } from "./year";
 import { handleMonth } from "./month";
 import { handleDay } from "./day";
 import { Tuple } from "./util/tuple";
+import { handlePartial } from "./partial";
 
 export const epochizeMaybeTuple = (
   input: string
 ): Maybe<Tuple<[Date, Date]>> => {
   const value = Maybe.fromValue(clean(input));
   return value.curvedTryEach<Tuple<[Date, Date]>>(
+    (text) => handlePartial(text),
     (text) => handleMonth(text),
     (text) => handleDay(text),
     (text) => handleYear(text),
