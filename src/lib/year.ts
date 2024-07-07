@@ -1,6 +1,6 @@
-import startOfYear from "date-fns/startOfYear";
+import { startOfYear } from "date-fns/startOfYear";
 import { Maybe } from "./util/maybe";
-import endOfYear from "date-fns/endOfYear";
+import { endOfYear } from "date-fns/endOfYear";
 import { Tuple } from "./util/tuple";
 import { attachMetadata } from "./util/util";
 

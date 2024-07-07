@@ -1,4 +1,4 @@
-import toDate from "date-fns/toDate";
+import { toDate } from "date-fns/toDate";
 
 export type Era = "BCE" | "CE";
 

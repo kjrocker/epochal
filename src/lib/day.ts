@@ -1,7 +1,7 @@
 import { Maybe } from "./util/maybe";
 import { attachMetadata, lookupMonth } from "./util/util";
-import startOfDay from "date-fns/startOfDay";
-import endOfDay from "date-fns/endOfDay";
+import { startOfDay } from "date-fns/startOfDay";
+import { endOfDay } from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
 import { Tuple } from "./util/tuple";
 

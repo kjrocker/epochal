@@ -1,6 +1,6 @@
 import fc from "fast-check";
 import { epochize } from ".";
-import format from "date-fns/format";
+import { format } from "date-fns/format";
 
 describe("format IN matches start/end format OUT", () => {
   const TEST_FORMATS = [
