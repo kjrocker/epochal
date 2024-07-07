@@ -37,6 +37,12 @@ const MILLENIUM_TEST_CASES = [
   ],
 ];
 
+const PARTIAL_TEST_CASES = [
+  ["early 12th millenium BC", "-011999-01-01T00:00:00.000Z", "-011666-05-03T08:00:00.000Z"],
+  ["mid 12th millenium BC", "-011666-05-03T08:00:00.000Z", "-011333-09-01T16:00:00.000Z"],
+  ["late 12th millenium BC", "-011333-09-01T16:00:00.000Z", "-011000-12-31T23:59:59.999Z"]
+]
+
 const CENTURY_TEST_CASES = [
   [
     "12nd century BC",
@@ -113,6 +119,17 @@ describe("parser", () => {
       const result = epochizeTuple(input)!;
       const [start, end] = result.value;
       expect(result.metadata.handler).toBe("handleMillenium");
+      expect(start.toISOString()).toBe(expectedStart);
+      expect(end.toISOString()).toBe(expectedEnd);
+    }
+  );
+
+  test.each(PARTIAL_TEST_CASES)(
+    `partials - parses '%s' correctly`,
+    (input, expectedStart, expectedEnd) => {
+      const result = epochizeTuple(input)!;
+      const [start, end] = result.value;
+      expect(result.metadata.handler).toBe("handlePartial");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }

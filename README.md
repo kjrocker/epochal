@@ -35,6 +35,17 @@ console.log(end);
 // December 31st, 3001 BC
 ```
 
+Some other examples of dates that work
+```
+12th century BC
+early 17th century
+1999
+June 2020
+July 18th, 2027
+late July 1920
+mid 1888
+```
+
 ## API Reference
 
 ### `epochize`
