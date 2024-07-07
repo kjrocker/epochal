@@ -1,5 +1,5 @@
-import isDate from "date-fns/isDate";
-import isValid from "date-fns/isValid";
+import { isDate } from "date-fns/isDate";
+import { isValid } from "date-fns/isValid";
 import { Tuple } from "./tuple";
 
 export const clean = (str: string): string | null => {

@@ -1,4 +1,4 @@
-import startOfMonth from "date-fns/startOfMonth";
+import { startOfMonth } from "date-fns/startOfMonth";
 import { Maybe } from "./util/maybe";
 import { endOfMonth } from "date-fns";
 import { attachMetadata, lookupMonth } from "./util/util";
