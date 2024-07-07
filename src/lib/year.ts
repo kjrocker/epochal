@@ -24,9 +24,9 @@ const noEraMatch = (text: string): number | null => {
 
 // Convert a millenium string to an integer, positive for AD, negative for BC
 const yearToNumber = (text: string): Maybe<number> => {
-  return Maybe.fromValue(text).flatTryEach(
-    (text) => Maybe.fromValue(eraMatch(text)),
-    (text) => Maybe.fromValue(noEraMatch(text))
+  return Maybe.fromValue(text).tryEach(
+    (text) => eraMatch(text),
+    (text) => noEraMatch(text)
   );
 };
 
