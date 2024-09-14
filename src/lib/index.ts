@@ -25,7 +25,7 @@ export const epochizeInner = (
   );
 };
 
-export const epochize = (input: string): [Date, Date] | null =>{
+export const epochize = (input: string): [Date, Date] | null => {
   const result = epochizeInner(input).get()
   if (result === null) return null;
   return [result[0], result[1]]
