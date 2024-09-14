@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "prepare": "rimraf ./build && npm run test && npm run build"
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "date",
