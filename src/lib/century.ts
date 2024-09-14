@@ -1,7 +1,6 @@
 import { endOfCentury, startOfCentury } from "./date-fns";
 import { Maybe } from "./util/maybe";
-import { Tuple } from "./util/tuple";
-import { attachMetadata } from "./util/util";
+import { attachMetadata, Metadata } from "./util/util";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -31,7 +30,7 @@ const centuryToDate = (century: number): Date | null => {
 
 export const handleCentury = (
   input: Maybe<string>
-): Maybe<Tuple<[Date, Date]>> => {
+): Maybe<[Date, Date, Metadata]> => {
   return input
     .map((string) => centuryToOrdinal(string))
     .map((ordinal) => centuryToDate(ordinal))

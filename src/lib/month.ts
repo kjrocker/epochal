@@ -1,9 +1,8 @@
+import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
 import { Maybe } from "./util/maybe";
-import { endOfMonth } from "date-fns";
-import { attachMetadata, lookupMonth } from "./util/util";
 import { EN_MONTHS } from "./util/regex";
-import { Tuple } from "./util/tuple";
+import { attachMetadata, lookupMonth, Metadata } from "./util/util";
 
 type GetMonthYear = (input: string) => { year: number; month: number } | null;
 
@@ -46,7 +45,7 @@ const textToYearAndMonth = (
 
 export const handleMonth = (
   input: Maybe<string>
-): Maybe<Tuple<[Date, Date]>> => {
+): Maybe<[Date, Date, Metadata]> => {
   return input
     .flatMap((string) => textToYearAndMonth(string))
     .map(({ year, month }) => {

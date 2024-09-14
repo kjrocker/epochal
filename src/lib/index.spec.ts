@@ -1,4 +1,4 @@
-import { epochize, epochizeTuple } from ".";
+import { epochize, epochizeInner } from ".";
 
 describe("Timezones", () => {
   it("should always be UTC", () => {
@@ -116,9 +116,10 @@ describe("parser", () => {
   test.each(MILLENIUM_TEST_CASES)(
     `millennium - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handleMillenium");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleMillenium");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -127,9 +128,10 @@ describe("parser", () => {
   test.each(PARTIAL_TEST_CASES)(
     `partials - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handlePartial");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handlePartial");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -138,9 +140,10 @@ describe("parser", () => {
   test.each(CENTURY_TEST_CASES)(
     `century - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handleCentury");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleCentury");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -149,9 +152,10 @@ describe("parser", () => {
   test.each(YEAR_TEST_CASES)(
     `year - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handleYear");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleYear");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -160,9 +164,10 @@ describe("parser", () => {
   test.each(DECADE_TEST_CASES)(
     `decade - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handleDecade");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleDecade");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -171,9 +176,10 @@ describe("parser", () => {
   test.each(MONTH_TEST_CASES)(
     `month - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handleMonth");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleMonth");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
@@ -182,9 +188,10 @@ describe("parser", () => {
   test.each(DAY_TEST_CASES)(
     `day - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeTuple(input)!;
-      const [start, end] = result.value;
-      expect(result.metadata.handler).toBe("handleDay");
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleDay");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }

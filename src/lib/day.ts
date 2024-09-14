@@ -1,9 +1,8 @@
 import { Maybe } from "./util/maybe";
-import { attachMetadata, lookupMonth } from "./util/util";
+import { attachMetadata, lookupMonth, Metadata } from "./util/util";
 import { startOfDay } from "date-fns/startOfDay";
 import { endOfDay } from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
-import { Tuple } from "./util/tuple";
 
 type GetMonthYearDay = (
   input: string
@@ -60,7 +59,7 @@ const textToYearMonthDay = (
   );
 };
 
-export const handleDay = (input: Maybe<string>): Maybe<Tuple<[Date, Date]>> => {
+export const handleDay = (input: Maybe<string>): Maybe<[Date, Date, Metadata]> => {
   return input
     .flatMap((string) => textToYearMonthDay(string))
     .map(({ year, month, day }) => {

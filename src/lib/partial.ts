@@ -1,10 +1,9 @@
-import { epochizeTuple } from ".";
+import { epochizeInner } from ".";
 import { Maybe } from "./util/maybe";
-import { Tuple } from "./util/tuple";
-import { attachMetadata } from "./util/util";
+import { attachMetadata, Metadata } from "./util/util";
 
-const thirdsOfRange = (input: Tuple<[Date, Date]>): [Date, Date, Date, Date] => {
-    const [start, end] = input.get();
+const thirdsOfRange = (input: [Date, Date, Metadata]): [Date, Date, Date, Date] => {
+    const [start, end] = input;
     const diff = end.getTime() - start.getTime();
     const third = diff / 3;
     return [start, new Date(start.getTime() + third), new Date(start.getTime() + 2 * third), end];
@@ -17,7 +16,7 @@ const matchEarly = (input: string): string | null => {
 }
 
 const handleEarly = (input: string): Maybe<[Date, Date]> => {
-    return Maybe.fromValue(input).map(matchEarly).map(epochizeTuple).map((tuple) => {
+    return Maybe.fromValue(input).map(matchEarly).flatMap(epochizeInner).map((tuple) => {
         const [start, end, _third, _fourth] = thirdsOfRange(tuple);
         return [start, end];
     });
@@ -30,7 +29,7 @@ const matchMiddle = (input: string): string | null => {
 }
 
 const handleMiddle = (input: string): Maybe<[Date, Date]> => {
-    return Maybe.fromValue(input).map(matchMiddle).map(epochizeTuple).map((tuple) => {
+    return Maybe.fromValue(input).map(matchMiddle).flatMap(epochizeInner).map((tuple) => {
         const [_first, start, end, _fourth] = thirdsOfRange(tuple);
         return [start, end];
     });
@@ -43,7 +42,7 @@ const matchLate = (input: string): string | null => {
 }
 
 const handleLate = (input: string): Maybe<[Date, Date]> => {
-    return Maybe.fromValue(input).map(matchLate).map(epochizeTuple).map((tuple) => {
+    return Maybe.fromValue(input).map(matchLate).flatMap(epochizeInner).map((tuple) => {
         const [_first, _second, start, end] = thirdsOfRange(tuple);
         return [start, end];
     });
@@ -51,7 +50,7 @@ const handleLate = (input: string): Maybe<[Date, Date]> => {
 
 export const handlePartial = (
     input: Maybe<string>
-): Maybe<Tuple<[Date, Date]>> => {
+): Maybe<[Date, Date, Metadata]> => {
     return input.flatTryEach(handleEarly, handleMiddle, handleLate)
         .map(attachMetadata("handlePartial", input.getOrElse("")));
 };

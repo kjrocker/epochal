@@ -1,4 +1,4 @@
-import { epochize, epochizeTuple } from "./index";
+import { epochize, epochizeInner } from "./index";
 
 /**
  * Validating that certain strings start OR end at the same time.
@@ -38,17 +38,14 @@ describe("equivalence", () => {
     ["June 3, 2000", "3 Jun 2000"],
     ["92/3", "92/03"],
   ])(`equivalence - %s | %s`, (first, second) => {
-    const one = epochizeTuple(first)!;
-    const two = epochizeTuple(second)!;
-    expect(one.metadata.handler).toEqual(two.metadata.handler);
-    expect(one.value).toEqual(two.value);
-
-    // Debug different handlers.
-    if (one.metadata.handler !== two.metadata.handler) {
-      console.log(`
-      First: ${JSON.stringify(one.metadata)}
-      Second: ${JSON.stringify(two.metadata)}
-      `);
-    }
+    const one = epochizeInner(first).get();
+    const two = epochizeInner(second).get();
+    
+    expect(one).not.toBeNull()
+    expect(two).not.toBeNull()
+    
+    expect(one![0]).toEqual(two![0]);
+    expect(one![1]).toEqual(two![1]);
+    expect(one![2].handler).toEqual(two![2].handler);
   });
 });
