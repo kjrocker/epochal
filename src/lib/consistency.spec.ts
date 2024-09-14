@@ -40,10 +40,10 @@ describe("equivalence", () => {
   ])(`equivalence - %s | %s`, (first, second) => {
     const one = epochizeInner(first).get();
     const two = epochizeInner(second).get();
-    
+
     expect(one).not.toBeNull()
     expect(two).not.toBeNull()
-    
+
     expect(one![0]).toEqual(two![0]);
     expect(one![1]).toEqual(two![1]);
     expect(one![2].handler).toEqual(two![2].handler);

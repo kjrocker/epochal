@@ -61,10 +61,10 @@ export interface Metadata {
 export type InputHandler = (input: Maybe<string>) => Maybe<[Date, Date, Metadata]>
 
 const mergeMetadata = (original: Metadata, newer: Metadata): Metadata => {
-  return {...original, ...newer, handler: original.handler.concat(...newer.handler)}
+  return { ...original, ...newer, handler: original.handler.concat(...newer.handler) }
 }
 
 export const attachMetadata =
-  (handler: string, original: string) => ([start, end, meta]: [Date, Date] | [Date, Date, Metadata]): [Date, Date, Metadata] => 
-    [start, end, mergeMetadata(meta ?? {handler: [], original: ''}, {handler: [handler], original})]
-     
+  (handler: string, original: string) => ([start, end, meta]: [Date, Date] | [Date, Date, Metadata]): [Date, Date, Metadata] =>
+    [start, end, mergeMetadata(meta ?? { handler: [], original: '' }, { handler: [handler], original })]
+
