@@ -7,12 +7,14 @@ import { handleYear } from "./year";
 import { handleMonth } from "./month";
 import { handleDay } from "./day";
 import { handlePartial } from "./partial";
+import { handleRange } from "./range";
 
 export const epochizeInner = (
   input: string
 ): Maybe<[Date, Date, Metadata]> => {
   const value = Maybe.fromValue(clean(input));
   return value.curvedTryEach<[Date, Date, Metadata]>(
+    (text) => handleRange(text),
     (text) => handlePartial(text),
     (text) => handleMonth(text),
     (text) => handleDay(text),
