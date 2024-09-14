@@ -1,6 +1,5 @@
 import { isDate } from "date-fns/isDate";
 import { isValid } from "date-fns/isValid";
-import { Tuple } from "./tuple";
 
 export const clean = (str: string): string | null => {
   if (!str) return null;
@@ -53,6 +52,16 @@ export const lookupMonth = (month: string): number => {
   }
 };
 
+export interface Metadata {
+  handler: string[];
+  original: string;
+}
+
+const mergeMetadata = (original: Metadata, newer: Metadata): Metadata => {
+  return {...original, ...newer, handler: original.handler.concat(...newer.handler)}
+}
+
 export const attachMetadata =
-  (handler: string, original: string) => (input: [Date, Date]) =>
-    Tuple.fromValue(input, { handler, original });
+  (handler: string, original: string) => ([start, end, meta]: [Date, Date] | [Date, Date, Metadata]): [Date, Date, Metadata] => 
+    [start, end, mergeMetadata(meta ?? {handler: [], original: ''}, {handler: [handler], original})]
+     
