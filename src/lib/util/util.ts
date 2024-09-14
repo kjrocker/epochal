@@ -1,5 +1,6 @@
 import { isDate } from "date-fns/isDate";
 import { isValid } from "date-fns/isValid";
+import { Maybe } from "./maybe";
 
 export const clean = (str: string): string | null => {
   if (!str) return null;
@@ -56,6 +57,8 @@ export interface Metadata {
   handler: string[];
   original: string;
 }
+
+export type InputHandler = (input: Maybe<string>) => Maybe<[Date, Date, Metadata]>
 
 const mergeMetadata = (original: Metadata, newer: Metadata): Metadata => {
   return {...original, ...newer, handler: original.handler.concat(...newer.handler)}

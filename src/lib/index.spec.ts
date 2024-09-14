@@ -43,6 +43,11 @@ const PARTIAL_TEST_CASES = [
   ["late 12th millenium BC", "-011333-09-01T16:00:00.000Z", "-011000-12-31T23:59:59.999Z"]
 ]
 
+const RANGE_TEST_CASES = [
+  ["early 12th millenium BC to 199", "-011999-01-01T00:00:00.000Z", "0199-12-31T23:59:59.999Z"],
+  ["1st century BC to 2240s", "-000099-01-01T00:00:00.000Z", "2249-12-31T23:59:59.999Z"],
+]
+
 const CENTURY_TEST_CASES = [
   [
     "12nd century BC",
@@ -132,6 +137,18 @@ describe("parser", () => {
       expect(result).not.toBeNull()
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handlePartial");
+      expect(start.toISOString()).toBe(expectedStart);
+      expect(end.toISOString()).toBe(expectedEnd);
+    }
+  );
+
+  test.each(RANGE_TEST_CASES)(
+    `ranges - parses '%s' correctly`,
+    (input, expectedStart, expectedEnd) => {
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull()
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleRange");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
