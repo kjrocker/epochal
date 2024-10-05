@@ -113,7 +113,7 @@ const DAY_TEST_CASES = [
 
 describe("parser", () => {
   it("handles undefined", () => {
-    // @ts-expect-error
+    // @ts-expect-error - Testing undefined
     const actual = epochize(undefined);
     expect(actual).toBe(null);
   });

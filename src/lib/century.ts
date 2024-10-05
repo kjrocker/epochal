@@ -6,7 +6,7 @@ const centuryToOrdinal = (text: string): number | null => {
     /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>[a-z]*)$/
   );
   if (!eraMatches?.groups) return null;
-  const { num, era } = eraMatches?.groups;
+  const { num, era } = eraMatches?.groups ?? { num: "", era: "" };
   if (era.startsWith("b")) {
     return Number.parseInt(num) * -1;
   } else {
