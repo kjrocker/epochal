@@ -1,6 +1,6 @@
 import { endOfMillenium, startOfMillenium } from "./date-fns";
 import { Maybe } from "./util/maybe";
-import { attachMetadata, Metadata } from "./util/util";
+import { attachMetadata, InputHandler, Metadata } from "./util/util";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -27,9 +27,9 @@ const milleniumToDate = (millenium: number): Date => {
   return new Date(MILLENIUM_MIDPOINT + offset);
 };
 
-export const handleMillenium = (
-  input: Maybe<string>
-): Maybe<[Date, Date, Metadata]> => {
+export const handleMillenium: InputHandler = (
+  input
+) => {
   return input
     .map(milleniumToOrdinal)
     .map(milleniumToDate)

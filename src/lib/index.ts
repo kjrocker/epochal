@@ -13,17 +13,17 @@ import { EpochizeOptions, getOptions } from "./util/options";
 export const epochizeInner = (
   input: string, options?: Partial<EpochizeOptions>
 ): Maybe<[Date, Date, Metadata]> => {
-  const _myOptions = getOptions(options);
+  const myOptions = getOptions(options);
   const value = Maybe.fromValue(clean(input));
   return value.curvedTryEach<[Date, Date, Metadata]>(
-    (text) => handleRange(text),
-    (text) => handlePartial(text),
-    (text) => handleMonth(text),
-    (text) => handleDay(text),
-    (text) => handleYear(text),
-    (text) => handleDecade(text),
-    (text) => handleCentury(text),
-    (text) => handleMillenium(text)
+    (text) => handleRange(text, myOptions),
+    (text) => handlePartial(text, myOptions),
+    (text) => handleMonth(text, myOptions),
+    (text) => handleDay(text, myOptions),
+    (text) => handleYear(text, myOptions),
+    (text) => handleDecade(text, myOptions),
+    (text) => handleCentury(text, myOptions),
+    (text) => handleMillenium(text, myOptions)
   );
 };
 
@@ -35,6 +35,6 @@ export const epochize: Epochize = (input, options) => {
   return [result[0], result[1]]
 }
 
-export const createEpochize = (options?: EpochizeOptions): Epochize => (input, myOptions): [Date, Date] | null => {
+export const createEpochize = (options?: EpochizeOptions): Epochize => (input, myOptions) => {
   return epochize(input, { ...(options ?? {}), ...(myOptions ?? {}) });
 }
