@@ -1,6 +1,6 @@
 import { endOfDecade, startOfDecade } from "./date-fns";
 import { Maybe } from "./util/maybe";
-import { attachMetadata, Metadata } from "./util/util";
+import { attachMetadata, InputHandler, Metadata } from "./util/util";
 
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>[a-z]*)$/);
@@ -32,9 +32,9 @@ const decadeToDate = (decade: number): Date | null => {
   return new Date(DECADE_MIDPOINT + offset);
 };
 
-export const handleDecade = (
-  input: Maybe<string>
-): Maybe<[Date, Date, Metadata]> => {
+export const handleDecade: InputHandler = (
+  input
+) => {
   return input
     .flatMap(decadeToOrdinal)
     .map(decadeToDate)

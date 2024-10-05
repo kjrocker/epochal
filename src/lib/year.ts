@@ -1,7 +1,7 @@
 import { startOfYear } from "date-fns/startOfYear";
 import { Maybe } from "./util/maybe";
 import { endOfYear } from "date-fns/endOfYear";
-import { attachMetadata, Metadata } from "./util/util";
+import { attachMetadata, InputHandler, Metadata } from "./util/util";
 
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>[a-z]*)$/);
@@ -29,9 +29,9 @@ const yearToNumber = (text: string): Maybe<number> => {
   );
 };
 
-export const handleYear = (
-  input: Maybe<string>
-): Maybe<[Date, Date, Metadata]> => {
+export const handleYear: InputHandler = (
+  input
+) => {
   return input
     .flatMap((string) => yearToNumber(string))
     .map((year) => {

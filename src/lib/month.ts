@@ -2,7 +2,7 @@ import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
 import { Maybe } from "./util/maybe";
 import { EN_MONTHS } from "./util/regex";
-import { attachMetadata, lookupMonth, Metadata } from "./util/util";
+import { attachMetadata, InputHandler, lookupMonth, Metadata } from "./util/util";
 
 type GetMonthYear = (input: string) => { year: number; month: number } | null;
 
@@ -43,9 +43,9 @@ const textToYearAndMonth = (
   );
 };
 
-export const handleMonth = (
-  input: Maybe<string>
-): Maybe<[Date, Date, Metadata]> => {
+export const handleMonth: InputHandler = (
+  input
+) => {
   return input
     .flatMap((string) => textToYearAndMonth(string))
     .map(({ year, month }) => {

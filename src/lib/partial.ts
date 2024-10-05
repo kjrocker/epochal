@@ -1,6 +1,6 @@
 import { epochizeInner } from ".";
 import { Maybe } from "./util/maybe";
-import { attachMetadata, Metadata } from "./util/util";
+import { attachMetadata, InputHandler, Metadata } from "./util/util";
 
 const thirdsOfRange = (input: [Date, Date, Metadata]): [Date, Date, Date, Date] => {
     const [start, end] = input;
@@ -48,9 +48,9 @@ const handleLate = (input: string): Maybe<[Date, Date]> => {
     });
 }
 
-export const handlePartial = (
-    input: Maybe<string>
-): Maybe<[Date, Date, Metadata]> => {
+export const handlePartial: InputHandler = (
+    input
+) => {
     return input.flatTryEach(handleEarly, handleMiddle, handleLate)
         .map(attachMetadata("handlePartial", input.getOrElse("")));
 };
