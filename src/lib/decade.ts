@@ -5,7 +5,7 @@ import { attachMetadata, InputHandler } from "./util/util";
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>[a-z]*)$/);
   if (!eraMatches?.groups) return null;
-  const { num, era } = eraMatches?.groups;
+  const { num, era } = eraMatches?.groups ?? { num: "", era: "" };
   const numInt = Number.parseInt(num) / 10 + 1;
   if (era.startsWith("b")) {
     return numInt * -1;

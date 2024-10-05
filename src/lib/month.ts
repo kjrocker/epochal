@@ -7,8 +7,6 @@ import { EpochizeOptions } from "./util/options";
 
 type GetMonthYear = (input: string, options: EpochizeOptions) => { year: number; month: number } | null;
 
-
-
 const getYear = (year: string, era: string, options: EpochizeOptions): number => {
   if (era && era.startsWith("b")) return (Number.parseInt(year) - 1) * -1;
   return getYearWithCenturyBreakpoint(year, era, options);
