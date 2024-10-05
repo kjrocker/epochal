@@ -21,9 +21,12 @@ jobs:
         node-version: '22.x'
         registry-url: 'https://registry.npmjs.org'
         cache: 'npm'
-
+    
     - run: npm ci
-    - run: npm test && npm run build
+    - run: npm run lint
+    - run: npm test
+    - run: npm run build
+
     - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
     - run: npm publish --provenance --access public
       env:
