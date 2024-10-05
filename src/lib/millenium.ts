@@ -1,6 +1,5 @@
 import { endOfMillenium, startOfMillenium } from "./date-fns";
-import { Maybe } from "./util/maybe";
-import { attachMetadata, InputHandler, Metadata } from "./util/util";
+import { attachMetadata, InputHandler } from "./util/util";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(

@@ -1,39 +1,40 @@
 import { startOfYear } from "date-fns/startOfYear";
 import { Maybe } from "./util/maybe";
 import { endOfYear } from "date-fns/endOfYear";
-import { attachMetadata, InputHandler, Metadata } from "./util/util";
+import { attachMetadata, getYearWithCenturyBreakpoint, InputHandler } from "./util/util";
+import { EpochizeOptions } from "./util/options";
 
-const eraMatch = (text: string): number | null => {
+const getYear = (year: string, era: string, options: EpochizeOptions): number => {
+  if (era && era.startsWith("b")) return Number.parseInt(year) * -1;
+  return getYearWithCenturyBreakpoint(year, era, options);
+}
+
+const eraMatch = (text: string, options: EpochizeOptions): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>[a-z]*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups;
-  if (era.startsWith("b")) {
-    return Number.parseInt(num) * -1;
-  } else {
-    return Number.parseInt(num);
-  }
+  return getYear(num, era, options);
 };
 
-const noEraMatch = (text: string): number | null => {
+const noEraMatch = (text: string, options: EpochizeOptions): number | null => {
   const noEraMatches = text.match(/^(?<num>[0-9]+)$/);
   if (!noEraMatches?.groups) return null;
-  const { num } = noEraMatches?.groups;
-  return Number.parseInt(num);
+  return getYear(noEraMatches.groups.num, "", options);
 };
 
 // Convert a millenium string to an integer, positive for AD, negative for BC
-const yearToNumber = (text: string): Maybe<number> => {
+const yearToNumber = (text: string, options: EpochizeOptions): Maybe<number> => {
   return Maybe.fromValue(text).tryEach(
-    (text) => eraMatch(text),
-    (text) => noEraMatch(text)
+    (text) => eraMatch(text, options),
+    (text) => noEraMatch(text, options)
   );
 };
 
 export const handleYear: InputHandler = (
-  input
+  input, options
 ) => {
   return input
-    .flatMap((string) => yearToNumber(string))
+    .flatMap((string) => yearToNumber(string, options))
     .map((year) => {
       const date = new Date(year, 4, 1);
       date.setFullYear(year < 0 ? year + 1 : year);

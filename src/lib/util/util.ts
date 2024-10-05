@@ -59,7 +59,7 @@ export interface Metadata {
   original: string;
 }
 
-export type InputHandler = (input: Maybe<string>, options?: EpochizeOptions) => Maybe<[Date, Date, Metadata]>
+export type InputHandler = (input: Maybe<string>, options: EpochizeOptions) => Maybe<[Date, Date, Metadata]>
 
 const mergeMetadata = (original: Metadata, newer: Metadata): Metadata => {
   return { ...original, ...newer, handler: original.handler.concat(...newer.handler) }
@@ -69,3 +69,14 @@ export const attachMetadata =
   (handler: string, original: string) => ([start, end, meta]: [Date, Date] | [Date, Date, Metadata]): [Date, Date, Metadata] =>
     [start, end, mergeMetadata(meta ?? { handler: [], original: '' }, { handler: [handler], original })]
 
+export const getYearWithCenturyBreakpoint = (year: string, era: string, options: EpochizeOptions): number => {
+  if (!options.centuryShorthand) return Number.parseInt(year);
+  if (era || year.length !== 2) return Number.parseInt(year);
+  // No era, year exists, and year is two digits
+  const baseYear = Number.parseInt(year);
+  if (baseYear > options.centuryBreakpoint) {
+    return baseYear + 1900;
+  } else {
+    return baseYear + 2000;
+  }
+}

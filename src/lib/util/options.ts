@@ -1,9 +1,11 @@
 export interface EpochizeOptions {
-    shortYears: boolean;
+    centuryShorthand: boolean;
+    centuryBreakpoint: number;
 }
 
 export const DEFAULT_OPTIONS: EpochizeOptions = {
-    shortYears: false,
+    centuryShorthand: false,
+    centuryBreakpoint: 29
 };
 
 export const getOptions = (options?: Partial<EpochizeOptions>): EpochizeOptions => {
