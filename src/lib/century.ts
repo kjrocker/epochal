@@ -1,5 +1,5 @@
 import { endOfCentury, startOfCentury } from "./date-fns";
-import { attachMetadata, InputHandler } from "./util/util";
+import { attachMetadata, InputHandler, Handler } from "./util/util";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -27,12 +27,10 @@ const centuryToDate = (century: number): Date | null => {
   return new Date(CENTURY_MIDPOINT + offset);
 };
 
-export const handleCentury: InputHandler = (
-  input
-) => {
+export const handleCentury: InputHandler = (input) => {
   return input
     .map((string) => centuryToOrdinal(string))
     .map((ordinal) => centuryToDate(ordinal))
     .map((date): [Date, Date] => [startOfCentury(date), endOfCentury(date)])
-    .map(attachMetadata("handleCentury", input.getOrElse("")));
+    .map(attachMetadata(Handler.CENTURY, input.getOrElse("")));
 };

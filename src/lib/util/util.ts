@@ -54,22 +54,78 @@ export const lookupMonth = (month: string): number => {
   }
 };
 
-export interface Metadata {
-  handler: string[];
+export enum Handler {
+  RANGE = "handleRange",
+  PARTIAL = "handlePartial",
+  MONTH = "handleMonth",
+  DAY = "handleDay",
+  YEAR = "handleYear",
+  DECADE = "handleDecade",
+  CENTURY = "handleCentury",
+  MILLENNIUM = "handleMillenium",
+}
+
+export interface HandlerMetadata {
+  handler: Handler[];
   original: string;
 }
 
-export type InputHandler = (input: Maybe<string>, options: EpochizeOptions) => Maybe<[Date, Date, Metadata]>
-
-const mergeMetadata = (original: Metadata, newer: Metadata): Metadata => {
-  return { ...original, ...newer, handler: original.handler.concat(...newer.handler) }
+export interface ResultMetadata extends HandlerMetadata {
+  alternates?: [Date, Date, Omit<ResultMetadata, "alternates">][];
+  options?: EpochizeOptions;
 }
 
-export const attachMetadata =
-  (handler: string, original: string) => ([start, end, meta]: [Date, Date] | [Date, Date, Metadata]): [Date, Date, Metadata] =>
-    [start, end, mergeMetadata(meta ?? { handler: [], original: '' }, { handler: [handler], original })]
+export type Metadata = ResultMetadata;
 
-export const getYearWithCenturyBreakpoint = (year: string, era: string, options: EpochizeOptions): number => {
+export type InputHandler = (
+  input: Maybe<string>,
+  options: EpochizeOptions
+) => Maybe<[Date, Date, HandlerMetadata]>;
+
+export const mergeMetadata = (
+  base: HandlerMetadata,
+  additional: HandlerMetadata
+): HandlerMetadata => {
+  return {
+    handler: [...base.handler, ...additional.handler],
+    // Keep the original from the root call (base), not from nested calls
+    original: base.original || additional.original,
+  };
+};
+
+export const attachMetadata =
+  (
+    handler: Handler,
+    original: string,
+    additionalMeta: Partial<HandlerMetadata> = {}
+  ) =>
+  ([start, end, meta]: [Date, Date] | [Date, Date, HandlerMetadata]): [
+    Date,
+    Date,
+    HandlerMetadata
+  ] => {
+    const baseMeta = meta ?? { handler: [], original: "" };
+    const newMeta = { handler: [handler], original, ...additionalMeta };
+    return [start, end, mergeMetadata(newMeta, baseMeta)];
+  };
+
+export const createMetadata = (
+  handler: Handler,
+  original: string,
+  additionalMeta: Partial<HandlerMetadata> = {}
+): HandlerMetadata => {
+  return {
+    handler: [handler],
+    original,
+    ...additionalMeta,
+  };
+};
+
+export const getYearWithCenturyBreakpoint = (
+  year: string,
+  era: string,
+  options: EpochizeOptions
+): number => {
   if (!options.centuryShorthand) return Number.parseInt(year);
   if (era || year.length !== 2) return Number.parseInt(year);
   // No era, year exists, and year is two digits
@@ -79,4 +135,4 @@ export const getYearWithCenturyBreakpoint = (year: string, era: string, options:
   } else {
     return baseYear + 2000;
   }
-}
+};

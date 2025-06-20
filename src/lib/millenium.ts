@@ -1,5 +1,5 @@
 import { endOfMillenium, startOfMillenium } from "./date-fns";
-import { attachMetadata, InputHandler } from "./util/util";
+import { attachMetadata, InputHandler, Handler } from "./util/util";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -26,12 +26,10 @@ const milleniumToDate = (millenium: number): Date => {
   return new Date(MILLENIUM_MIDPOINT + offset);
 };
 
-export const handleMillenium: InputHandler = (
-  input
-) => {
+export const handleMillenium: InputHandler = (input) => {
   return input
     .map(milleniumToOrdinal)
     .map(milleniumToDate)
     .map((date): [Date, Date] => [startOfMillenium(date), endOfMillenium(date)])
-    .map(attachMetadata("handleMillenium", input.getOrElse("")));
+    .map(attachMetadata(Handler.MILLENNIUM, input.getOrElse("")));
 };

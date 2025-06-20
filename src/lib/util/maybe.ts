@@ -1,5 +1,5 @@
 export class Maybe<T> {
-  private constructor(private value: T | null) { }
+  private constructor(private value: T | null) {}
 
   static some<T>(value: T) {
     if (!value) {
@@ -43,6 +43,18 @@ export class Maybe<T> {
       }
     }
     return Maybe.none<R>();
+  }
+
+  tryMany<R>(...args: Array<(wrapped: T) => Maybe<R>>): Maybe<R[]> {
+    const results: Array<R> = [];
+    for (let idx = 0; idx < args.length; idx++) {
+      const result = this.flatMap(args[idx]);
+      if (result.value !== null) {
+        results.push(result.get() as R);
+      }
+    }
+    if (results.length > 0) return Maybe.fromValue(results);
+    return Maybe.none<R[]>();
   }
 
   // Get it? Flat -> Regular -> Curved :D :D :D
