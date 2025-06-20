@@ -2,8 +2,8 @@ import { epochizeInner } from ".";
 import {
   attachMetadata,
   InputHandler,
-  mergeMetadataPublic,
-  Metadata,
+  mergeMetadata,
+  HandlerMetadata,
   Handler,
 } from "./util/util";
 import { EpochizeOptions } from "./util/options";
@@ -17,13 +17,21 @@ const matchTo = (input: string): [string, string] | null => {
 const handleSplitStrings = (
   [first, second]: [string, string],
   options: EpochizeOptions
-): [Date, Date, Metadata] | null => {
+): [Date, Date, HandlerMetadata] | null => {
   const startResult = epochizeInner(first, options).get();
   const endResult = epochizeInner(second, options).get();
   if (startResult === null || endResult === null) return null;
 
-  // Merge metadata from both parts of the range
-  const mergedMeta = mergeMetadataPublic(startResult[2], endResult[2]);
+  // Merge metadata from both parts of the range (extract HandlerMetadata part)
+  const startHandlerMeta: HandlerMetadata = {
+    handler: startResult[2].handler,
+    original: startResult[2].original,
+  };
+  const endHandlerMeta: HandlerMetadata = {
+    handler: endResult[2].handler,
+    original: endResult[2].original,
+  };
+  const mergedMeta = mergeMetadata(startHandlerMeta, endHandlerMeta);
 
   return [startResult[0], endResult[1], mergedMeta];
 };

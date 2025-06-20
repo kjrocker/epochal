@@ -1,4 +1,4 @@
-import { clean, Metadata } from "./util/util";
+import { clean, Metadata, HandlerMetadata } from "./util/util";
 import { handleCentury } from "./century";
 import { handleDecade } from "./decade";
 import { Maybe } from "./util/maybe";
@@ -16,7 +16,7 @@ export const epochizeInner = (
 ): Maybe<[Date, Date, Metadata]> => {
   const myOptions = getOptions(options);
   return Maybe.fromValue(clean(input))
-    .tryMany<[Date, Date, Metadata]>(
+    .tryMany<[Date, Date, HandlerMetadata]>(
       (text) => handleRange(Maybe.fromValue(text), myOptions),
       (text) => handlePartial(Maybe.fromValue(text), myOptions),
       (text) => handleMonth(Maybe.fromValue(text), myOptions),
@@ -26,7 +26,7 @@ export const epochizeInner = (
       (text) => handleCentury(Maybe.fromValue(text), myOptions),
       (text) => handleMillenium(Maybe.fromValue(text), myOptions)
     )
-    .map(([first, ...rest]) => {
+    .map(([first, ...rest]): [Date, Date, Metadata] => {
       return [
         first[0],
         first[1],

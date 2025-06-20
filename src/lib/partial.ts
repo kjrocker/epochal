@@ -1,12 +1,17 @@
 import { epochizeInner } from ".";
 import { Maybe } from "./util/maybe";
-import { attachMetadata, Handler, InputHandler, Metadata } from "./util/util";
+import {
+  attachMetadata,
+  Handler,
+  InputHandler,
+  HandlerMetadata,
+} from "./util/util";
 import { EpochizeOptions } from "./util/options";
 
 const thirdsOfRange = (
-  input: [Date, Date, Metadata]
+  input: [Date, Date, HandlerMetadata]
 ): [Date, Date, Date, Date] => {
-  const [start, end] = input;
+  const [start, end, _metadata] = input;
   const diff = end.getTime() - start.getTime();
   const third = diff / 3;
   return [
@@ -26,13 +31,17 @@ const matchEarly = (input: string): string | null => {
 const handleEarly = (
   input: string,
   options: EpochizeOptions
-): Maybe<[Date, Date, Metadata]> => {
+): Maybe<[Date, Date, HandlerMetadata]> => {
   return Maybe.fromValue(input)
     .map(matchEarly)
     .flatMap((text) => epochizeInner(text, options))
     .map((tuple) => {
       const [start, end, _third, _fourth] = thirdsOfRange(tuple);
-      return [start, end, tuple[2]];
+      const handlerMeta: HandlerMetadata = {
+        handler: tuple[2].handler,
+        original: tuple[2].original,
+      };
+      return [start, end, handlerMeta];
     });
 };
 
@@ -45,13 +54,17 @@ const matchMiddle = (input: string): string | null => {
 const handleMiddle = (
   input: string,
   options: EpochizeOptions
-): Maybe<[Date, Date, Metadata]> => {
+): Maybe<[Date, Date, HandlerMetadata]> => {
   return Maybe.fromValue(input)
     .map(matchMiddle)
     .flatMap((text) => epochizeInner(text, options))
     .map((tuple) => {
       const [_first, start, end, _fourth] = thirdsOfRange(tuple);
-      return [start, end, tuple[2]];
+      const handlerMeta: HandlerMetadata = {
+        handler: tuple[2].handler,
+        original: tuple[2].original,
+      };
+      return [start, end, handlerMeta];
     });
 };
 
@@ -64,13 +77,17 @@ const matchLate = (input: string): string | null => {
 const handleLate = (
   input: string,
   options: EpochizeOptions
-): Maybe<[Date, Date, Metadata]> => {
+): Maybe<[Date, Date, HandlerMetadata]> => {
   return Maybe.fromValue(input)
     .map(matchLate)
     .flatMap((text) => epochizeInner(text, options))
     .map((tuple) => {
       const [_first, _second, start, end] = thirdsOfRange(tuple);
-      return [start, end, tuple[2]];
+      const handlerMeta: HandlerMetadata = {
+        handler: tuple[2].handler,
+        original: tuple[2].original,
+      };
+      return [start, end, handlerMeta];
     });
 };
 

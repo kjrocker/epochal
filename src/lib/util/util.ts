@@ -65,19 +65,27 @@ export enum Handler {
   MILLENNIUM = "handleMillenium",
 }
 
-export interface Metadata {
+export interface HandlerMetadata {
   handler: Handler[];
   original: string;
-  alternates?: [Date, Date, Omit<Metadata, "alternates">][];
+}
+
+export interface ResultMetadata extends HandlerMetadata {
+  alternates?: [Date, Date, Omit<ResultMetadata, "alternates">][];
   options?: EpochizeOptions;
 }
+
+export type Metadata = ResultMetadata;
 
 export type InputHandler = (
   input: Maybe<string>,
   options: EpochizeOptions
-) => Maybe<[Date, Date, Metadata]>;
+) => Maybe<[Date, Date, HandlerMetadata]>;
 
-const mergeMetadata = (base: Metadata, additional: Metadata): Metadata => {
+export const mergeMetadata = (
+  base: HandlerMetadata,
+  additional: HandlerMetadata
+): HandlerMetadata => {
   return {
     handler: [...base.handler, ...additional.handler],
     // Keep the original from the root call (base), not from nested calls
@@ -89,12 +97,12 @@ export const attachMetadata =
   (
     handler: Handler,
     original: string,
-    additionalMeta: Partial<Metadata> = {}
+    additionalMeta: Partial<HandlerMetadata> = {}
   ) =>
-  ([start, end, meta]: [Date, Date] | [Date, Date, Metadata]): [
+  ([start, end, meta]: [Date, Date] | [Date, Date, HandlerMetadata]): [
     Date,
     Date,
-    Metadata
+    HandlerMetadata
   ] => {
     const baseMeta = meta ?? { handler: [], original: "" };
     const newMeta = { handler: [handler], original, ...additionalMeta };
@@ -104,16 +112,14 @@ export const attachMetadata =
 export const createMetadata = (
   handler: Handler,
   original: string,
-  additionalMeta: Partial<Metadata> = {}
-): Metadata => {
+  additionalMeta: Partial<HandlerMetadata> = {}
+): HandlerMetadata => {
   return {
     handler: [handler],
     original,
     ...additionalMeta,
   };
 };
-
-export const mergeMetadataPublic = mergeMetadata;
 
 export const getYearWithCenturyBreakpoint = (
   year: string,

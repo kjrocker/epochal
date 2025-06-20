@@ -48,7 +48,7 @@ export class Maybe<T> {
   tryMany<R>(...args: Array<(wrapped: T) => Maybe<R>>): Maybe<R[]> {
     const results: Array<R> = [];
     for (let idx = 0; idx < args.length; idx++) {
-      const result = this.map(args[idx]);
+      const result = this.flatMap(args[idx]);
       if (result.value !== null) {
         results.push(result.get() as R);
       }
