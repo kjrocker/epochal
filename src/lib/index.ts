@@ -31,7 +31,7 @@ export const epochizeInner = (
         first[0],
         first[1],
         { ...first[2], alternates: rest, options: myOptions },
-      ] as const;
+      ];
     });
 };
 
