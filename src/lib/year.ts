@@ -1,13 +1,22 @@
 import { startOfYear } from "date-fns/startOfYear";
 import { Maybe } from "./util/maybe";
 import { endOfYear } from "date-fns/endOfYear";
-import { attachMetadata, getYearWithCenturyBreakpoint, InputHandler } from "./util/util";
+import {
+  attachMetadata,
+  getYearWithCenturyBreakpoint,
+  InputHandler,
+  Handler,
+} from "./util/util";
 import { EpochizeOptions } from "./util/options";
 
-const getYear = (year: string, era: string, options: EpochizeOptions): number => {
+const getYear = (
+  year: string,
+  era: string,
+  options: EpochizeOptions
+): number => {
   if (era && era.startsWith("b")) return Number.parseInt(year) * -1;
   return getYearWithCenturyBreakpoint(year, era, options);
-}
+};
 
 const eraMatch = (text: string, options: EpochizeOptions): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>[a-z]*)$/);
@@ -23,16 +32,17 @@ const noEraMatch = (text: string, options: EpochizeOptions): number | null => {
 };
 
 // Convert a millenium string to an integer, positive for AD, negative for BC
-const yearToNumber = (text: string, options: EpochizeOptions): Maybe<number> => {
+const yearToNumber = (
+  text: string,
+  options: EpochizeOptions
+): Maybe<number> => {
   return Maybe.fromValue(text).tryEach(
     (text) => eraMatch(text, options),
     (text) => noEraMatch(text, options)
   );
 };
 
-export const handleYear: InputHandler = (
-  input, options
-) => {
+export const handleYear: InputHandler = (input, options) => {
   return input
     .flatMap((string) => yearToNumber(string, options))
     .map((year) => {
@@ -41,5 +51,5 @@ export const handleYear: InputHandler = (
       return date;
     })
     .map((date): [Date, Date] => [startOfYear(date), endOfYear(date)])
-    .map(attachMetadata("handleYear", input.getOrElse("")));
+    .map(attachMetadata(Handler.YEAR, input.getOrElse("")));
 };
