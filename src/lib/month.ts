@@ -2,17 +2,33 @@ import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
 import { Maybe } from "./util/maybe";
 import { EN_MONTHS } from "./util/regex";
-import { attachMetadata, getYearWithCenturyBreakpoint, InputHandler, lookupMonth } from "./util/util";
+import {
+  attachMetadata,
+  getYearWithCenturyBreakpoint,
+  InputHandler,
+  lookupMonth,
+  Handler,
+} from "./util/util";
 import { EpochizeOptions } from "./util/options";
 
-type GetMonthYear = (input: string, options: EpochizeOptions) => { year: number; month: number } | null;
+type GetMonthYear = (
+  input: string,
+  options: EpochizeOptions
+) => { year: number; month: number } | null;
 
-const getYear = (year: string, era: string, options: EpochizeOptions): number => {
+const getYear = (
+  year: string,
+  era: string,
+  options: EpochizeOptions
+): number => {
   if (era && era.startsWith("b")) return (Number.parseInt(year) - 1) * -1;
   return getYearWithCenturyBreakpoint(year, era, options);
-}
+};
 
-const mapMatchGroups = (input: { [key: string]: string }, options: EpochizeOptions) => {
+const mapMatchGroups = (
+  input: { [key: string]: string },
+  options: EpochizeOptions
+) => {
   const { year, month, era } = input;
   const monthInt = Number.parseInt(month);
   const fullYear = getYear(year, era, options);
@@ -39,17 +55,16 @@ const shortMonthNameYearEra: GetMonthYear = (input, options) => {
 };
 
 const textToYearAndMonth = (
-  input: string, options: EpochizeOptions
+  input: string,
+  options: EpochizeOptions
 ): Maybe<{ year: number; month: number }> => {
   return Maybe.fromValue(input).tryEach(
-    text => monthSlashYearEra(text, options),
-    text => shortMonthNameYearEra(text, options)
+    (text) => monthSlashYearEra(text, options),
+    (text) => shortMonthNameYearEra(text, options)
   );
 };
 
-export const handleMonth: InputHandler = (
-  input, options
-) => {
+export const handleMonth: InputHandler = (input, options) => {
   return input
     .flatMap((string) => textToYearAndMonth(string, options))
     .map(({ year, month }) => {
@@ -58,5 +73,5 @@ export const handleMonth: InputHandler = (
       return date;
     })
     .map((date): [Date, Date] => [startOfMonth(date), endOfMonth(date)])
-    .map(attachMetadata("handleMonth", input.getOrElse("")));
+    .map(attachMetadata(Handler.MONTH, input.getOrElse("")));
 };
