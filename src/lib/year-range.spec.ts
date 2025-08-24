@@ -1,4 +1,4 @@
-import { handleYearRangeShorthand } from "./year-range-shorthand";
+import { handleYearRangeShorthand } from "./year-range";
 import { Maybe } from "./util/maybe";
 import { DEFAULT_OPTIONS } from "./util/options";
 

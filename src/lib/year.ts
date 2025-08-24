@@ -8,6 +8,7 @@ import {
   Handler,
 } from "./util/util";
 import { EpochizeOptions } from "./util/options";
+import { add, sub } from "date-fns";
 
 const getYear = (
   year: string,
@@ -42,14 +43,49 @@ const yearToNumber = (
   );
 };
 
+const yearToDate = (year: number): Date | null => {
+  const date = new Date(year, 4, 1);
+  date.setFullYear(year < 0 ? year + 1 : year);
+  return date;
+};
+
+interface YearParseResult {
+  year: Date;
+  modifier?: "circa";
+  original: string;
+}
+
+const parseYearWithModifier = (
+  text: string,
+  options: EpochizeOptions
+): YearParseResult | null => {
+  const hasCirca = /ca\./.test(text);
+  const yearWithoutCirca = hasCirca ? text.replace(/ca\./, "") : text;
+  const year = yearToNumber(yearWithoutCirca, options).map(yearToDate).get();
+  if (!year) return null;
+  return { year, modifier: hasCirca ? "circa" : undefined, original: text };
+};
+
+const applyModifierToDateRange = (
+  year: Date,
+  modifier: "circa" | "after" | undefined,
+  options: EpochizeOptions
+): [Date, Date] => {
+  if (modifier === "circa") {
+    return [
+      startOfYear(sub(year, { years: options.circaStartOffset })),
+      endOfYear(add(year, { years: options.circaEndOffset })),
+    ];
+  } else {
+    return [startOfYear(year), endOfYear(year)];
+  }
+};
+
 export const handleYear: InputHandler = (input, options) => {
   return input
-    .flatMap((string) => yearToNumber(string, options))
-    .map((year) => {
-      const date = new Date(year, 4, 1);
-      date.setFullYear(year < 0 ? year + 1 : year);
-      return date;
+    .map((string) => parseYearWithModifier(string, options))
+    .map(({ year, modifier }): [Date, Date] => {
+      return applyModifierToDateRange(year, modifier, options);
     })
-    .map((date): [Date, Date] => [startOfYear(date), endOfYear(date)])
     .map(attachMetadata(Handler.YEAR));
 };

@@ -9,7 +9,7 @@ import { handleDay } from "./day";
 import { handlePartial } from "./partial";
 import { handleRange } from "./range";
 import { EpochizeOptions, getOptions } from "./util/options";
-import { handleYearRangeShorthand } from "./year-range-shorthand";
+import { handleYearRangeShorthand } from "./year-range";
 import { handleModifierPhrase } from "./modifier-phrase";
 
 export const epochizeInner = (
