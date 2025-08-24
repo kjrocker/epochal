@@ -73,5 +73,5 @@ export const handleMonth: InputHandler = (input, options) => {
       return date;
     })
     .map((date): [Date, Date] => [startOfMonth(date), endOfMonth(date)])
-    .map(attachMetadata(Handler.MONTH, input.getOrElse("")));
+    .map(attachMetadata(Handler.MONTH));
 };

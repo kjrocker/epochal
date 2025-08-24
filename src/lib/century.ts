@@ -32,5 +32,5 @@ export const handleCentury: InputHandler = (input) => {
     .map((string) => centuryToOrdinal(string))
     .map((ordinal) => centuryToDate(ordinal))
     .map((date): [Date, Date] => [startOfCentury(date), endOfCentury(date)])
-    .map(attachMetadata(Handler.CENTURY, input.getOrElse("")));
+    .map(attachMetadata(Handler.CENTURY));
 };

@@ -39,7 +39,6 @@ const handleEarly = (
       const [start, end, _third, _fourth] = thirdsOfRange(tuple);
       const handlerMeta: HandlerMetadata = {
         handler: tuple[2].handler,
-        original: tuple[2].original,
       };
       return [start, end, handlerMeta];
     });
@@ -62,7 +61,6 @@ const handleMiddle = (
       const [_first, start, end, _fourth] = thirdsOfRange(tuple);
       const handlerMeta: HandlerMetadata = {
         handler: tuple[2].handler,
-        original: tuple[2].original,
       };
       return [start, end, handlerMeta];
     });
@@ -85,7 +83,6 @@ const handleLate = (
       const [_first, _second, start, end] = thirdsOfRange(tuple);
       const handlerMeta: HandlerMetadata = {
         handler: tuple[2].handler,
-        original: tuple[2].original,
       };
       return [start, end, handlerMeta];
     });
@@ -98,5 +95,5 @@ export const handlePartial: InputHandler = (input, options) => {
       (text) => handleMiddle(text, options),
       (text) => handleLate(text, options)
     )
-    .map(attachMetadata(Handler.PARTIAL, input.getOrElse("")));
+    .map(attachMetadata(Handler.PARTIAL));
 };

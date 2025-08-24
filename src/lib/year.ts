@@ -51,5 +51,5 @@ export const handleYear: InputHandler = (input, options) => {
       return date;
     })
     .map((date): [Date, Date] => [startOfYear(date), endOfYear(date)])
-    .map(attachMetadata(Handler.YEAR, input.getOrElse("")));
+    .map(attachMetadata(Handler.YEAR));
 };
