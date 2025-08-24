@@ -63,6 +63,8 @@ export enum Handler {
   DECADE = "handleDecade",
   CENTURY = "handleCentury",
   MILLENNIUM = "handleMillenium",
+  YEAR_RANGE = "handleYearRange",
+  MODIFIER_PHRASE = "handleModifierPhrase",
 }
 
 export interface HandlerMetadata {

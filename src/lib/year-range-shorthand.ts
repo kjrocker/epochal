@@ -1,9 +1,11 @@
-import { endOfYear, startOfYear } from "date-fns";
+import { endOfYear, getYear, startOfYear } from "date-fns";
 import { attachMetadata, Handler, InputHandler } from "./util/util";
 
 // Parsing the shorthand "2020-5" to "[2020, 2025]". Works for one or two digit shortcuts.
 const parseShorthand = (input: string): [number, number] | null => {
-  const matches = input.match(/^(?<start>[0-9]{1,4})(?:-(?<end>[0-9]{1,4}))?$/);
+  const matches = input.match(
+    /^(?<start>[0-9]{1,4})(?:[-–—](?<end>[0-9]{1,4}))?$/
+  );
   if (!matches?.groups) return null;
 
   const start = Number(matches.groups.start);
@@ -11,12 +13,25 @@ const parseShorthand = (input: string): [number, number] | null => {
 
   if (isNaN(start) || isNaN(end)) return null;
 
-  if (end % 100 === end && end % 100 > start % 100) {
+  if (matches.groups.end.length === 2 && end % 100 > start % 100) {
     return [start, Math.floor(start / 100) * 100 + end];
-  } else if (end % 10 === end && end % 10 > start % 10) {
+  } else if (matches.groups.end.length === 1 && end % 10 > start % 10) {
     return [start, Math.floor(start / 10) * 10 + end];
   }
   return null;
+};
+
+// Parsing the long form 2020-2024 version
+const parseLongForm = (input: string): [number, number] | null => {
+  const matches = input.match(/^(?<start>[0-9]{4})[-–—](?<end>[0-9]{4})$/);
+  if (!matches?.groups) return null;
+
+  const start = Number(matches.groups.start);
+  const end = Number(matches.groups.end);
+
+  if (isNaN(start) || isNaN(end)) return null;
+
+  return [start, end];
 };
 
 // Convert a tuple of years into a tuple of dates, return null if anything goes wrong
@@ -42,7 +57,7 @@ const parseNumbersToDates = (input: [number, number]): [Date, Date] | null => {
 
 export const handleYearRangeShorthand: InputHandler = (input, options) => {
   return input
-    .map(parseShorthand)
+    .tryEach(parseShorthand, parseLongForm)
     .map(parseNumbersToDates)
     .map(([start, end]): [Date, Date] => [startOfYear(start), endOfYear(end)])
     .map(attachMetadata(Handler.YEAR));

@@ -1,0 +1,68 @@
+// Tests based in some way on the Metropolitian Museum Dataset
+import { epochize } from "../index";
+import { EpochizeOptions } from "../util/options";
+
+const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
+  ["1853", 1853, 1853],
+  ["1901", 1901, 1901],
+  ["1909–27", 1909, 1927],
+  ["1650–1700", 1650, 1700],
+  ["1720–40", 1720, 1740],
+  ["1700–1730", 1700, 1730],
+  ["1787–1810", 1787, 1810],
+  ["ca. 1830–40", 1827, 1840],
+  ["1800–1815", 1800, 1815],
+  ["1835–40", 1835, 1840],
+  ["ca. 1650", 1647, 1650],
+  ["ca. 1833–46", 1830, 1846],
+  ["ca. 1683", 1680, 1683],
+  ["ca. 1832–39", 1829, 1839],
+  ["ca. 1910–20", 1907, 1920],
+  ["1820–40", 1820, 1840],
+  ["1852–58", 1852, 1858],
+  ["1755–60", 1755, 1760],
+  ["ca. 1853–58", 1850, 1858],
+  ["after 1909", 1910, 1919],
+  ["after 1886", 1887, 1896],
+  ["1811", 1811, 1811],
+  ["1908–12", 1908, 1912],
+  ["1700–1710", 1700, 1710],
+  ["after 1893", 1894, 1903],
+  //   ["1787 (?)", 1787, 1787],
+  //   ["1777 (?)", 1777, 1777],
+  //   ["1800–1900 (?)", 1800, 1900],
+  ["ca. 1900–1915", 1897, 1915],
+  ["ca. 1804–ca. 1835", 1801, 1838],
+];
+
+const OPTIONED_METROPOLITAN_TEST_CASES: Array<
+  [string, number, number, Partial<EpochizeOptions>]
+> = [
+  ["ca. 1770", 1765, 1775, { circaStartOffset: 5, circaEndOffset: 5 }],
+  ["ca. 1846", 1844, 1850, { circaStartOffset: 2, circaEndOffset: 4 }],
+  ["ca. 1860–66", 1860, 1866, { circaStartOffset: 0, circaEndOffset: 0 }],
+];
+
+describe("Metropolitan Museum Dataset", () => {
+  it.each(METROPOLITAN_TEST_CASES)(
+    "should epochize %s",
+    (input, start, end) => {
+      const result = epochize(input);
+      expect(result).not.toBeNull();
+      const [epochStart, epochEnd] = result!;
+      expect(epochStart.getFullYear()).toBe(start);
+      expect(epochEnd.getFullYear()).toBe(end);
+    }
+  );
+
+  it.each(OPTIONED_METROPOLITAN_TEST_CASES)(
+    "should epochize %s with options",
+    (input, start, end, options) => {
+      const result = epochize(input, options);
+      expect(result).not.toBeNull();
+      const [epochStart, epochEnd] = result!;
+      expect(epochStart.getFullYear()).toBe(start);
+      expect(epochEnd.getFullYear()).toBe(end);
+    }
+  );
+});
