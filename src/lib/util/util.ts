@@ -5,7 +5,9 @@ import { EpochizeOptions } from "./options";
 
 export const clean = (str: string): string | null => {
   if (!str) return null;
-  const cleaned = str.trim().toLowerCase();
+  // Remove uncertainty markers like "(?)" before cleaning
+  const withoutUncertainty = str.replace(/\s*\(\?\)\s*/g, "");
+  const cleaned = withoutUncertainty.trim().toLowerCase();
   if (!cleaned || cleaned === "") return null;
   return cleaned;
 };

@@ -263,21 +263,43 @@ describe("handleYear", () => {
     });
   });
 
-  // These tests document the current behavior but will be enhanced 
-  // in the refactoring to support modifiers like "ca." and "after"
-  describe("Future modifier support (placeholder tests)", () => {
-    it("should currently reject 'ca. 1650' (will be enhanced)", () => {
-      const result = handleYear(Maybe.some("ca. 1650"), DEFAULT_OPTIONS);
-      expect(result.get()).toBeNull();
+  describe("Circa modifier support", () => {
+    const circaCases = [
+      {
+        input: "ca. 1650",
+        description: "should parse 'ca.' prefix",
+        expectedStart: 1647,
+        expectedEnd: 1650,
+      },
+      {
+        input: "c. 1800", 
+        description: "should parse 'c.' prefix",
+        expectedStart: 1797,
+        expectedEnd: 1800,
+      },
+      {
+        input: "circa 1066",
+        description: "should parse 'circa' prefix", 
+        expectedStart: 1063,
+        expectedEnd: 1066,
+      },
+    ];
+
+    circaCases.forEach(({ input, description, expectedStart, expectedEnd }) => {
+      it(description, () => {
+        const result = handleYear(Maybe.some(input), DEFAULT_OPTIONS);
+        const parsed = result.get();
+        expect(parsed).not.toBeNull();
+        if (parsed) {
+          const [start, end] = parsed;
+          expect(start.getFullYear()).toBe(expectedStart);
+          expect(end.getFullYear()).toBe(expectedEnd);
+        }
+      });
     });
 
-    it("should currently reject 'after 1909' (will be enhanced)", () => {
+    it("should currently reject 'after 1909' (not implemented in year handler)", () => {
       const result = handleYear(Maybe.some("after 1909"), DEFAULT_OPTIONS);
-      expect(result.get()).toBeNull();
-    });
-
-    it("should currently reject 'c. 1800' (will be enhanced)", () => {
-      const result = handleYear(Maybe.some("c. 1800"), DEFAULT_OPTIONS);
       expect(result.get()).toBeNull();
     });
   });

@@ -74,7 +74,14 @@ const handleSplitStrings = (
   options: EpochizeOptions
 ): [Date, Date, HandlerMetadata] | null => {
   const startResult = epochizeInner(first, options).get();
-  const endResult = epochizeInner(second, options).get();
+  
+  // For the end part, if it contains circa indicators, swap the circa offsets so that
+  // circaEndOffset gets applied to the end date instead of circaStartOffset
+  const endOptions = /ca\.|c\.|circa/.test(second)
+    ? { ...options, circaStartOffset: options.circaEndOffset, circaEndOffset: options.circaStartOffset }
+    : options;
+    
+  const endResult = epochizeInner(second, endOptions).get();
   if (startResult === null || endResult === null) return null;
 
   // Merge metadata from both parts of the range (extract HandlerMetadata part)
