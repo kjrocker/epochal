@@ -59,8 +59,8 @@ const parseYearWithModifier = (
   text: string,
   options: EpochizeOptions
 ): YearParseResult | null => {
-  const hasCirca = /ca\./.test(text);
-  const yearWithoutCirca = hasCirca ? text.replace(/ca\./, "") : text;
+  const hasCirca = /ca\.|c\.|circa/.test(text);
+  const yearWithoutCirca = hasCirca ? text.replace(/ca\.|c\.|circa/, "").trim() : text;
   const year = yearToNumber(yearWithoutCirca, options).map(yearToDate).get();
   if (!year) return null;
   return { year, modifier: hasCirca ? "circa" : undefined, original: text };

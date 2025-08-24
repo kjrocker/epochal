@@ -18,8 +18,8 @@ export const epochizeInner = (
   const myOptions = getOptions(options);
   return Maybe.fromValue(clean(input))
     .tryMany<[Date, Date, HandlerMetadata]>(
-      (text) => handleModifierPhrase(Maybe.fromValue(text), myOptions),
       (text) => handleRange(Maybe.fromValue(text), myOptions),
+      (text) => handleModifierPhrase(Maybe.fromValue(text), myOptions),
       (text) => handlePartial(Maybe.fromValue(text), myOptions),
       (text) => handleMonth(Maybe.fromValue(text), myOptions),
       (text) => handleDay(Maybe.fromValue(text), myOptions),

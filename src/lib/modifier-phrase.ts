@@ -8,25 +8,6 @@ import {
 } from "./util/util";
 import { epochizeInner } from ".";
 
-const parseCirca = (
-  input: string,
-  options: EpochizeOptions
-): [Date, Date, ResultMetadata] | null => {
-  const isMatch = /ca\./.test(input);
-  if (!isMatch) return null;
-
-  const newString = input.replace(/ca\./, "");
-  const result = epochizeInner(newString, options).get();
-  if (!result) return null;
-
-  const [startDate, endDate, metadata] = result;
-
-  const start = sub(startDate, { years: options.circaStartOffset });
-  const end = add(endDate, { years: options.circaEndOffset });
-
-  return [start, end, metadata];
-};
-
 const parseAfter = (
   input: string,
   options: EpochizeOptions
@@ -48,9 +29,6 @@ const parseAfter = (
 
 export const handleModifierPhrase: InputHandler = (input, options) => {
   return input
-    .tryEach(
-      (text) => parseCirca(text, options),
-      (text) => parseAfter(text, options)
-    )
+    .map((text) => parseAfter(text, options))
     .map(attachMetadata(Handler.MODIFIER_PHRASE));
 };
