@@ -15,15 +15,15 @@ const matchTo = (input: string): [string, string] | null => {
 };
 
 const numbersBehaveLikeShorthand = (start: number, end: number): boolean => {
-  if (end % 100 === end && end % 100 !== start % 100) {
+  if (end % 100 === end && end % 100 > start % 100) {
     return true;
-  } else if (end % 10 === end && end % 10 !== start % 10) {
+  } else if (end % 10 === end && end % 10 > start % 10) {
     return true;
   }
   return false;
 };
 
-const matchYearShorthand = (input: string): [string, string] | null => {
+export const matchYearShorthand = (input: string): [string, string] | null => {
   const matches = matchDash(input);
   if (!matches) return null;
   const [startString, endString] = matches;
@@ -48,8 +48,8 @@ const matchYearShorthand = (input: string): [string, string] | null => {
     const prefix = startYear.substring(0, digitsToTake);
     const fullEndYear = prefix + endYear;
 
-    // Replace the end number in the original string
-    const expandedEndString = endString.replace(/^\d+/, fullEndYear);
+    // Replace just the number in the end string with the expanded year
+    const expandedEndString = endString.replace(endMatch[1], fullEndYear);
 
     return [startString.trim(), expandedEndString.trim()];
   }
@@ -66,7 +66,7 @@ const matchDash = (input: string): [string, string] | null => {
 
 const matchRange = (input: string): [string, string] | null => {
   // Try "to" first, then dashes
-  return matchTo(input) || matchDash(input);
+  return matchTo(input) || matchYearShorthand(input) || matchDash(input);
 };
 
 const handleSplitStrings = (
