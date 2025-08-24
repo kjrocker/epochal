@@ -10,6 +10,7 @@ import { handlePartial } from "./partial";
 import { handleRange } from "./range";
 import { EpochizeOptions, getOptions } from "./util/options";
 import { handleYearRangeShorthand } from "./year-range-shorthand";
+import { handleModifierPhrase } from "./modifier-phrase";
 
 export const epochizeInner = (
   input: string,
@@ -18,6 +19,7 @@ export const epochizeInner = (
   const myOptions = getOptions(options);
   return Maybe.fromValue(clean(input))
     .tryMany<[Date, Date, HandlerMetadata]>(
+      (text) => handleModifierPhrase(Maybe.fromValue(text), myOptions),
       (text) => handleYearRangeShorthand(Maybe.fromValue(text), myOptions),
       (text) => handleRange(Maybe.fromValue(text), myOptions),
       (text) => handlePartial(Maybe.fromValue(text), myOptions),

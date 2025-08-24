@@ -24,6 +24,12 @@ describe("Year Range Shorthand Parser", () => {
         expectedStart: "1914-01-01T00:00:00.000Z",
         expectedEnd: "1921-12-31T23:59:59.999Z",
       },
+      {
+        input: "1909-27",
+        description: "1909-27 should parse as 1909 to 1927",
+        expectedStart: "1909-01-01T00:00:00.000Z",
+        expectedEnd: "1927-12-31T23:59:59.999Z",
+      },
       // One-digit shorthand cases
       {
         input: "1990-5",
@@ -37,20 +43,12 @@ describe("Year Range Shorthand Parser", () => {
         expectedStart: "2001-01-01T00:00:00.000Z",
         expectedEnd: "2009-12-31T23:59:59.999Z",
       },
-      // Century transition
-      //   {
-      //     input: "1995-06",
-      //     description:
-      //       "1995-06 should parse as 1995 to 2006 (century transition)",
-      //     expectedStart: "1995-01-01T00:00:00.000Z",
-      //     expectedEnd: "2006-12-31T23:59:59.999Z",
-      //   },
     ];
 
     validCases.forEach(({ input, description, expectedStart, expectedEnd }) => {
       it(description, () => {
         const result = handleYearRangeShorthand(
-          Maybe.some(input),
+          Maybe.fromValue(input),
           DEFAULT_OPTIONS
         );
 
@@ -93,6 +91,10 @@ describe("Year Range Shorthand Parser", () => {
       {
         input: "1900-925",
         reason: "three-digit shorthand not supported",
+      },
+      {
+        input: "1995-06",
+        description: "century transition not supported",
       },
     ];
 
