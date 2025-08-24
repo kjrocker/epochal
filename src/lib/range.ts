@@ -25,11 +25,9 @@ const handleSplitStrings = (
   // Merge metadata from both parts of the range (extract HandlerMetadata part)
   const startHandlerMeta: HandlerMetadata = {
     handler: startResult[2].handler,
-    original: startResult[2].original,
   };
   const endHandlerMeta: HandlerMetadata = {
     handler: endResult[2].handler,
-    original: endResult[2].original,
   };
   const mergedMeta = mergeMetadata(startHandlerMeta, endHandlerMeta);
 
@@ -40,5 +38,5 @@ export const handleRange: InputHandler = (input, options) => {
   return input
     .map(matchTo)
     .map((parts) => handleSplitStrings(parts, options))
-    .map(attachMetadata(Handler.RANGE, input.getOrElse("")));
+    .map(attachMetadata(Handler.RANGE));
 };

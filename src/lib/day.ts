@@ -73,5 +73,5 @@ export const handleDay: InputHandler = (input) => {
       return date;
     })
     .map((date): [Date, Date] => [startOfDay(date), endOfDay(date)])
-    .map(attachMetadata(Handler.DAY, input.getOrElse("")));
+    .map(attachMetadata(Handler.DAY));
 };

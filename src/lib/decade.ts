@@ -39,5 +39,5 @@ export const handleDecade: InputHandler = (input) => {
     .map((date): [Date, Date] => {
       return [startOfDecade(date), endOfDecade(date)];
     })
-    .map(attachMetadata(Handler.DECADE, input.getOrElse("")));
+    .map(attachMetadata(Handler.DECADE));
 };

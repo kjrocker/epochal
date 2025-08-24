@@ -67,11 +67,11 @@ export enum Handler {
 
 export interface HandlerMetadata {
   handler: Handler[];
-  original: string;
 }
 
 export interface ResultMetadata extends HandlerMetadata {
   alternates?: [Date, Date, Omit<ResultMetadata, "alternates">][];
+  original?: string;
   options?: EpochizeOptions;
 }
 
@@ -88,35 +88,27 @@ export const mergeMetadata = (
 ): HandlerMetadata => {
   return {
     handler: [...base.handler, ...additional.handler],
-    // Keep the original from the root call (base), not from nested calls
-    original: base.original || additional.original,
   };
 };
 
 export const attachMetadata =
-  (
-    handler: Handler,
-    original: string,
-    additionalMeta: Partial<HandlerMetadata> = {}
-  ) =>
+  (handler: Handler, additionalMeta: Partial<HandlerMetadata> = {}) =>
   ([start, end, meta]: [Date, Date] | [Date, Date, HandlerMetadata]): [
     Date,
     Date,
     HandlerMetadata
   ] => {
-    const baseMeta = meta ?? { handler: [], original: "" };
-    const newMeta = { handler: [handler], original, ...additionalMeta };
+    const baseMeta = meta ?? { handler: [] };
+    const newMeta = { handler: [handler], ...additionalMeta };
     return [start, end, mergeMetadata(newMeta, baseMeta)];
   };
 
 export const createMetadata = (
   handler: Handler,
-  original: string,
   additionalMeta: Partial<HandlerMetadata> = {}
 ): HandlerMetadata => {
   return {
     handler: [handler],
-    original,
     ...additionalMeta,
   };
 };

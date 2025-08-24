@@ -31,5 +31,5 @@ export const handleMillenium: InputHandler = (input) => {
     .map(milleniumToOrdinal)
     .map(milleniumToDate)
     .map((date): [Date, Date] => [startOfMillenium(date), endOfMillenium(date)])
-    .map(attachMetadata(Handler.MILLENNIUM, input.getOrElse("")));
+    .map(attachMetadata(Handler.MILLENNIUM));
 };
