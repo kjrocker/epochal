@@ -33,6 +33,14 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["1800–1900 (?)", 1800, 1900],
   ["ca. 1900–1915", 1897, 1915],
   ["ca. 1804–ca. 1835", 1801, 1838],
+  ["18th–19th century", 1701, 1900],
+  ["19th–20th century", 1801, 2000],
+  ["1804–after 1860", 1804, 1870],
+  ["1771–76 (?)", 1771, 1776],
+  ["18th century or early 19th century", 1701, 1834],
+  ["First half of the 19th century", 1800, 1850],
+  ["1897–98 (?)", 1897, 1898],
+  ["ca. 1806 or 1811", 1803, 1811],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

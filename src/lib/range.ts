@@ -8,10 +8,39 @@ import {
 } from "./util/util";
 import { EpochizeOptions } from "./util/options";
 
-const matchTo = (input: string): [string, string] | null => {
-  const matches = input.split("to");
-  if (matches.length !== 2) return null;
-  return matches as [string, string];
+export const matchTo = (input: string): [string, string] | null => {
+  // Check for mixed separators first - reject if found
+  const hasTo = input.includes(" to ") || input.includes("to");
+  const hasOr = input.includes(" or ") || input.includes("or");
+  
+  if (hasTo && hasOr) {
+    return null; // Mixed separators not allowed
+  }
+
+  // First try splitting by " to " (with spaces)
+  let matches = input.split(" to ");
+  if (matches.length === 2) {
+    return matches as [string, string];
+  }
+
+  // Then try splitting by " or " (with spaces)
+  matches = input.split(" or ");
+  if (matches.length === 2) {
+    return matches as [string, string];
+  }
+
+  // Handle cases without spaces around separators
+  matches = input.split("to");
+  if (matches.length === 2) {
+    return [matches[0].trim(), matches[1].trim()];
+  }
+
+  matches = input.split("or");
+  if (matches.length === 2) {
+    return [matches[0].trim(), matches[1].trim()];
+  }
+
+  return null;
 };
 
 const numbersBehaveLikeShorthand = (start: number, end: number): boolean => {
@@ -21,6 +50,62 @@ const numbersBehaveLikeShorthand = (start: number, end: number): boolean => {
     return true;
   }
   return false;
+};
+
+export const matchCenturyRange = (input: string): [string, string] | null => {
+  // First try: Match patterns with shared era at the end like "3rd–2nd century bc"
+  const sharedEraMatch = input.match(
+    /^(?<startModifier>(?:early|mid|late)\s+)?(?<startNumber>\d+(?:st|nd|rd|th))\s*[-–—]\s*(?<endModifier>(?:early|mid|late)\s+)?(?<endNumber>\d+(?:st|nd|rd|th))\s+century(?<era>\s+(?:bc|ad))?$/i
+  );
+  
+  if (sharedEraMatch?.groups) {
+    const { startModifier, startNumber, endModifier, endNumber, era } = sharedEraMatch.groups;
+    
+    // Construct the full century strings
+    const startParts = [
+      startModifier?.trim(),
+      startNumber,
+      "century",
+      era?.trim()
+    ].filter(Boolean);
+    
+    const endParts = [
+      endModifier?.trim(),
+      endNumber,
+      "century", 
+      era?.trim()
+    ].filter(Boolean);
+    
+    return [startParts.join(" "), endParts.join(" ")];
+  }
+  
+  // Second try: Match patterns with individual eras like "1st century bc–1st century ad"
+  const mixedEraMatch = input.match(
+    /^(?<startModifier>(?:early|mid|late)\s+)?(?<startNumber>\d+(?:st|nd|rd|th))\s+century(?<startEra>\s+(?:bc|ad))?\s*[-–—]\s*(?<endModifier>(?:early|mid|late)\s+)?(?<endNumber>\d+(?:st|nd|rd|th))\s+century(?<endEra>\s+(?:bc|ad))?$/i
+  );
+  
+  if (mixedEraMatch?.groups) {
+    const { startModifier, startNumber, startEra, endModifier, endNumber, endEra } = mixedEraMatch.groups;
+    
+    // Construct the full century strings
+    const startParts = [
+      startModifier?.trim(),
+      startNumber,
+      "century",
+      startEra?.trim()
+    ].filter(Boolean);
+    
+    const endParts = [
+      endModifier?.trim(),
+      endNumber,
+      "century", 
+      endEra?.trim()
+    ].filter(Boolean);
+    
+    return [startParts.join(" "), endParts.join(" ")];
+  }
+  
+  return null;
 };
 
 export const matchYearShorthand = (input: string): [string, string] | null => {
@@ -65,8 +150,8 @@ const matchDash = (input: string): [string, string] | null => {
 };
 
 const matchRange = (input: string): [string, string] | null => {
-  // Try "to" first, then dashes
-  return matchTo(input) || matchYearShorthand(input) || matchDash(input);
+  // Try different range matching patterns in priority order
+  return matchTo(input) || matchCenturyRange(input) || matchYearShorthand(input) || matchDash(input);
 };
 
 const handleSplitStrings = (
