@@ -38,15 +38,35 @@ const MILLENIUM_TEST_CASES = [
 ];
 
 const PARTIAL_TEST_CASES = [
-  ["early 12th millenium BC", "-011999-01-01T00:00:00.000Z", "-011666-05-03T08:00:00.000Z"],
-  ["mid 12th millenium BC", "-011666-05-03T08:00:00.000Z", "-011333-09-01T16:00:00.000Z"],
-  ["late 12th millenium BC", "-011333-09-01T16:00:00.000Z", "-011000-12-31T23:59:59.999Z"]
-]
+  [
+    "early 12th millenium BC",
+    "-011999-01-01T00:00:00.000Z",
+    "-011666-05-03T08:00:00.000Z",
+  ],
+  [
+    "mid 12th millenium BC",
+    "-011666-05-03T08:00:00.000Z",
+    "-011333-09-01T16:00:00.000Z",
+  ],
+  [
+    "late 12th millenium BC",
+    "-011333-09-01T16:00:00.000Z",
+    "-011000-12-31T23:59:59.999Z",
+  ],
+];
 
 const RANGE_TEST_CASES = [
-  ["early 12th millenium BC to 199", "-011999-01-01T00:00:00.000Z", "0199-12-31T23:59:59.999Z"],
-  ["1st century BC to 2240s", "-000099-01-01T00:00:00.000Z", "2249-12-31T23:59:59.999Z"],
-]
+  [
+    "early 12th millenium BC to 199",
+    "-011999-01-01T00:00:00.000Z",
+    "0199-12-31T23:59:59.999Z",
+  ],
+  [
+    "1st century BC to 2240s",
+    "-000099-01-01T00:00:00.000Z",
+    "2249-12-31T23:59:59.999Z",
+  ],
+];
 
 const CENTURY_TEST_CASES = [
   [
@@ -74,6 +94,10 @@ const YEAR_TEST_CASES = [
   ["2", "0002-01-01T00:00:00.000Z", "0002-12-31T23:59:59.999Z"],
   ["34", "0034-01-01T00:00:00.000Z", "0034-12-31T23:59:59.999Z"],
   ["199", "0199-01-01T00:00:00.000Z", "0199-12-31T23:59:59.999Z"],
+];
+
+const YEAR_RANGE_CASES = [
+  ["1835-8", "1835-01-01T00:00:00.000Z", "1838-12-31T23:59:59.999Z"],
 ];
 
 const DECADE_TEST_CASES = [
@@ -122,7 +146,7 @@ describe("parser", () => {
     `millennium - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleMillenium");
       expect(start.toISOString()).toBe(expectedStart);
@@ -134,7 +158,7 @@ describe("parser", () => {
     `partials - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handlePartial");
       expect(start.toISOString()).toBe(expectedStart);
@@ -146,7 +170,7 @@ describe("parser", () => {
     `ranges - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleRange");
       expect(start.toISOString()).toBe(expectedStart);
@@ -158,7 +182,7 @@ describe("parser", () => {
     `century - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleCentury");
       expect(start.toISOString()).toBe(expectedStart);
@@ -170,7 +194,19 @@ describe("parser", () => {
     `year - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleYear");
+      expect(start.toISOString()).toBe(expectedStart);
+      expect(end.toISOString()).toBe(expectedEnd);
+    }
+  );
+
+  test.each(YEAR_RANGE_CASES)(
+    `year range - parses '%s' correctly`,
+    (input, expectedStart, expectedEnd) => {
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleYear");
       expect(start.toISOString()).toBe(expectedStart);
@@ -182,7 +218,7 @@ describe("parser", () => {
     `decade - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleDecade");
       expect(start.toISOString()).toBe(expectedStart);
@@ -194,7 +230,7 @@ describe("parser", () => {
     `month - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleMonth");
       expect(start.toISOString()).toBe(expectedStart);
@@ -206,7 +242,7 @@ describe("parser", () => {
     `day - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
       const result = epochizeInner(input).get();
-      expect(result).not.toBeNull()
+      expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleDay");
       expect(start.toISOString()).toBe(expectedStart);
