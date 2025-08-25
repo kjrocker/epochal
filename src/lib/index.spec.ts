@@ -316,6 +316,31 @@ describe("Popular Convention (Default)", () => {
   });
 });
 
+describe("Identity Modifier Patterns", () => {
+  const identityTestCases = [
+    "dated 1850",
+    "dated to 1850", 
+    "datable to 1850",
+    "d a t e d 1850",
+    "probably 1850",
+    "possibly 1850", 
+    "likely 1850",
+    "cast 1850",
+    "1850, probably"
+  ];
+
+  test.each(identityTestCases)(
+    'should handle identity pattern "%s"',
+    (input) => {
+      const result = epochize(input);
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1850);
+      expect(end.getFullYear()).toBe(1850);
+    }
+  );
+});
+
 describe("Modifiers with Both Conventions", () => {
   describe("Popular Convention Modifiers", () => {
     it('should handle "early 20th century" with popular convention', () => {

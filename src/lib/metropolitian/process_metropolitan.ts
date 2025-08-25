@@ -8,6 +8,14 @@ import { stringify } from "csv-stringify/sync";
 import { epochize } from "../index";
 import { Handler } from "../util/util";
 
+// Regex patterns to automatically blocklist persistent problematic patterns
+// Add patterns here for dates that consistently fail and should be ignored
+const REGEX_BLOCKLIST: RegExp[] = [
+  // Example patterns - customize as needed:
+  /blade/,
+  /modeled/,
+];
+
 interface CSVRow {
   [key: string]: string;
 }
@@ -63,10 +71,14 @@ function loadBlocklistFromFile(
   return blocklistSet;
 }
 
+// Check if objectDate matches any regex blocklist patterns
+function isRegexBlocked(objectDate: string): boolean {
+  return REGEX_BLOCKLIST.some((pattern) => pattern.test(objectDate));
+}
+
 const isResultPassing = (
   row: CSVRow,
-  result: NonNullable<ReturnType<typeof epochize>>,
-  objectDate: string
+  result: NonNullable<ReturnType<typeof epochize>>
 ): boolean => {
   const [epochStart, epochEnd, metadata] = result;
   const epochStartYear = epochStart.getFullYear();
@@ -119,10 +131,11 @@ function main(): void {
     const beginDate = parseInt(row["Object Begin Date"]);
     const endDate = parseInt(row["Object End Date"]);
 
-    // Check if this date is in the existing blocklists
+    // Check if this date is in the existing blocklists or matches regex patterns
     if (
       existingBlocklist.has(objectDate) ||
-      existingBadDataBlocklist.has(objectDate)
+      existingBadDataBlocklist.has(objectDate) ||
+      isRegexBlocked(objectDate)
     ) {
       return;
     }
@@ -146,7 +159,7 @@ function main(): void {
       const [epochStart, epochEnd] = result;
 
       // Check if the epochized years match the expected years
-      if (isResultPassing(row, result, objectDate)) {
+      if (isResultPassing(row, result)) {
         passing.push([
           objectDate,
           beginDate,

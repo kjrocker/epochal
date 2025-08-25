@@ -14,6 +14,7 @@ import {
   thirdQuarterModifier,
   fourthQuarterModifier,
 } from "./modifiers/partials";
+import { identityModifier } from "./modifiers/identity";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -56,6 +57,7 @@ export const handleCentury: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
+        .withModifier(identityModifier())
         .withModifier(circaModifier(options))
         .withModifier(firstHalfModifier())
         .withModifier(secondHalfModifier())
@@ -68,7 +70,10 @@ export const handleCentury: InputHandler = (input, options) => {
         .withModifier(fourthQuarterModifier())
         .map((text) => centuryToOrdinal(text))
         .map((ordinal) => centuryToDate(ordinal))
-        .map((date): [Date, Date] => [startOfCentury(date, options), endOfCentury(date, options)])
+        .map((date): [Date, Date] => [
+          startOfCentury(date, options),
+          endOfCentury(date, options),
+        ])
         .unwrap()
     )
     .map(attachMetadata(Handler.CENTURY));
