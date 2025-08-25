@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Test**: `npm test` - Runs Jest test suite
 - **Test Watch**: `npm run test:watch` - Runs tests in watch mode for development
 - **Lint**: `npm run lint` - Runs ESLint on the `src/` directory
+- **Process Metropolitan Dataset**: `npm run process:metropolitan` - Runs ts-node to process metropolitan museum dataset
 
 ## Architecture Overview
 
@@ -17,9 +18,9 @@ This is a TypeScript library for parsing ambiguous historical dates into precise
 
 - **Main API**: `src/index.ts` exports the primary `epochize` function
 - **Core Logic**: `src/lib/index.ts` contains `epochizeInner` which uses a cascading parser approach
-- **Parser Chain**: Handles different date formats through specialized parsers:
+- **Parser Chain**: Handles different date formats through specialized parsers (tried in sequence):
   - `handleRange` - Date ranges (e.g., "1990-2000")
-  - `handlePartial` - Partial dates with qualifiers (e.g., "early 1990s")
+  - `handleModifierPhrase` - Dates with modifier words (e.g., "early 17th century", "mid 1888")
   - `handleMonth` - Month-based dates
   - `handleDay` - Day-specific dates
   - `handleYear` - Year-based dates
@@ -32,25 +33,33 @@ This is a TypeScript library for parsing ambiguous historical dates into precise
 - **Maybe Monad**: `src/lib/util/maybe.ts` - Handles nullable values and chaining operations
 - **Options System**: `src/lib/util/options.ts` - Configuration including `centuryShorthand` and `centuryBreakpoint`
 - **Date-fns Integration**: `src/lib/date-fns/` - Custom date manipulation utilities
+- **Modifier System**: `src/lib/modifiers/` - Handles temporal modifiers like "early", "mid", "late"
+- **Metadata Support**: Each parse result includes metadata with alternatives and original input
+- **Metropolitan Dataset Processing**: `src/lib/metropolitian/` - Specialized tooling for processing museum date data
 
 ### Dependencies
 
-- **date-fns**: Primary date manipulation library
-- **Jest**: Testing framework with ts-jest preset
+- **date-fns**: Primary date manipulation library for date calculations
+- **Jest**: Testing framework with ts-jest preset and Node environment
 - **TypeScript**: Compiled to CommonJS targeting ES2018
-- **ESLint**: Configured with TypeScript support, unused vars disabled
+- **ESLint**: Modern flat config with TypeScript support, unused vars disabled
+- **fast-check**: Property-based testing library for generating test cases
 
 ### Test Structure
 
 Tests use `.spec.ts` extension and are co-located with source files. Key test files:
 - `src/lib/index.spec.ts` - Main functionality tests
-- `src/lib/consistency.spec.ts` - Consistency validation
-- `src/lib/properties.spec.ts` - Property-based tests
-- Uses `fast-check` for property-based testing
+- `src/lib/consistency.spec.ts` - Consistency validation across different date formats
+- `src/lib/properties.spec.ts` - Property-based tests using fast-check
+- `src/lib/metadata.spec.ts` - Metadata handling tests
+- Individual parser tests (e.g., `year.spec.ts`, `range.spec.ts`)
+- `src/lib/metropolitian/metropolitian.spec.ts` - Metropolitan dataset processing tests
 
 ### Build Configuration
 
-- Output directory: `build/`
-- Generates declaration files and source maps
-- Excludes test files from compilation
-- Uses strict TypeScript configuration
+- **Output Directory**: `build/` - Contains compiled JavaScript and declarations
+- **TypeScript Config**: Strict mode with ES2018 target, CommonJS modules
+- **Source Maps**: Inline source maps for debugging
+- **Declarations**: Generated `.d.ts` files with declaration maps
+- **Test Exclusion**: `.spec.ts` and `.test.ts` files excluded from build
+- **Jest Setup**: Global setup file at `jest.setup.js`

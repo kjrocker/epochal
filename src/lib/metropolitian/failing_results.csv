@@ -2381,7 +2381,7 @@ ca. 1509 and 1546,1509,1546,,,epochize returned null
 early 17th–mid-19th century,1633,1870,,,epochize returned null
 first half of the 16th century,1500,1549,1501,1551,"Expected: 1500-1549, Got: 1501-1551"
 early 10th–late 14th century,933,1399,901,1400,"Expected: 933-1399, Got: 901-1400"
-second half of the19th century,1850,1899,,,epochize returned null
+second half of the19th century,1850,1899,1851,1900,"Expected: 1850-1899, Got: 1851-1900"
 1925 (Taishō 14),1925,1925,,,epochize returned null
 early 8th century,700,733,701,734,"Expected: 700-733, Got: 701-734"
 ca. 1st–2nd century,1,199,-29,200,"Expected: 1-199, Got: -29-200"
@@ -2670,7 +2670,7 @@ Spurious date of 1549,1549,1549,,,epochize returned null
 ca. 1801–4,1791,1814,1798,1804,"Expected: 1791-1814, Got: 1798-1804"
 late 18th–first half 19th century,1767,1849,,,epochize returned null
 ca. first half of the 16th century,1500,1549,1201,1401,"Expected: 1500-1549, Got: 1201-1401"
-first half of the19th century,1800,1849,,,epochize returned null
+first half of the19th century,1800,1849,1801,1851,"Expected: 1800-1849, Got: 1801-1851"
 first half 20th century,1900,1949,,,epochize returned null
 mid 18th-century,1734,1766,,,epochize returned null
 late 18th–late 19th century,1771,1871,1767,1900,"Expected: 1771-1871, Got: 1767-1900"
@@ -2826,7 +2826,7 @@ ca. 1870–80s,1870,1889,1867,1889,"Expected: 1870-1889, Got: 1867-1889"
 second half of 19th century,1850,1899,1851,1900,"Expected: 1850-1899, Got: 1851-1900"
 1278,1185,1350,1278,1278,"Expected: 1185-1350, Got: 1278-1278"
 early to mid-19th century,1800,1866,,,epochize returned null
-second half of the18th century,1750,1799,,,epochize returned null
+second half of the18th century,1750,1799,1751,1800,"Expected: 1750-1799, Got: 1751-1800"
 mid 18th–early 19th century,1767,1833,1734,1834,"Expected: 1767-1833, Got: 1734-1834"
 ca.15th century,1350,1550,1101,1500,"Expected: 1350-1550, Got: 1101-1500"
 series ca. 1889,1879,1899,,,epochize returned null
@@ -3021,7 +3021,7 @@ preface dated 1790,1790,1790,,,epochize returned null
 18th century; lid probably relacquered in the 19th century,1700,1799,,,epochize returned null
 "ca. 2nd month, 1864",1864,1864,,,epochize returned null
 1830s (Tenpô era),1830,1839,,,epochize returned null
-ca. second half of the18th century,1750,1799,,,epochize returned null
+ca. second half of the18th century,1750,1799,1600,1800,"Expected: 1750-1799, Got: 1600-1800"
 1000 BCE–500 CE,-1000,500,-999,500,"Expected: -1000-500, Got: -999-500"
 early–mid 19th century,1823,1866,,,epochize returned null
 early 1st millennium BCE,-971,-900,-999,-666,"Expected: -971--900, Got: -999--666"
@@ -3172,7 +3172,7 @@ mid–16th to mid–18th century,1550,1749,,,epochize returned null
 early to mid–18th century,1743,1750,,,epochize returned null
 last third 19th century,1867,1899,,,epochize returned null
 early 18th Century,1723,1735,1701,1734,"Expected: 1723-1735, Got: 1701-1734"
-first half  of the19th century,1800,1849,,,epochize returned null
+first half  of the19th century,1800,1849,1801,1851,"Expected: 1800-1849, Got: 1801-1851"
 last half 17th–first quarter 18th century,1650,1725,,,epochize returned null
 "17th century(?), late 19th century",1600,1899,,,epochize returned null
 ca. 16th century BCE,-1650,-1450,-1899,-1500,"Expected: -1650--1450, Got: -1899--1500"

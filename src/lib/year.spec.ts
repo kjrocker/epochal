@@ -298,9 +298,11 @@ describe("handleYear", () => {
       });
     });
 
-    it("should currently reject 'after 1909' (not implemented in year handler)", () => {
+    it("should handle 'after 1909' with default afterOffset", () => {
       const result = handleYear(Maybe.some("after 1909"), DEFAULT_OPTIONS);
-      expect(result.get()).toBeNull();
+      const [start, end] = result.get()!;
+      expect(start.getFullYear()).toBe(1910);
+      expect(end.getFullYear()).toBe(1919);
     });
   });
 });
