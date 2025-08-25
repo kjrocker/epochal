@@ -2,7 +2,7 @@
 import { epochize } from "../index";
 import { EpochizeOptions } from "../util/options";
 
-const formalOptions = { convention: 'formal' as const };
+const formalOptions = { convention: "formal" as const };
 
 const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["1853", 1853, 1853],
@@ -53,6 +53,9 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["Second quarter of 20th century", 1926, 1951],
   ["First quarter of 20th century", 1901, 1926],
   ["first half of the19th century", 1801, 1851],
+  ["September, 1918", 1918, 1918],
+  ["before 1876", 1866, 1875],
+  ["early 17th century", 1601, 1634],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

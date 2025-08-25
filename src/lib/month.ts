@@ -55,7 +55,7 @@ const monthSlashYearEra: GetMonthYear = (input, options) => {
 
 const shortMonthNameYearEra: GetMonthYear = (input, options) => {
   const matches = input.match(
-    RegExp(`^${EN_MONTHS.source}\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`)
+    RegExp(`^${EN_MONTHS.source}(?:,)?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`)
   );
   if (!matches?.groups) return null;
   return mapMatchGroups(matches.groups, options);
