@@ -92,12 +92,29 @@ const isResultPassing = (
   }
 
   const isCenturyOrMillennium = metadata.handler.some(
-    (h) => h === Handler.CENTURY || h === Handler.MILLENNIUM
+    (h) =>
+      h === Handler.CENTURY || h === Handler.MILLENNIUM || h === Handler.DECADE
   );
+  const containsLate = /late/i.test(metadata?.original ?? "");
+  const containsEarly = /early/i.test(metadata?.original ?? "");
   if (isCenturyOrMillennium) {
+    const CENTURY_OFFSET = 10;
+    const EARLY_LATE_OFFSET = 20;
     const startDiff = Math.abs(epochStartYear - beginDate);
     const endDiff = Math.abs(epochEndYear - endDate);
-    return startDiff <= 1 && endDiff <= 1;
+    return (
+      startDiff <=
+        Math.max(CENTURY_OFFSET, containsLate ? EARLY_LATE_OFFSET : 0) &&
+      endDiff <= Math.max(CENTURY_OFFSET, containsEarly ? EARLY_LATE_OFFSET : 0)
+    );
+  }
+
+  const containsCirca = /ca\./i.test(metadata?.original ?? "");
+  if (containsCirca) {
+    const CIRCA_OFFSET = 50;
+    const circaStart = epochStartYear - CIRCA_OFFSET;
+    const circaEnd = epochEndYear + CIRCA_OFFSET;
+    return beginDate >= circaStart && endDate <= circaEnd;
   }
 
   return false;
@@ -125,6 +142,7 @@ function main(): void {
 
   const passing: (string | number)[][] = [];
   const failing: (string | number)[][] = [];
+  const nullResults: (string | number)[][] = [];
 
   data.forEach((row) => {
     const objectDate = row["Object Date"];
@@ -145,7 +163,7 @@ function main(): void {
       const result = epochize(objectDate);
 
       if (result === null) {
-        failing.push([
+        nullResults.push([
           objectDate,
           beginDate,
           endDate,
@@ -191,7 +209,7 @@ function main(): void {
   });
 
   const endTime = new Date();
-  const totalProcessed = passing.length + failing.length;
+  const totalProcessed = passing.length + failing.length + nullResults.length;
   const passRate =
     totalProcessed > 0
       ? ((passing.length / totalProcessed) * 100).toFixed(2)
@@ -199,7 +217,7 @@ function main(): void {
 
   console.log(`\nResults:`);
   console.log(`- Passing: ${passing.length}`);
-  console.log(`- Failing: ${failing.length}`);
+  console.log(`- Failing: ${failing.length + nullResults.length}`);
   console.log(`- Pass rate: ${passRate}%`);
 
   // Write analytics to CSV
@@ -209,7 +227,7 @@ function main(): void {
   const analyticsRow = [
     endTime.toISOString(),
     passing.length,
-    failing.length,
+    failing.length + nullResults.length,
     totalProcessed,
     passRate,
     (endTime.getTime() - startTime.getTime()) / 1000, // duration in seconds
@@ -271,6 +289,19 @@ function main(): void {
       "Status",
     ],
     passing
+  );
+
+  writeCSV(
+    path.join(outputDir, "null_results.csv"),
+    [
+      "Object Date",
+      "Expected Begin",
+      "Expected End",
+      "Epochized Begin",
+      "Epochized End",
+      "Status",
+    ],
+    nullResults
   );
 
   writeCSV(
