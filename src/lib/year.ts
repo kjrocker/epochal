@@ -67,12 +67,24 @@ const circaModifier = (
   ],
 });
 
+const afterModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /after/.test(text),
+  extractor: (text) => text.replace(/after/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    add(dates[0], { years: 1 }),
+    add(dates[1], { years: options.afterOffset }),
+  ],
+});
+
 export const handleYear: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(circaModifier(options))
+        .withModifier(afterModifier(options))
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())
         .withModifier(thirdThirdModifier())

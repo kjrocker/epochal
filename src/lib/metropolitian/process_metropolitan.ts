@@ -1,17 +1,25 @@
-const fs = require("fs");
-const path = require("path");
+import * as fs from "fs";
+import * as path from "path";
 
-// Import the epochize function from the compiled build
-const { epochize } = require("../../../build/lib/index");
+// Import the epochize function directly from TypeScript source
+import { epochize } from "../index";
+
+interface CSVRow {
+  [key: string]: string;
+}
+
+interface CSVData extends Array<CSVRow> {
+  headers?: string[];
+}
 
 // Proper CSV parsing that handles quoted commas
-function parseCSV(csvContent) {
+function parseCSV(csvContent: string): CSVData {
   const lines = csvContent.trim().split("\n");
-  const data = [];
+  const data: CSVData = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const row = [];
+    const row: string[] = [];
     let current = "";
     let inQuotes = false;
 
@@ -32,8 +40,8 @@ function parseCSV(csvContent) {
     if (i === 0) {
       data.headers = row;
     } else {
-      const rowObj = {};
-      data.headers.forEach((header, index) => {
+      const rowObj: CSVRow = {};
+      data.headers!.forEach((header, index) => {
         rowObj[header] = row[index] || "";
       });
       data.push(rowObj);
@@ -44,8 +52,12 @@ function parseCSV(csvContent) {
 }
 
 // CSV writing helper that properly quotes fields containing commas
-function writeCSV(filename, headers, rows) {
-  const escapeField = (field) => {
+function writeCSV(
+  filename: string,
+  headers: string[],
+  rows: (string | number)[][]
+): void {
+  const escapeField = (field: string | number): string => {
     const str = String(field);
     if (str.includes(",") || str.includes('"') || str.includes("\n")) {
       return `"${str.replace(/"/g, '""')}"`;
@@ -59,12 +71,11 @@ function writeCSV(filename, headers, rows) {
   ].join("\n");
 
   fs.writeFileSync(filename, csvContent);
-  console.log(`Written ${rows.length} rows to ${filename}`);
 }
 
 // Load existing blocklist from CSV (if it exists)
-function loadBlocklist(blocklistPath) {
-  const blocklistSet = new Set();
+function loadBlocklist(blocklistPath: string): Set<string> {
+  const blocklistSet = new Set<string>();
 
   if (fs.existsSync(blocklistPath)) {
     try {
@@ -87,47 +98,32 @@ function loadBlocklist(blocklistPath) {
 }
 
 // Load existing bad-data blocklist from CSV (if it exists)
-function loadBadDataBlocklist(badDataBlocklistPath) {
-  const badDataBlocklistSet = new Set();
-  
+function loadBadDataBlocklist(badDataBlocklistPath: string): Set<string> {
+  const badDataBlocklistSet = new Set<string>();
+
   if (fs.existsSync(badDataBlocklistPath)) {
     try {
       const badDataContent = fs.readFileSync(badDataBlocklistPath, "utf-8");
       const badDataData = parseCSV(badDataContent);
-      
+
       badDataData.forEach((row) => {
         if (row["Object Date"]) {
           badDataBlocklistSet.add(row["Object Date"]);
         }
       });
-      
-      console.log(`Loaded ${badDataBlocklistSet.size} items from existing bad-data blocklist`);
+
+      console.log(
+        `Loaded ${badDataBlocklistSet.size} items from existing bad-data blocklist`
+      );
     } catch (error) {
       console.log("No existing bad-data blocklist found, starting fresh");
     }
   }
-  
+
   return badDataBlocklistSet;
 }
 
-// Check if date should be added to blocklist based on patterns
-function shouldAddToBlocklist(objectDate) {
-  const blocklistPatterns = [
-    /^$/, // Empty strings
-    /^\s*$/, // Only whitespace
-    /^n\.d\.?$/i, // "n.d." (no date)
-    /^unknown$/i,
-    /^undated$/i,
-    /^not\s+dated$/i,
-    /^date\s+unknown$/i,
-    /^\?+$/, // Only question marks
-    /^-+$/, // Only dashes
-  ];
-
-  return blocklistPatterns.some((pattern) => pattern.test(objectDate));
-}
-
-function main() {
+function main(): void {
   const startTime = new Date();
   console.log("Processing Metropolitan Museum object dates...");
 
@@ -144,9 +140,8 @@ function main() {
   const existingBlocklist = loadBlocklist(blocklistPath);
   const existingBadDataBlocklist = loadBadDataBlocklist(badDataBlocklistPath);
 
-  const passing = [];
-  const failing = [];
-  const blocklist = [];
+  const passing: (string | number)[][] = [];
+  const failing: (string | number)[][] = [];
 
   data.forEach((row, index) => {
     const objectDate = row["Object Date"];
@@ -155,18 +150,10 @@ function main() {
 
     // Check if this date is in the existing blocklists
     if (existingBlocklist.has(objectDate)) {
-      console.log(`Skipping blocklisted item: ${objectDate}`);
-      return;
-    }
-    
-    if (existingBadDataBlocklist.has(objectDate)) {
-      console.log(`Skipping bad-data blocklisted item: ${objectDate}`);
       return;
     }
 
-    // Check if this date should be added to blocklist
-    if (shouldAddToBlocklist(objectDate)) {
-      blocklist.push([objectDate]);
+    if (existingBadDataBlocklist.has(objectDate)) {
       return;
     }
 
@@ -217,14 +204,9 @@ function main() {
         endDate,
         "",
         "",
-        "Error: " + error.message,
+        "Error: " + (error as Error).message,
       ]);
     }
-
-    // Progress indicator
-    // if ((index + 1) % 1000 === 0) {
-    //   console.log(`Processed ${index + 1}/${data.length} records...`);
-    // }
   });
 
   const endTime = new Date();
@@ -232,13 +214,12 @@ function main() {
   const passRate =
     totalProcessed > 0
       ? ((passing.length / totalProcessed) * 100).toFixed(2)
-      : 0;
+      : "0";
 
   console.log(`\nResults:`);
   console.log(`- Passing: ${passing.length}`);
   console.log(`- Failing: ${failing.length}`);
   console.log(`- Pass rate: ${passRate}%`);
-  console.log(`- New blocklist items: ${blocklist.length}`);
 
   // Write analytics to CSV
   const analyticsPath = path.join(__dirname, "analytics.csv");
@@ -250,7 +231,7 @@ function main() {
     failing.length,
     totalProcessed,
     passRate,
-    (endTime - startTime) / 1000, // duration in seconds
+    (endTime.getTime() - startTime.getTime()) / 1000, // duration in seconds
   ];
 
   if (!analyticsExists) {
@@ -271,13 +252,13 @@ function main() {
     // Append to existing analytics file
     const analyticsContent = fs.readFileSync(analyticsPath, "utf-8");
     const existingAnalytics = parseCSV(analyticsContent);
-    const allRows = existingAnalytics.map((row) => [
+    const allRows: (string | number)[][] = existingAnalytics.map((row) => [
       row["Timestamp"],
-      row["Passed"],
-      row["Failed"],
-      row["Total Processed"],
+      Number(row["Passed"]),
+      Number(row["Failed"]),
+      Number(row["Total Processed"]),
       row["Pass Rate (%)"],
-      row["Duration (seconds)"],
+      Number(row["Duration (seconds)"]),
     ]);
     allRows.push(analyticsRow);
 
@@ -323,25 +304,6 @@ function main() {
     ],
     failing
   );
-
-  // Append new items to blocklist (or create if doesn't exist)
-  if (blocklist.length > 0) {
-    let allBlocklistItems = [];
-
-    // Add existing items
-    existingBlocklist.forEach((item) => {
-      allBlocklistItems.push([item]);
-    });
-
-    // Add new items
-    allBlocklistItems.push(...blocklist);
-
-    writeCSV(
-      path.join(outputDir, "blocklist.csv"),
-      ["Object Date"],
-      allBlocklistItems
-    );
-  }
 
   console.log("\nProcessing complete!");
 }
