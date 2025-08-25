@@ -1,12 +1,16 @@
 import { ModifierConfig } from "../util/modifier";
 
 const patterns = [
-  /^dated\s+to\s+/, 
-  /^datable\s+to\s+/, 
-  /^dated\s+/, 
-  /^probably\s+/, 
+  /^dated\s+to\s+/,
+  /^datable\s+to\s+/,
+  /^dated\s+/,
+  /^d\s+a\s+t\s+e\s+d\s+/,
+  /^probably\s+/,
   /^possibly\s+/,
-  /,\s*probably\s*$/
+  /^likely\s+/,
+  /^cast\s+/,
+  /,\s*probably\s*$/,
+  /^patented\s+/,
 ];
 export const identityModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => patterns.some((pattern) => pattern.test(text)),
