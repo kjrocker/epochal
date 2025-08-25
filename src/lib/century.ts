@@ -68,7 +68,7 @@ export const handleCentury: InputHandler = (input, options) => {
         .withModifier(fourthQuarterModifier())
         .map((text) => centuryToOrdinal(text))
         .map((ordinal) => centuryToDate(ordinal))
-        .map((date): [Date, Date] => [startOfCentury(date), endOfCentury(date)])
+        .map((date): [Date, Date] => [startOfCentury(date, options), endOfCentury(date, options)])
         .unwrap()
     )
     .map(attachMetadata(Handler.CENTURY));

@@ -1,127 +1,95 @@
 import * as fs from "fs";
 import * as path from "path";
+import { parse } from "csv-parse/sync";
+import { stringify } from "csv-stringify/sync";
 
 // Import the epochize function directly from TypeScript source
+// NOTE: Always use epochize(), not epochizeInner() - epochize is the public API
 import { epochize } from "../index";
+import { Handler } from "../util/util";
 
 interface CSVRow {
   [key: string]: string;
 }
 
-interface CSVData extends Array<CSVRow> {
-  headers?: string[];
+// Parse CSV using csv-parse library
+function parseCSV(csvContent: string): CSVRow[] {
+  return parse(csvContent, {
+    columns: true,
+    skip_empty_lines: true,
+    trim: true,
+  });
 }
 
-// Proper CSV parsing that handles quoted commas
-function parseCSV(csvContent: string): CSVData {
-  const lines = csvContent.trim().split("\n");
-  const data: CSVData = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const row: string[] = [];
-    let current = "";
-    let inQuotes = false;
-
-    for (let j = 0; j < line.length; j++) {
-      const char = line[j];
-
-      if (char === '"' && (j === 0 || line[j - 1] !== "\\")) {
-        inQuotes = !inQuotes;
-      } else if (char === "," && !inQuotes) {
-        row.push(current.trim());
-        current = "";
-      } else {
-        current += char;
-      }
-    }
-    row.push(current.trim());
-
-    if (i === 0) {
-      data.headers = row;
-    } else {
-      const rowObj: CSVRow = {};
-      data.headers!.forEach((header, index) => {
-        rowObj[header] = row[index] || "";
-      });
-      data.push(rowObj);
-    }
-  }
-
-  return data;
-}
-
-// CSV writing helper that properly quotes fields containing commas
+// Write CSV using csv-stringify library
 function writeCSV(
   filename: string,
   headers: string[],
   rows: (string | number)[][]
 ): void {
-  const escapeField = (field: string | number): string => {
-    const str = String(field);
-    if (str.includes(",") || str.includes('"') || str.includes("\n")) {
-      return `"${str.replace(/"/g, '""')}"`;
-    }
-    return str;
-  };
-
-  const csvContent = [
-    headers.map(escapeField).join(","),
-    ...rows.map((row) => row.map(escapeField).join(",")),
-  ].join("\n");
-
+  const csvContent = stringify(rows, {
+    header: true,
+    columns: headers,
+  });
   fs.writeFileSync(filename, csvContent);
 }
 
 // Load existing blocklist from CSV (if it exists)
-function loadBlocklist(blocklistPath: string): Set<string> {
+function loadBlocklistFromFile(
+  filePath: string,
+  description: string
+): Set<string> {
   const blocklistSet = new Set<string>();
 
-  if (fs.existsSync(blocklistPath)) {
+  if (fs.existsSync(filePath)) {
     try {
-      const blocklistContent = fs.readFileSync(blocklistPath, "utf-8");
-      const blocklistData = parseCSV(blocklistContent);
+      const content = fs.readFileSync(filePath, "utf-8");
+      const data = parseCSV(content);
 
-      blocklistData.forEach((row) => {
+      data.forEach((row) => {
         if (row["Object Date"]) {
           blocklistSet.add(row["Object Date"]);
         }
       });
 
-      console.log(`Loaded ${blocklistSet.size} items from existing blocklist`);
+      console.log(
+        `Loaded ${blocklistSet.size} items from existing ${description}`
+      );
     } catch (error) {
-      console.log("No existing blocklist found, starting fresh");
+      console.log(`No existing ${description} found, starting fresh`);
     }
   }
 
   return blocklistSet;
 }
 
-// Load existing bad-data blocklist from CSV (if it exists)
-function loadBadDataBlocklist(badDataBlocklistPath: string): Set<string> {
-  const badDataBlocklistSet = new Set<string>();
+const isResultPassing = (
+  row: CSVRow,
+  result: NonNullable<ReturnType<typeof epochize>>,
+  objectDate: string
+): boolean => {
+  const [epochStart, epochEnd, metadata] = result;
+  const epochStartYear = epochStart.getFullYear();
+  const epochEndYear = epochEnd.getFullYear();
+  const beginDate = parseInt(row["Object Begin Date"]);
+  const endDate = parseInt(row["Object End Date"]);
 
-  if (fs.existsSync(badDataBlocklistPath)) {
-    try {
-      const badDataContent = fs.readFileSync(badDataBlocklistPath, "utf-8");
-      const badDataData = parseCSV(badDataContent);
-
-      badDataData.forEach((row) => {
-        if (row["Object Date"]) {
-          badDataBlocklistSet.add(row["Object Date"]);
-        }
-      });
-
-      console.log(
-        `Loaded ${badDataBlocklistSet.size} items from existing bad-data blocklist`
-      );
-    } catch (error) {
-      console.log("No existing bad-data blocklist found, starting fresh");
-    }
+  // Check for exact match first
+  if (epochStartYear === beginDate && epochEndYear === endDate) {
+    return true;
   }
 
-  return badDataBlocklistSet;
-}
+  const isCenturyOrMillennium = metadata.handler.some(
+    (h) => h === Handler.CENTURY || h === Handler.MILLENNIUM
+  );
+  if (isCenturyOrMillennium) {
+    const startDiff = Math.abs(epochStartYear - beginDate);
+    const endDiff = Math.abs(epochEndYear - endDate);
+    return startDiff <= 1 && endDiff <= 1;
+  }
+
+  return false;
+};
 
 function main(): void {
   const startTime = new Date();
@@ -137,28 +105,30 @@ function main(): void {
   // Load existing blocklists
   const blocklistPath = path.join(__dirname, "blocklist.csv");
   const badDataBlocklistPath = path.join(__dirname, "bad-data-blocklist.csv");
-  const existingBlocklist = loadBlocklist(blocklistPath);
-  const existingBadDataBlocklist = loadBadDataBlocklist(badDataBlocklistPath);
+  const existingBlocklist = loadBlocklistFromFile(blocklistPath, "blocklist");
+  const existingBadDataBlocklist = loadBlocklistFromFile(
+    badDataBlocklistPath,
+    "bad-data blocklist"
+  );
 
   const passing: (string | number)[][] = [];
   const failing: (string | number)[][] = [];
 
-  data.forEach((row, index) => {
+  data.forEach((row) => {
     const objectDate = row["Object Date"];
     const beginDate = parseInt(row["Object Begin Date"]);
     const endDate = parseInt(row["Object End Date"]);
 
     // Check if this date is in the existing blocklists
-    if (existingBlocklist.has(objectDate)) {
-      return;
-    }
-
-    if (existingBadDataBlocklist.has(objectDate)) {
+    if (
+      existingBlocklist.has(objectDate) ||
+      existingBadDataBlocklist.has(objectDate)
+    ) {
       return;
     }
 
     try {
-      // Process with epochize
+      // Process with epochize (public API)
       const result = epochize(objectDate);
 
       if (result === null) {
@@ -174,17 +144,15 @@ function main(): void {
       }
 
       const [epochStart, epochEnd] = result;
-      const epochStartYear = epochStart.getFullYear();
-      const epochEndYear = epochEnd.getFullYear();
 
       // Check if the epochized years match the expected years
-      if (epochStartYear === beginDate && epochEndYear === endDate) {
+      if (isResultPassing(row, result, objectDate)) {
         passing.push([
           objectDate,
           beginDate,
           endDate,
-          epochStartYear,
-          epochEndYear,
+          epochStart.getFullYear(),
+          epochEnd.getFullYear(),
           "PASS",
         ]);
       } else {
@@ -192,9 +160,9 @@ function main(): void {
           objectDate,
           beginDate,
           endDate,
-          epochStartYear,
-          epochEndYear,
-          `Expected: ${beginDate}-${endDate}, Got: ${epochStartYear}-${epochEndYear}`,
+          epochStart.getFullYear(),
+          epochEnd.getFullYear(),
+          `Expected: ${beginDate}-${endDate}, Got: ${epochStart.getFullYear()}-${epochEnd.getFullYear()}`,
         ]);
       }
     } catch (error) {

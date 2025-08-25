@@ -1,5 +1,7 @@
 import { epochize, epochizeInner } from "./index";
 
+const formalOptions = { convention: 'formal' as const };
+
 /**
  * Validating that certain strings start OR end at the same time.
  * Can't have the 21st century start at a different time than the year 2001.
@@ -9,16 +11,16 @@ describe("consistency", () => {
     ["2001", "21st century"],
     ["21th century", "3rd millenium"],
   ])(`consistency - start - %s | %s`, (first, second) => {
-    const [one, _one] = epochize(first)!;
-    const [two, _two] = epochize(second)!;
+    const [one, _one] = epochize(first, formalOptions)!;
+    const [two, _two] = epochize(second, formalOptions)!;
     expect(one).toEqual(two);
   });
 
   test.each([["2000", "20th century"]])(
     `consistency - end - %s | %s`,
     (first, second) => {
-      const [_one, one] = epochize(first)!;
-      const [_two, two] = epochize(second)!;
+      const [_one, one] = epochize(first, formalOptions)!;
+      const [_two, two] = epochize(second, formalOptions)!;
       expect(one).toEqual(two);
     }
   );

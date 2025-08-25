@@ -52,7 +52,7 @@ Current tests in `src/lib/index.spec.ts` and `src/lib/date-fns/index.spec.ts` ex
 export interface EpochizeOptions {
   centuryShorthand: boolean;
   centuryBreakpoint: number;
-  centuryConvention: 'popular' | 'formal';  // NEW
+  convention: 'popular' | 'formal';  // NEW
   circaStartOffset: number;
   circaEndOffset: number;
   afterOffset: number;
@@ -61,7 +61,7 @@ export interface EpochizeOptions {
 export const DEFAULT_OPTIONS: EpochizeOptions = {
   centuryShorthand: false,
   centuryBreakpoint: 29,
-  centuryConvention: 'popular',  // NEW DEFAULT
+  convention: 'popular',  // NEW DEFAULT
   circaStartOffset: 3,
   circaEndOffset: 0,
   afterOffset: 10,
@@ -74,22 +74,22 @@ export const DEFAULT_OPTIONS: EpochizeOptions = {
 // Add options parameter to core functions
 export function startOfCentury(
   dirtyDate: Date | number, 
-  options?: { centuryConvention?: 'popular' | 'formal' }
+  options?: { convention?: 'popular' | 'formal' }
 ): Date;
 
 export function endOfCentury(
   dirtyDate: Date | number,
-  options?: { centuryConvention?: 'popular' | 'formal' }  
+  options?: { convention?: 'popular' | 'formal' }  
 ): Date;
 
 export function startOfMillenium(
   dirtyDate: Date | number,
-  options?: { centuryConvention?: 'popular' | 'formal' }
+  options?: { convention?: 'popular' | 'formal' }
 ): Date;
 
 export function endOfMillenium(
   dirtyDate: Date | number,
-  options?: { centuryConvention?: 'popular' | 'formal' }
+  options?: { convention?: 'popular' | 'formal' }
 ): Date;
 ```
 
@@ -131,7 +131,7 @@ endOfMillenium: Math.floor(year / 1000) * 1000 + 1000   // current behavior
 
 ```typescript
 // Update existing test calls to use formal convention
-const formalOptions = { centuryConvention: 'formal' as const };
+const formalOptions = { convention: 'formal' as const };
 
 // Before
 const result = epochize('2nd millennium');
@@ -164,7 +164,7 @@ describe('Popular Convention (Default)', () => {
 });
 
 describe('Formal Convention (Explicit)', () => {
-  const formalOptions = { centuryConvention: 'formal' as const };
+  const formalOptions = { convention: 'formal' as const };
   
   it('should use formal convention when specified', () => {
     const result = epochize('20th century', formalOptions);
@@ -214,7 +214,7 @@ epochize('20th century')  // [1900-01-01, 1999-12-31]
 epochize('2nd millennium') // [1000-01-01, 1999-12-31]
 
 // Formal convention still available via options
-epochize('20th century', { centuryConvention: 'formal' })  // [1901-01-01, 2000-12-31]
+epochize('20th century', { convention: 'formal' })  // [1901-01-01, 2000-12-31]
 ```
 
 ## Migration Path
@@ -222,11 +222,11 @@ epochize('20th century', { centuryConvention: 'formal' })  // [1901-01-01, 2000-
 For users who need the old behavior:
 ```javascript
 // Option 1: Pass formal convention in each call
-const result = epochize('20th century', { centuryConvention: 'formal' });
+const result = epochize('20th century', { convention: 'formal' });
 
 // Option 2: Create a configured epochize function
 import { createEpochize } from 'epochal';
-const formalEpochize = createEpochize({ centuryConvention: 'formal' });
+const formalEpochize = createEpochize({ convention: 'formal' });
 const result = formalEpochize('20th century');
 ```
 

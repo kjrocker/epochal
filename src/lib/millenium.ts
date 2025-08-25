@@ -64,8 +64,8 @@ export const handleMillenium: InputHandler = (input, options) => {
         .map(milleniumToOrdinal)
         .map(milleniumToDate)
         .map((date): [Date, Date] => [
-          startOfMillenium(date),
-          endOfMillenium(date),
+          startOfMillenium(date, options),
+          endOfMillenium(date, options),
         ])
         .unwrap()
     )

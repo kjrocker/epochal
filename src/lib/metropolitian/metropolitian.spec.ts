@@ -2,6 +2,8 @@
 import { epochize } from "../index";
 import { EpochizeOptions } from "../util/options";
 
+const formalOptions = { convention: 'formal' as const };
+
 const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["1853", 1853, 1853],
   ["1901", 1901, 1901],
@@ -66,7 +68,7 @@ describe("Metropolitan Museum Dataset", () => {
   it.each(METROPOLITAN_TEST_CASES)(
     "should epochize %s",
     (input, start, end) => {
-      const result = epochize(input);
+      const result = epochize(input, formalOptions);
       expect(result).not.toBeNull();
       const [epochStart, epochEnd] = result!;
       expect(epochStart.getFullYear()).toBe(start);
@@ -77,7 +79,7 @@ describe("Metropolitan Museum Dataset", () => {
   it.each(OPTIONED_METROPOLITAN_TEST_CASES)(
     "should epochize %s with options",
     (input, start, end, options) => {
-      const result = epochize(input, options);
+      const result = epochize(input, { ...formalOptions, ...options });
       expect(result).not.toBeNull();
       const [epochStart, epochEnd] = result!;
       expect(epochStart.getFullYear()).toBe(start);

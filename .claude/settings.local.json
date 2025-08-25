@@ -7,7 +7,8 @@
       "mcp__ide__getDiagnostics",
       "Bash(node:*)",
       "Bash(mv:*)",
-      "Bash(npm run process:metropolitan:*)"
+      "Bash(npm run process:metropolitan:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": []
   }
