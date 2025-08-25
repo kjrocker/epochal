@@ -11,11 +11,11 @@ import { EpochizeOptions } from "./util/options";
 import { add, sub } from "date-fns";
 import { Modifier, ModifierConfig } from "./util/modifier";
 import {
-  firstHalfModifier,
   firstThirdModifier,
   secondThirdModifier,
   thirdThirdModifier,
 } from "./modifiers/partials";
+import { identityModifier } from "./modifiers/identity";
 
 const getYear = (
   year: string,
@@ -71,6 +71,7 @@ export const handleYear: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
+        .withModifier(identityModifier())
         .withModifier(circaModifier(options))
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())

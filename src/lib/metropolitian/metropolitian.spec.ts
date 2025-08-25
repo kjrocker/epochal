@@ -43,6 +43,14 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["ca. 1806 or 1811", 1803, 1811],
   ["datable to 1673", 1673, 1673],
   ["dated 1644", 1644, 1644],
+  ["dated 1757?", 1757, 1757],
+  ["3rd quarter of the 19th century", 1851, 1876],
+  ["possibly 1931", 1931, 1931],
+  ["probably 1931", 1931, 1931],
+  ["mid-19th century", 1834, 1867],
+  ["Second quarter of 20th century", 1926, 1951],
+  ["First quarter of 20th century", 1901, 1926],
+  ["first half of the19th century", 1801, 1851],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<
