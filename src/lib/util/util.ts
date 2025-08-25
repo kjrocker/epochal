@@ -7,7 +7,9 @@ export const clean = (str: string): string | null => {
   if (!str) return null;
   // Remove uncertainty markers like "(?)" before cleaning
   const withoutUncertainty = str.replace(/\s*\(\?\)\s*/g, "");
-  const cleaned = withoutUncertainty.trim().toLowerCase();
+  // Remove single trailing question marks
+  const withoutTrailingQuestion = withoutUncertainty.replace(/\s*\?\s*$/, "");
+  const cleaned = withoutTrailingQuestion.trim().toLowerCase();
   if (!cleaned || cleaned === "") return null;
   return cleaned;
 };

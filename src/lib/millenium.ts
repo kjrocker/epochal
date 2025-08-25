@@ -7,6 +7,10 @@ import {
   firstThirdModifier,
   secondThirdModifier,
   thirdThirdModifier,
+  firstQuarterModifier,
+  secondQuarterModifier,
+  thirdQuarterModifier,
+  fourthQuarterModifier,
 } from "./modifiers/partials";
 
 const milleniumToOrdinal = (text: string): number | null => {
@@ -53,6 +57,10 @@ export const handleMillenium: InputHandler = (input, options) => {
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())
         .withModifier(thirdThirdModifier())
+        .withModifier(firstQuarterModifier())
+        .withModifier(secondQuarterModifier())
+        .withModifier(thirdQuarterModifier())
+        .withModifier(fourthQuarterModifier())
         .map(milleniumToOrdinal)
         .map(milleniumToDate)
         .map((date): [Date, Date] => [
