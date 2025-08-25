@@ -1,6 +1,14 @@
 import { endOfDecade, startOfDecade } from "./date-fns";
 import { Maybe } from "./util/maybe";
 import { attachMetadata, InputHandler, Handler } from "./util/util";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import { add, sub } from "date-fns";
+import {
+  firstThirdModifier,
+  secondThirdModifier,
+  thirdThirdModifier,
+} from "./modifiers/partials";
 
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>[a-z]*)$/);
@@ -32,12 +40,29 @@ const decadeToDate = (decade: number): Date | null => {
   return new Date(DECADE_MIDPOINT + offset);
 };
 
-export const handleDecade: InputHandler = (input) => {
+const circaModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /ca\.|c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    sub(dates[0], { years: options.circaStartOffset * 10 }),
+    add(dates[1], { years: options.circaEndOffset * 10 }),
+  ],
+});
+
+export const handleDecade: InputHandler = (input, options) => {
   return input
-    .flatMap(decadeToOrdinal)
-    .map(decadeToDate)
-    .map((date): [Date, Date] => {
-      return [startOfDecade(date), endOfDecade(date)];
-    })
+    .flatMap((text) =>
+      Modifier.fromValue(text)
+        .withModifier(circaModifier(options))
+        .withModifier(firstThirdModifier())
+        .withModifier(secondThirdModifier())
+        .withModifier(thirdThirdModifier())
+        .flatMap(decadeToOrdinal)
+        .map(decadeToDate)
+        .map((date): [Date, Date] => [startOfDecade(date), endOfDecade(date)])
+        .unwrap()
+    )
     .map(attachMetadata(Handler.DECADE));
 };
