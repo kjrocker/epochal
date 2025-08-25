@@ -5,7 +5,9 @@
       "Bash(npm test:*)",
       "Bash(npm run lint)",
       "mcp__ide__getDiagnostics",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(mv:*)",
+      "Bash(npm run process:metropolitan:*)"
     ],
     "deny": []
   }

@@ -7,7 +7,8 @@
     "build": "tsc",
     "test": "jest",
     "lint": "eslint src",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "process:metropolitan": "npm run build && node src/lib/metropolitian/process_metropolitan.js"
   },
   "keywords": [
     "date",
