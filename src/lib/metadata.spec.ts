@@ -8,8 +8,7 @@ describe("recursive metadata", () => {
     if (result) {
       const [_start, _end, metadata] = result;
 
-      // Should have both handlePartial and handleDecade in the handler chain
-      expect(metadata.handler).toContain(Handler.PARTIAL);
+      // Should have handleDecade (early modifier is now integrated)
       expect(metadata.handler).toContain(Handler.DECADE);
       expect(metadata.original).toBe("early 1990s");
     }
@@ -36,7 +35,6 @@ describe("recursive metadata", () => {
 
       // Should contain multiple handlers from nested calls
       expect(metadata.handler).toContain(Handler.RANGE);
-      expect(metadata.handler).toContain(Handler.PARTIAL);
       expect(metadata.handler).toContain(Handler.DECADE);
       expect(metadata.original).toBe("early 1990s to late 2000s");
     }
