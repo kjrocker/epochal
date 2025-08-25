@@ -1,5 +1,9 @@
 import { endOfCentury, startOfCentury } from "./date-fns";
 import { attachMetadata, InputHandler, Handler } from "./util/util";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import { add, sub } from "date-fns";
+import { firstThirdModifier, secondThirdModifier, thirdThirdModifier } from "./modifiers/partials";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -27,10 +31,27 @@ const centuryToDate = (century: number): Date | null => {
   return new Date(CENTURY_MIDPOINT + offset);
 };
 
-export const handleCentury: InputHandler = (input) => {
+const circaModifier = (options: EpochizeOptions): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /ca\.|c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    sub(dates[0], { years: options.circaStartOffset * 100 }),
+    add(dates[1], { years: options.circaEndOffset * 100 }),
+  ],
+});
+
+export const handleCentury: InputHandler = (input, options) => {
   return input
-    .map((string) => centuryToOrdinal(string))
-    .map((ordinal) => centuryToDate(ordinal))
-    .map((date): [Date, Date] => [startOfCentury(date), endOfCentury(date)])
+    .flatMap((text) =>
+      Modifier.fromValue(text)
+        .withModifier(circaModifier(options))
+        .withModifier(firstThirdModifier())
+        .withModifier(secondThirdModifier())
+        .withModifier(thirdThirdModifier())
+        .map((text) => centuryToOrdinal(text))
+        .map((ordinal) => centuryToDate(ordinal))
+        .map((date): [Date, Date] => [startOfCentury(date), endOfCentury(date)])
+        .unwrap()
+    )
     .map(attachMetadata(Handler.CENTURY));
 };

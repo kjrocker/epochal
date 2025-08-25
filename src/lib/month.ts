@@ -1,15 +1,21 @@
 import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
+import {
+  firstThirdModifier,
+  secondThirdModifier,
+  thirdThirdModifier,
+} from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
+import { Modifier } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
 import { EN_MONTHS } from "./util/regex";
 import {
   attachMetadata,
   getYearWithCenturyBreakpoint,
+  Handler,
   InputHandler,
   lookupMonth,
-  Handler,
 } from "./util/util";
-import { EpochizeOptions } from "./util/options";
 
 type GetMonthYear = (
   input: string,
@@ -66,12 +72,19 @@ const textToYearAndMonth = (
 
 export const handleMonth: InputHandler = (input, options) => {
   return input
-    .flatMap((string) => textToYearAndMonth(string, options))
-    .map(({ year, month }) => {
-      const date = new Date(year, month - 1);
-      date.setFullYear(year);
-      return date;
-    })
-    .map((date): [Date, Date] => [startOfMonth(date), endOfMonth(date)])
+    .flatMap((text) =>
+      Modifier.fromValue(text)
+        .withModifier(firstThirdModifier())
+        .withModifier(secondThirdModifier())
+        .withModifier(thirdThirdModifier())
+        .flatMap((text) => textToYearAndMonth(text, options))
+        .map(({ year, month }) => {
+          const date = new Date(year, month - 1);
+          date.setFullYear(year);
+          return date;
+        })
+        .map((date): [Date, Date] => [startOfMonth(date), endOfMonth(date)])
+        .unwrap()
+    )
     .map(attachMetadata(Handler.MONTH));
 };

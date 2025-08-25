@@ -1,5 +1,13 @@
 import { endOfMillenium, startOfMillenium } from "./date-fns";
 import { attachMetadata, InputHandler, Handler } from "./util/util";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import { add, sub } from "date-fns";
+import {
+  firstThirdModifier,
+  secondThirdModifier,
+  thirdThirdModifier,
+} from "./modifiers/partials";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -26,10 +34,32 @@ const milleniumToDate = (millenium: number): Date => {
   return new Date(MILLENIUM_MIDPOINT + offset);
 };
 
-export const handleMillenium: InputHandler = (input) => {
+const circaModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /ca\.|c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    sub(dates[0], { years: options.circaStartOffset * 1000 }),
+    add(dates[1], { years: options.circaEndOffset * 1000 }),
+  ],
+});
+
+export const handleMillenium: InputHandler = (input, options) => {
   return input
-    .map(milleniumToOrdinal)
-    .map(milleniumToDate)
-    .map((date): [Date, Date] => [startOfMillenium(date), endOfMillenium(date)])
+    .flatMap((text) =>
+      Modifier.fromValue(text)
+        .withModifier(circaModifier(options))
+        .withModifier(firstThirdModifier())
+        .withModifier(secondThirdModifier())
+        .withModifier(thirdThirdModifier())
+        .map(milleniumToOrdinal)
+        .map(milleniumToDate)
+        .map((date): [Date, Date] => [
+          startOfMillenium(date),
+          endOfMillenium(date),
+        ])
+        .unwrap()
+    )
     .map(attachMetadata(Handler.MILLENNIUM));
 };
