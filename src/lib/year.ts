@@ -78,6 +78,26 @@ const afterModifier = (
   ],
 });
 
+const beforeModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /before/.test(text),
+  extractor: (text) => text.replace(/before/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    sub(dates[0], { years: options.afterOffset }),
+    sub(dates[1], { years: 1 }),
+  ],
+});
+
+const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /by/.test(text),
+  extractor: (text) => text.replace(/by/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    sub(dates[0], { years: 1 }),
+    dates[1],
+  ],
+});
+
 export const handleYear: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
@@ -85,6 +105,8 @@ export const handleYear: InputHandler = (input, options) => {
         .withModifier(identityModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))
+        .withModifier(beforeModifier(options))
+        .withModifier(byHandler())
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())
         .withModifier(thirdThirdModifier())
