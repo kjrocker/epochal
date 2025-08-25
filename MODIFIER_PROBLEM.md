@@ -87,8 +87,9 @@ interface ModifierRule<T, R> {
   transformer: (result: R, originalInput: T) => R; // applies the modifier to final result
 }
 
-class Modifier<T, R> {
-  private rules: ModifierRule<T, R>[] = [];
+// Split the class into two phases: building and ready-to-unwrap
+class ModifierBuilder<T> {
+  private rules: ModifierRule<T, any>[] = [];
   private maybe: Maybe<T>;
   private originalInput: T;
 
@@ -97,44 +98,79 @@ class Modifier<T, R> {
     this.originalInput = input;
   }
 
-  static fromValue<T>(input: T): Modifier<T, T> {
-    return new Modifier(input);
+  static fromValue<T>(input: T): ModifierBuilder<T> {
+    return new ModifierBuilder(input);
   }
 
-  withModifier<NewR>(
+  withModifier<R>(
     predicate: (input: T) => boolean,
     extractor: (input: T) => T,
-    transformer: (result: NewR, originalInput: T) => NewR
-  ): Modifier<T, NewR> {
-    const newModifier = new Modifier<T, NewR>(this.originalInput);
-    newModifier.rules = [...this.rules, { predicate, extractor, transformer } as any];
+    transformer: (result: R, originalInput: T) => R
+  ): ModifierWithRules<T, R> {
+    const newRules = [...this.rules, { predicate, extractor, transformer }];
     
     // Apply all extractors to get clean input
     let cleanInput = this.originalInput;
-    for (const rule of newModifier.rules) {
+    for (const rule of newRules) {
       if (rule.predicate(cleanInput)) {
         cleanInput = rule.extractor(cleanInput);
       }
     }
     
-    newModifier.maybe = Maybe.fromValue(cleanInput);
-    return newModifier;
+    return new ModifierWithRules<T, R>(
+      this.originalInput,
+      newRules,
+      Maybe.fromValue(cleanInput)
+    );
   }
 
-  map<NewR>(fn: (value: T) => NewR): Modifier<T, NewR> {
-    const newModifier = new Modifier<T, NewR>(this.originalInput);
-    newModifier.rules = this.rules;
-    newModifier.maybe = this.maybe.map(fn);
-    return newModifier;
+  map<NewR>(fn: (value: T) => NewR): ModifierBuilder<NewR> {
+    const newBuilder = new ModifierBuilder<NewR>(this.originalInput as any);
+    newBuilder.rules = this.rules;
+    newBuilder.maybe = this.maybe.map(fn) as any;
+    return newBuilder;
   }
 
-  flatMap<NewR>(fn: (value: T) => Maybe<NewR>): Modifier<T, NewR> {
-    const newModifier = new Modifier<T, NewR>(this.originalInput);
-    newModifier.rules = this.rules;
-    newModifier.maybe = this.maybe.flatMap(fn);
-    return newModifier;
+  flatMap<NewR>(fn: (value: T) => Maybe<NewR>): ModifierBuilder<NewR> {
+    const newBuilder = new ModifierBuilder<NewR>(this.originalInput as any);
+    newBuilder.rules = this.rules;
+    newBuilder.maybe = this.maybe.flatMap(fn) as any;
+    return newBuilder;
+  }
+}
+
+class ModifierWithRules<T, R> {
+  constructor(
+    private originalInput: T,
+    private rules: ModifierRule<T, R>[],
+    private maybe: Maybe<T>
+  ) {}
+
+  map(fn: (value: T) => R): ModifierReady<T, R> {
+    return new ModifierReady<T, R>(
+      this.originalInput,
+      this.rules,
+      this.maybe.map(fn)
+    );
   }
 
+  flatMap(fn: (value: T) => Maybe<R>): ModifierReady<T, R> {
+    return new ModifierReady<T, R>(
+      this.originalInput,
+      this.rules,
+      this.maybe.flatMap(fn)
+    );
+  }
+}
+
+class ModifierReady<T, R> {
+  constructor(
+    private originalInput: T,
+    private rules: ModifierRule<T, R>[],
+    private maybe: Maybe<R>
+  ) {}
+
+  // Only available when current type matches the modifier rule result type
   unwrap(): Maybe<R> {
     return this.maybe.map(result => {
       // Apply all modifier transformations in order
@@ -152,6 +188,12 @@ class Modifier<T, R> {
     return this.unwrap().get();
   }
 }
+
+// Type alias for convenience
+type Modifier<T> = ModifierBuilder<T>;
+const Modifier = {
+  fromValue: <T>(input: T) => ModifierBuilder.fromValue(input)
+};
 ```
 
 ### Usage Examples

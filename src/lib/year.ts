@@ -9,6 +9,13 @@ import {
 } from "./util/util";
 import { EpochizeOptions } from "./util/options";
 import { add, sub } from "date-fns";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import {
+  firstHalfModifier,
+  firstThirdModifier,
+  secondThirdModifier,
+  thirdThirdModifier,
+} from "./modifiers/partials";
 
 const getYear = (
   year: string,
@@ -49,43 +56,29 @@ const yearToDate = (year: number): Date | null => {
   return date;
 };
 
-interface YearParseResult {
-  year: Date;
-  modifier?: "circa";
-  original: string;
-}
-
-const parseYearWithModifier = (
-  text: string,
+const circaModifier = (
   options: EpochizeOptions
-): YearParseResult | null => {
-  const hasCirca = /ca\.|c\.|circa/.test(text);
-  const yearWithoutCirca = hasCirca ? text.replace(/ca\.|c\.|circa/, "").trim() : text;
-  const year = yearToNumber(yearWithoutCirca, options).map(yearToDate).get();
-  if (!year) return null;
-  return { year, modifier: hasCirca ? "circa" : undefined, original: text };
-};
-
-const applyModifierToDateRange = (
-  year: Date,
-  modifier: "circa" | "after" | undefined,
-  options: EpochizeOptions
-): [Date, Date] => {
-  if (modifier === "circa") {
-    return [
-      startOfYear(sub(year, { years: options.circaStartOffset })),
-      endOfYear(add(year, { years: options.circaEndOffset })),
-    ];
-  } else {
-    return [startOfYear(year), endOfYear(year)];
-  }
-};
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /ca\.|c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    sub(dates[0], { years: options.circaStartOffset }),
+    add(dates[1], { years: options.circaEndOffset }),
+  ],
+});
 
 export const handleYear: InputHandler = (input, options) => {
   return input
-    .map((string) => parseYearWithModifier(string, options))
-    .map(({ year, modifier }): [Date, Date] => {
-      return applyModifierToDateRange(year, modifier, options);
-    })
+    .flatMap((text) =>
+      Modifier.fromValue(text)
+        .withModifier(circaModifier(options))
+        .withModifier(firstThirdModifier())
+        .withModifier(secondThirdModifier())
+        .withModifier(thirdThirdModifier())
+        .flatMap((text) => yearToNumber(text, options))
+        .map((num) => yearToDate(num))
+        .map((year): [Date, Date] => [startOfYear(year), endOfYear(year)])
+        .unwrap()
+    )
     .map(attachMetadata(Handler.YEAR));
 };
