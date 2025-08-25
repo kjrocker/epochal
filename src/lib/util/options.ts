@@ -1,6 +1,7 @@
 export interface EpochizeOptions {
   centuryShorthand: boolean;
   centuryBreakpoint: number;
+  convention: 'popular' | 'formal';
   circaStartOffset: number;
   circaEndOffset: number;
   afterOffset: number;
@@ -9,6 +10,7 @@ export interface EpochizeOptions {
 export const DEFAULT_OPTIONS: EpochizeOptions = {
   centuryShorthand: false,
   centuryBreakpoint: 29,
+  convention: 'popular',
   circaStartOffset: 3,
   circaEndOffset: 0,
   afterOffset: 10,
