@@ -3,7 +3,7 @@ import { attachMetadata, InputHandler, Handler } from "./util/util";
 import { Modifier, ModifierConfig } from "./util/modifier";
 import { EpochizeOptions } from "./util/options";
 import { add, sub } from "date-fns";
-import { firstThirdModifier, secondThirdModifier, thirdThirdModifier } from "./modifiers/partials";
+import { firstThirdModifier, secondThirdModifier, thirdThirdModifier, firstHalfModifier, secondHalfModifier } from "./modifiers/partials";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -45,6 +45,8 @@ export const handleCentury: InputHandler = (input, options) => {
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(circaModifier(options))
+        .withModifier(firstHalfModifier())
+        .withModifier(secondHalfModifier())
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())
         .withModifier(thirdThirdModifier())

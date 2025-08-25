@@ -20,8 +20,8 @@ const thirdsOfRange = (input: [Date, Date]): [Date, Date, Date, Date] => {
 };
 
 export const firstThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(?<=early).*/.test(text),
-  extractor: (text) => text.replace(/(?<=early).*/, "").trim(),
+  predicate: (text) => /early/.test(text),
+  extractor: (text) => text.replace(/early\s*/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle] = thirdsOfRange(dates);
     return [start, middle];
@@ -32,8 +32,8 @@ export const secondThirdModifier = (): ModifierConfig<
   string,
   [Date, Date]
 > => ({
-  predicate: (text) => /(?<=mid).*/.test(text),
-  extractor: (text) => text.replace(/(?<=mid).*/, "").trim(),
+  predicate: (text) => /mid/.test(text),
+  extractor: (text) => text.replace(/mid\s*/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, secondMiddle] = thirdsOfRange(dates);
     return [middle, secondMiddle];
@@ -41,8 +41,8 @@ export const secondThirdModifier = (): ModifierConfig<
 });
 
 export const thirdThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(?<=late).*/.test(text),
-  extractor: (text) => text.replace(/(?<=late).*/, "").trim(),
+  predicate: (text) => /late/.test(text),
+  extractor: (text) => text.replace(/late\s*/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, secondMiddle, end] = thirdsOfRange(dates);
     return [secondMiddle, end];
@@ -50,8 +50,8 @@ export const thirdThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
 });
 
 export const firstHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /first half of (?:the )?(.*)/.test(text),
-  extractor: (text) => text.replace(/first half of (?:the )?(.*)/, "").trim(),
+  predicate: (text) => /first half of (?:the )?/.test(text),
+  extractor: (text) => text.replace(/first half of (?:the )?/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, _end] = halvesOfRange(dates);
     return [start, middle];
@@ -59,8 +59,8 @@ export const firstHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
 });
 
 export const secondHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /second half of (?:the )?(.*)/.test(text),
-  extractor: (text) => text.replace(/second half of (?:the )?(.*)/, "").trim(),
+  predicate: (text) => /second half of (?:the )?/.test(text),
+  extractor: (text) => text.replace(/second half of (?:the )?/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [_start, middle, end] = halvesOfRange(dates);
     return [middle, end];
