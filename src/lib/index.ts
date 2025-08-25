@@ -6,7 +6,7 @@ import { handleMillenium } from "./millenium";
 import { handleYear } from "./year";
 import { handleMonth } from "./month";
 import { handleDay } from "./day";
-import { handlePartial } from "./partial";
+// import { handlePartial } from "./partial";
 import { handleRange } from "./range";
 import { EpochizeOptions, getOptions } from "./util/options";
 import { handleModifierPhrase } from "./modifier-phrase";
@@ -20,7 +20,7 @@ export const epochizeInner = (
     .tryMany<[Date, Date, HandlerMetadata]>(
       (text) => handleRange(Maybe.fromValue(text), myOptions),
       (text) => handleModifierPhrase(Maybe.fromValue(text), myOptions),
-      (text) => handlePartial(Maybe.fromValue(text), myOptions),
+      // (text) => handlePartial(Maybe.fromValue(text), myOptions),
       (text) => handleMonth(Maybe.fromValue(text), myOptions),
       (text) => handleDay(Maybe.fromValue(text), myOptions),
       (text) => handleYear(Maybe.fromValue(text), myOptions),

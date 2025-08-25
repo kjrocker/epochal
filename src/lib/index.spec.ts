@@ -160,7 +160,7 @@ describe("parser", () => {
       const result = epochizeInner(input).get();
       expect(result).not.toBeNull();
       const [start, end, meta] = result!;
-      expect(meta.handler).toContain("handlePartial");
+      expect(meta.handler).toContain("handleMillenium");
       expect(start.toISOString()).toBe(expectedStart);
       expect(end.toISOString()).toBe(expectedEnd);
     }
