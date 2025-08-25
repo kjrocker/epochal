@@ -41,6 +41,8 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["First half of the 19th century", 1801, 1851],
   ["1897–98 (?)", 1897, 1898],
   ["ca. 1806 or 1811", 1803, 1811],
+  ["datable to 1673", 1673, 1673],
+  ["dated 1644", 1644, 1644],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<
@@ -49,6 +51,7 @@ const OPTIONED_METROPOLITAN_TEST_CASES: Array<
   ["ca. 1770", 1765, 1775, { circaStartOffset: 5, circaEndOffset: 5 }],
   ["ca. 1846", 1844, 1850, { circaStartOffset: 2, circaEndOffset: 4 }],
   ["ca. 1860–66", 1860, 1866, { circaStartOffset: 0, circaEndOffset: 0 }],
+  ["dated ca. 1942", 1932, 1952, { circaStartOffset: 10, circaEndOffset: 10 }],
 ];
 
 describe("Metropolitan Museum Dataset", () => {
