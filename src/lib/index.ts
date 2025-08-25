@@ -37,12 +37,12 @@ export const epochizeInner = (
 type Epochize = (
   input: string,
   options?: Partial<EpochizeOptions>
-) => [Date, Date] | null;
+) => [Date, Date, Metadata] | null;
 
 export const epochize: Epochize = (input, options) => {
   const result = epochizeInner(input, options).get();
   if (result === null) return null;
-  return [result[0], result[1]];
+  return result;
 };
 
 export const createEpochize =

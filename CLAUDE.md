@@ -10,6 +10,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Lint**: `npm run lint` - Runs ESLint on the `src/` directory
 - **Process Metropolitan Dataset**: `npm run process:metropolitan` - Runs ts-node to process metropolitan museum dataset
 
+## Important API Usage Notes
+
+**ALWAYS use `epochize()`, NEVER use `epochizeInner()`** - `epochize` is the public API that returns `[Date, Date] | null`. `epochizeInner` is internal and returns a Maybe monad with metadata that should not be used by external scripts or consumers.
+
 ## Architecture Overview
 
 This is a TypeScript library for parsing ambiguous historical dates into precise date ranges. The main entry point is the `epochize` function which converts natural language date strings (like "4th millennium BC", "early 17th century") into `[Date, Date]` tuples representing start and end dates.

@@ -1,5 +1,7 @@
 import { epochize, epochizeInner } from ".";
 
+const formalOptions = { convention: 'formal' as const };
+
 describe("Timezones", () => {
   it("should always be UTC", () => {
     expect(new Date().getTimezoneOffset()).toBe(0);
@@ -145,7 +147,7 @@ describe("parser", () => {
   test.each(MILLENIUM_TEST_CASES)(
     `millennium - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeInner(input).get();
+      const result = epochizeInner(input, formalOptions).get();
       expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleMillenium");
@@ -157,7 +159,7 @@ describe("parser", () => {
   test.each(PARTIAL_TEST_CASES)(
     `partials - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeInner(input).get();
+      const result = epochizeInner(input, formalOptions).get();
       expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleMillenium");
@@ -169,7 +171,7 @@ describe("parser", () => {
   test.each(RANGE_TEST_CASES)(
     `ranges - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeInner(input).get();
+      const result = epochizeInner(input, formalOptions).get();
       expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleRange");
@@ -181,7 +183,7 @@ describe("parser", () => {
   test.each(CENTURY_TEST_CASES)(
     `century - parses '%s' correctly`,
     (input, expectedStart, expectedEnd) => {
-      const result = epochizeInner(input).get();
+      const result = epochizeInner(input, formalOptions).get();
       expect(result).not.toBeNull();
       const [start, end, meta] = result!;
       expect(meta.handler).toContain("handleCentury");
@@ -249,4 +251,157 @@ describe("parser", () => {
       expect(end.toISOString()).toBe(expectedEnd);
     }
   );
+});
+
+describe("Popular Convention (Default)", () => {
+  const POPULAR_CENTURY_TEST_CASES = [
+    ["20th century", "1900-01-01T00:00:00.000Z", "1999-12-31T23:59:59.999Z"],
+    ["21st century", "2000-01-01T00:00:00.000Z", "2099-12-31T23:59:59.999Z"],
+    ["19th century", "1800-01-01T00:00:00.000Z", "1899-12-31T23:59:59.999Z"],
+    ["1st century", "0000-01-01T00:00:00.000Z", "0099-12-31T23:59:59.999Z"],
+  ];
+
+  const POPULAR_MILLENNIUM_TEST_CASES = [
+    ["2nd millennium", "1000-01-01T00:00:00.000Z", "1999-12-31T23:59:59.999Z"],
+    ["3rd millennium", "2000-01-01T00:00:00.000Z", "2999-12-31T23:59:59.999Z"],
+    ["1st millennium", "0000-01-01T00:00:00.000Z", "0999-12-31T23:59:59.999Z"],
+  ];
+
+  test.each(POPULAR_CENTURY_TEST_CASES)(
+    `popular century - parses '%s' correctly by default`,
+    (input, expectedStart, expectedEnd) => {
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull();
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleCentury");
+      expect(start.toISOString()).toBe(expectedStart);
+      expect(end.toISOString()).toBe(expectedEnd);
+    }
+  );
+
+  test.each(POPULAR_MILLENNIUM_TEST_CASES)(
+    `popular millennium - parses '%s' correctly by default`,
+    (input, expectedStart, expectedEnd) => {
+      const result = epochizeInner(input).get();
+      expect(result).not.toBeNull();
+      const [start, end, meta] = result!;
+      expect(meta.handler).toContain("handleMillenium");
+      expect(start.toISOString()).toBe(expectedStart);
+      expect(end.toISOString()).toBe(expectedEnd);
+    }
+  );
+
+  it('should use popular convention by default when no options passed', () => {
+    const result = epochize('20th century');
+    expect(result).not.toBeNull();
+    const [start, end] = result!;
+    expect(start.getFullYear()).toBe(1900);
+    expect(end.getFullYear()).toBe(1999);
+  });
+
+  it('should allow explicit popular convention', () => {
+    const result = epochize('20th century', { convention: 'popular' });
+    expect(result).not.toBeNull();
+    const [start, end] = result!;
+    expect(start.getFullYear()).toBe(1900);
+    expect(end.getFullYear()).toBe(1999);
+  });
+
+  it('should allow explicit formal convention', () => {
+    const result = epochize('20th century', { convention: 'formal' });
+    expect(result).not.toBeNull();
+    const [start, end] = result!;
+    expect(start.getFullYear()).toBe(1901);
+    expect(end.getFullYear()).toBe(2000);
+  });
+});
+
+describe("Modifiers with Both Conventions", () => {
+  describe("Popular Convention Modifiers", () => {
+    it('should handle "early 20th century" with popular convention', () => {
+      const result = epochize('early 20th century');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1900);
+      expect(end.getFullYear()).toBe(1933); // early third of 1900-1999
+    });
+
+    it('should handle "mid 20th century" with popular convention', () => {
+      const result = epochize('mid 20th century');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1933);
+      expect(end.getFullYear()).toBe(1966); // mid third of 1900-1999
+    });
+
+    it('should handle "first half of 20th century" with popular convention', () => {
+      const result = epochize('first half of 20th century');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1900);
+      expect(end.getFullYear()).toBe(1950); // first half of 1900-1999
+    });
+
+    it('should handle "first quarter of 20th century" with popular convention', () => {
+      const result = epochize('first quarter of 20th century');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1900);
+      expect(end.getFullYear()).toBe(1925); // first quarter of 1900-1999
+    });
+
+    it('should handle "3rd quarter of 20th century" with popular convention', () => {
+      const result = epochize('3rd quarter of 20th century');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1950);
+      expect(end.getFullYear()).toBe(1974); // third quarter of 1900-1999
+    });
+  });
+
+  describe("Formal Convention Modifiers", () => {
+    const formalOpts = { convention: 'formal' as const };
+
+    it('should handle "early 20th century" with formal convention', () => {
+      const result = epochize('early 20th century', formalOpts);
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1901);
+      expect(end.getFullYear()).toBe(1934); // early third of 1901-2000
+    });
+
+    it('should handle "first half of 20th century" with formal convention', () => {
+      const result = epochize('first half of 20th century', formalOpts);
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1901);
+      expect(end.getFullYear()).toBe(1951); // first half of 1901-2000
+    });
+
+    it('should handle "first quarter of 20th century" with formal convention', () => {
+      const result = epochize('first quarter of 20th century', formalOpts);
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1901);
+      expect(end.getFullYear()).toBe(1926); // first quarter of 1901-2000
+    });
+  });
+
+  describe("Millennium Modifiers", () => {
+    it('should handle "early 2nd millennium" with popular convention', () => {
+      const result = epochize('early 2nd millennium');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1000);
+      expect(end.getFullYear()).toBe(1333); // early third of 1000-1999
+    });
+
+    it('should handle "first quarter of 2nd millennium" with popular convention', () => {
+      const result = epochize('first quarter of 2nd millennium');
+      expect(result).not.toBeNull();
+      const [start, end] = result!;
+      expect(start.getFullYear()).toBe(1000);
+      expect(end.getFullYear()).toBe(1249); // first quarter of 1000-1999
+    });
+  });
 });
