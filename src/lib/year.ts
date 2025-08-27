@@ -15,7 +15,7 @@ import {
   secondThirdModifier,
   thirdThirdModifier,
 } from "./modifiers/partials";
-import { identityModifier } from "./modifiers/identity";
+import { identityModifier, leadingWordModifier } from "./modifiers/identity";
 import { seasonModifier } from "./modifiers/season";
 
 const getYear = (
@@ -116,6 +116,7 @@ export const handleYear: InputHandler = (input, options) => {
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(seasonModifier())
+        .withModifier(leadingWordModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))
         .withModifier(orLaterModifier(options))

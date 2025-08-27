@@ -1,7 +1,7 @@
 import { epochize } from "../../lib/index";
 
 export interface ProcessResult {
-  status: 'success' | 'null' | 'error';
+  status: "success" | "null" | "error";
   objectDate: string;
   epochStart?: Date;
   epochEnd?: Date;
@@ -12,18 +12,21 @@ export interface ProcessResult {
 export class EpochProcessor {
   processObjectDate(objectDate: string): ProcessResult {
     try {
-      const result = epochize(objectDate);
-      
+      const result = epochize(objectDate, {
+        circaStartOffset: 0,
+        circaEndOffset: 0,
+      });
+
       if (result === null) {
         return {
-          status: 'null',
+          status: "null",
           objectDate,
         };
       }
-      
+
       const [epochStart, epochEnd, metadata] = result;
       return {
-        status: 'success',
+        status: "success",
         objectDate,
         epochStart,
         epochEnd,
@@ -31,7 +34,7 @@ export class EpochProcessor {
       };
     } catch (error) {
       return {
-        status: 'error',
+        status: "error",
         objectDate,
         error: (error as Error).message,
       };

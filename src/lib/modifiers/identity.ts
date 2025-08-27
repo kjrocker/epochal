@@ -1,4 +1,5 @@
 import { ModifierConfig } from "../util/modifier";
+import { EN_MONTHS } from "../util/regex";
 
 const patterns = [
   /^dated\s+to\s+/,
@@ -21,6 +22,28 @@ export const identityModifier = (): ModifierConfig<string, [Date, Date]> => ({
       }
     }
     return text;
+  },
+  transformer: (dates) => dates,
+});
+
+export const leadingWordModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => {
+    const hasLeadingWords = /^([A-Za-z]+\s+)+/.test(text);
+    if (!hasLeadingWords) return false;
+
+    const monthAtStart = new RegExp(`^${EN_MONTHS.source}\\s+`, "i");
+    return !monthAtStart.test(text);
+  },
+  extractor: (text) => {
+    const monthPattern = new RegExp(`\\b${EN_MONTHS.source}\\b`, "gi");
+    const words = text.split(/\s+/);
+    const filteredWords = words.filter((word) => {
+      return monthPattern.test(word) || !/^[A-Za-z]+$/.test(word);
+    });
+    return filteredWords.join(" ").trim();
   },
   transformer: (dates) => dates,
 });
