@@ -1,6 +1,6 @@
 // Tests based in some way on the Metropolitian Museum Dataset
-import { epochize } from "../index";
-import { EpochizeOptions } from "../util/options";
+import { epochize } from "./index";
+import { type EpochizeOptions } from "./util/options";
 
 const formalOptions = { convention: "formal" as const };
 
@@ -56,6 +56,9 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["September, 1918", 1918, 1918],
   ["before 1876", 1866, 1875],
   ["early 17th century", 1601, 1634],
+  ["[1980]", 1980, 1980],
+  ["(1980)", 1980, 1980],
+  ["1887 or later", 1887, 1897],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<
