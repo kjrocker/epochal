@@ -16,6 +16,7 @@ import {
   thirdThirdModifier,
 } from "./modifiers/partials";
 import { identityModifier } from "./modifiers/identity";
+import { seasonModifier } from "./modifiers/season";
 
 const getYear = (
   year: string,
@@ -70,10 +71,21 @@ const circaModifier = (
 const afterModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /after/.test(text),
-  extractor: (text) => text.replace(/after/, "").trim(),
+  predicate: (text) => /\bafter\b/.test(text),
+  extractor: (text) => text.replace(/\bafter\b/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => [
     add(dates[0], { years: 1 }),
+    add(dates[1], { years: options.afterOffset }),
+  ],
+});
+
+const orLaterModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /or later/.test(text),
+  extractor: (text) => text.replace(/or later/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    dates[0],
     add(dates[1], { years: options.afterOffset }),
   ],
 });
@@ -103,8 +115,10 @@ export const handleYear: InputHandler = (input, options) => {
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
+        .withModifier(seasonModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))
+        .withModifier(orLaterModifier(options))
         .withModifier(beforeModifier(options))
         .withModifier(byHandler())
         .withModifier(firstThirdModifier())

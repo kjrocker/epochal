@@ -6,10 +6,14 @@ import { EpochizeOptions } from "./options";
 export const clean = (str: string): string | null => {
   if (!str) return null;
   // Remove uncertainty markers like "(?)" before cleaning
-  const withoutUncertainty = str.replace(/\s*\(\?\)\s*/g, "");
+  let result = str.replace(/\s*\(\?\)\s*/g, "");
   // Remove single trailing question marks
-  const withoutTrailingQuestion = withoutUncertainty.replace(/\s*\?\s*$/, "");
-  const cleaned = withoutTrailingQuestion.trim().toLowerCase();
+  result = result.replace(/\s*\?\s*$/, "");
+  // Remove complete wrapping parentheses, brackets, or braces
+  result = result.replace(/^\s*\(\s*(.*?)\s*\)\s*$/, "$1");
+  result = result.replace(/^\s*\[\s*(.*?)\s*\]\s*$/, "$1");
+  result = result.replace(/^\s*\{\s*(.*?)\s*\}\s*$/, "$1");
+  const cleaned = result.trim().toLowerCase();
   if (!cleaned || cleaned === "") return null;
   return cleaned;
 };

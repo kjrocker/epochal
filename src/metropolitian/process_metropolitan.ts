@@ -5,8 +5,8 @@ import { stringify } from "csv-stringify/sync";
 
 // Import the epochize function directly from TypeScript source
 // NOTE: Always use epochize(), not epochizeInner() - epochize is the public API
-import { epochize } from "../index";
-import { Handler } from "../util/util";
+import { epochize } from "../lib/index";
+import { Handler } from "../lib/util/util";
 
 // Regex patterns to automatically blocklist persistent problematic patterns
 // Add patterns here for dates that consistently fail and should be ignored

@@ -47,10 +47,7 @@ const circaModifier = (
 ): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => /ca\.|c\.|circa/.test(text),
   extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    sub(dates[0], { years: options.circaStartOffset * 100 }),
-    add(dates[1], { years: options.circaEndOffset * 100 }),
-  ],
+  transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 
 export const handleCentury: InputHandler = (input, options) => {

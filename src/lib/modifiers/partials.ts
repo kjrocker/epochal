@@ -54,8 +54,8 @@ export const secondThirdModifier = (): ModifierConfig<
 });
 
 export const thirdThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /late/.test(text),
-  extractor: (text) => text.replace(/late\s*/, "").trim(),
+  predicate: (text) => /\blate\b/.test(text),
+  extractor: (text) => text.replace(/\blate\b\s*/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, secondMiddle, end] = thirdsOfRange(dates);
     return [secondMiddle, end];
