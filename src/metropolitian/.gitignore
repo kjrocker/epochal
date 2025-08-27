@@ -1,3 +1,5 @@
 passing_results.csv
 failing_results.csv
 null_results.csv
+approximate_passing_results.csv
+exact_passing_results.csv
