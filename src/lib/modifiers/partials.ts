@@ -77,7 +77,7 @@ export const firstHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
   },
 });
 
-const SECOND_HALF = /(?:second|2nd) half\s+(?:of\s*(?:the\s*)?)?/;
+const SECOND_HALF = /(?:second|2nd|last|latter) half\s+(?:of\s*(?:the\s*)?)?/;
 export const secondHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => SECOND_HALF.test(text),
   extractor: (text) => text.replace(SECOND_HALF, "").trim(),

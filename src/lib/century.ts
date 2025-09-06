@@ -14,7 +14,7 @@ import {
   thirdQuarterModifier,
   fourthQuarterModifier,
 } from "./modifiers/partials";
-import { identityModifier } from "./modifiers/identity";
+import { identityModifier, parentheticalModifier } from "./modifiers/identity";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -53,12 +53,9 @@ const circaModifier = (
 const orLaterModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(or|and) later/.test(text),
-  extractor: (text) => text.replace(/(or|and) later/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    dates[0],
-    add(dates[1], { years: options.afterOffset * 10 }),
-  ],
+  predicate: (text) => /(or|and) (later|earlier)/.test(text),
+  extractor: (text) => text.replace(/(or|and) (later|earlier)/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 
 export const handleCentury: InputHandler = (input, options) => {
@@ -68,6 +65,7 @@ export const handleCentury: InputHandler = (input, options) => {
         .withModifier(identityModifier())
         .withModifier(circaModifier(options))
         .withModifier(orLaterModifier(options))
+        .withModifier(parentheticalModifier())
         .withModifier(firstHalfModifier())
         .withModifier(secondHalfModifier())
         .withModifier(firstThirdModifier())

@@ -50,6 +50,14 @@ describe("matchCenturyRange", () => {
       const result = matchCenturyRange("late 13th–first half 14th century");
       expect(result).toEqual(["late 13th century", "first half 14th century"]);
     });
+
+    // it("should handle more complex modifiers", () => {
+    //   const result = matchCenturyRange("10th-11th century or later");
+    //   expect(result).toEqual([
+    //     "10th century or later",
+    //     "11th century or later",
+    //   ]);
+    // });
   });
 
   describe("with era markers", () => {

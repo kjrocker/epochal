@@ -32,11 +32,7 @@ class Modifier<T, Current, Target = Current> {
   private maybe: Maybe<Current>;
   private originalInput: T;
 
-  constructor(
-    input: T,
-    maybe?: Maybe<Current>,
-    rules?: AnyModifierRule<T>[]
-  ) {
+  constructor(input: T, maybe?: Maybe<Current>, rules?: AnyModifierRule<T>[]) {
     this.maybe = maybe ?? Maybe.fromValue(input as unknown as Current);
     this.originalInput = input;
     this.rules = rules ?? [];
@@ -49,10 +45,10 @@ class Modifier<T, Current, Target = Current> {
   withModifier<R>(config: ModifierConfig<T, R>): Modifier<T, T, R> {
     const newRules = [
       ...this.rules,
-      { 
-        predicate: config.predicate, 
-        extractor: config.extractor, 
-        transformer: config.transformer 
+      {
+        predicate: config.predicate,
+        extractor: config.extractor,
+        transformer: config.transformer,
       },
     ];
 
@@ -69,6 +65,26 @@ class Modifier<T, Current, Target = Current> {
     return new Modifier<T, NewR, Target>(
       this.originalInput,
       this.maybe.map(fn),
+      this.rules
+    );
+  }
+
+  tryEach<NewR>(
+    ...args: ((value: Current) => NewR | null)[]
+  ): Modifier<T, NewR, Target> {
+    return new Modifier<T, NewR, Target>(
+      this.originalInput,
+      this.maybe.tryEach(...args),
+      this.rules
+    );
+  }
+
+  curvedTryEach<NewR>(
+    ...args: ((value: Maybe<Current>) => Maybe<NewR>)[]
+  ): Modifier<T, NewR, Target> {
+    return new Modifier<T, NewR, Target>(
+      this.originalInput,
+      this.maybe.curvedTryEach(...args),
       this.rules
     );
   }

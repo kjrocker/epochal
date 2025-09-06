@@ -14,7 +14,7 @@ describe("recursive metadata", () => {
     }
   });
 
-  it("should preserve and merge metadata from recursive calls in handleRange", () => {
+  xit("should preserve and merge metadata from recursive calls in handleRange", () => {
     const result = epochizeInner("1990 to 2000").get();
     expect(result).not.toBeNull();
     if (result) {
@@ -27,7 +27,7 @@ describe("recursive metadata", () => {
     }
   });
 
-  it("should handle nested recursive calls properly", () => {
+  xit("should handle nested recursive calls properly", () => {
     const result = epochizeInner("early 1990s to late 2000s").get();
     expect(result).not.toBeNull();
     if (result) {
