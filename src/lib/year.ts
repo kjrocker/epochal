@@ -23,6 +23,7 @@ import {
   printedModifier,
 } from "./modifiers/identity";
 import { seasonModifier } from "./modifiers/season";
+import { islamicModifier } from "./modifiers/islamic";
 
 const getYear = (
   year: string,
@@ -116,12 +117,14 @@ const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
   ],
 });
 
+
 export const handleYear: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(seasonModifier())
+        .withModifier(islamicModifier())
         .withModifier(leadingWordModifier())
         .withModifier(printedModifier())
         .withModifier(parentheticalModifier())

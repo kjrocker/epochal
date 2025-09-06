@@ -6,7 +6,7 @@ import {
   thirdThirdModifier,
 } from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
-import { Modifier } from "./util/modifier";
+import { Modifier, ModifierConfig } from "./util/modifier";
 import { EpochizeOptions } from "./util/options";
 import { EN_MONTHS } from "./util/regex";
 import {
@@ -62,12 +62,21 @@ const textToYearAndMonth = (
   );
 };
 
+const circaModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /ca\.|c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => dates,
+});
+
 export const handleMonth: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(parentheticalModifier())
+        .withModifier(circaModifier(options))
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())
         .withModifier(thirdThirdModifier())

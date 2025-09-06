@@ -137,4 +137,14 @@ describe("matchEraRange", () => {
     const result = matchEraRange("1999-2000 b.c.");
     expect(result).toEqual(["1999 b.c.", "2000 b.c."]);
   });
+
+  it("should handle BC range with 'or later' modifier", () => {
+    const result = matchEraRange("ca. 1961–1917 B.C. or later");
+    expect(result).toEqual(["ca. 1961 B.C.", "1917 B.C. or later"]);
+  });
+
+  it("should handle era not at end of string", () => {
+    const result = matchEraRange("1961–1917 B.C. or later");
+    expect(result).toEqual(["1961 B.C.", "1917 B.C. or later"]);
+  });
 });
