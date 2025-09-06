@@ -67,7 +67,10 @@ export const parentheticalModifier = (): ModifierConfig<
 });
 
 const AFTER_ORIGINAL_PATTERN = /,\s*after\s+.*?\s+original$/;
-export const afterOriginalModifier = (): ModifierConfig<string, [Date, Date]> => ({
+export const afterOriginalModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
   predicate: (text) => AFTER_ORIGINAL_PATTERN.test(text),
   extractor: (text) => text.replace(AFTER_ORIGINAL_PATTERN, "").trim(),
   transformer: (dates) => dates,
