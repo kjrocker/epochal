@@ -22,7 +22,7 @@ import {
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>[a-z.]*)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:century|centuries|century\?|centuries\?)\s*(?<era>[a-z.]*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups ?? { num: "", era: "" };

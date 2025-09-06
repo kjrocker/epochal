@@ -6,7 +6,7 @@ import { matchDash, matchTo } from "./util";
 
 const hasCentury = (text: string): string | null => {
   const match = text.match(
-    /century(?<startEra>\s+(?:bc|ad|bce|ce|b.c.|a.d.|b.c.e.|c.e.))?$/
+    /(century|centuries|century\?|centuries\?)(?<startEra>\s+(?:bc|ad|bce|ce|b.c.|a.d.|b.c.e.|c.e.|b.c|a.d))?$/
   );
   return match ? match[0] : null;
 };
