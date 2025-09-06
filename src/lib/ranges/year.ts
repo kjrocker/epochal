@@ -1,12 +1,12 @@
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
 import { handleYear } from "../year";
-import { matchDash } from "./util";
+import { matchDash, matchSlash } from "./util";
 
 const numbersBehaveLikeShorthand = (start: number, end: number): boolean => {
-  if (end % 100 === end && end % 100 > start % 100) {
+  if (end % 100 === end && end % 100 !== start % 100) {
     return true;
-  } else if (end % 10 === end && end % 10 > start % 10) {
+  } else if (end % 10 === end && end % 10 !== start % 10) {
     return true;
   }
   return false;
@@ -28,17 +28,14 @@ export const matchYearShorthand = (input: string): [string, string] | null => {
 
   // Check if these numbers behave like shorthand notation
   if (numbersBehaveLikeShorthand(startNum, endNum)) {
-    // Construct the full end year by appending missing digits from start
-    const startYear = startMatch[1];
     const endYear = endMatch[1];
 
-    // Calculate how many digits to take from start
-    const digitsToTake = startYear.length - endYear.length;
-    const prefix = startYear.substring(0, digitsToTake);
-    const fullEndYear = prefix + endYear;
-
-    // Replace just the number in the end string with the expanded year
-    const expandedEndString = endString.replace(endMatch[1], fullEndYear);
+    const multiplier = 10 ** endYear.length;
+    const shouldIncrement = endNum < startNum % multiplier;
+    const newPrefix =
+      (Math.floor(startNum / multiplier) + (shouldIncrement ? 1 : 0)) *
+      multiplier;
+    const expandedEndString = (newPrefix + endNum).toString();
 
     return [startString.trim(), expandedEndString.trim()];
   }
