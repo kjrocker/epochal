@@ -36,6 +36,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["ca. 1900–1915", 1897, 1915],
   ["ca. 1804–ca. 1835", 1801, 1838],
   ["18th–19th century", 1701, 1900],
+  ["18th and 19th century", 1701, 1900],
   ["19th–20th century", 1801, 2000],
   ["1804–after 1860", 1804, 1870],
   ["1771–76 (?)", 1771, 1776],
@@ -65,7 +66,10 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["June–July 1834", 1834, 1834],
   ["ca. 1184–1153 B.C.", -1186, -1152],
   ["10th–11th century or later", 901, 1100],
-  // ["late 16th–mid-17th century"]
+  ["late 16th–mid-17th century", 1567, 1667],
+  ["mid-7th–end of the 6th century BCE", -666, -500],
+  ["mid-16th–mid-17th century", 1534, 1667],
+  ["7th–6th millennium BCE", 1999, 1999],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

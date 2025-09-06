@@ -1,6 +1,6 @@
 export const matchTo = (input: string): [string, string] | null => {
   // Use regex with word boundaries to match "to" and "or" as whole words
-  const toRegex = /\b(to|or)\b/g;
+  const toRegex = /\b(to|or|and)\b/g;
   const matches = input.split(toRegex);
 
   // Filter out the separator from the matches array

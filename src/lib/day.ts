@@ -9,7 +9,11 @@ import { startOfDay } from "date-fns/startOfDay";
 import { endOfDay } from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
 import { Modifier } from "./util/modifier";
-import { identityModifier } from "./modifiers/identity";
+import {
+  identityModifier,
+  parentheticalModifier,
+  printedModifier,
+} from "./modifiers/identity";
 
 type GetMonthYearDay = (
   input: string
@@ -71,6 +75,8 @@ export const handleDay: InputHandler = (input) => {
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
+        .withModifier(printedModifier())
+        .withModifier(parentheticalModifier())
         .flatMap((text) => textToYearMonthDay(text))
         .map(({ year, month, day }) => {
           const date = new Date(year, month - 1, day);
