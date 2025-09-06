@@ -39,7 +39,7 @@ describe("matchYearShorthand", () => {
       expect(result).toEqual(["1994", "1997"]);
     });
 
-    xit("should work with slashes", () => {
+    it("should work with slashes", () => {
       const result = matchYearShorthand("1994/7");
       expect(result).toEqual(["1994", "1997"]);
     });

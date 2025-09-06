@@ -45,14 +45,6 @@ const mapMatchGroups = (
   };
 };
 
-const monthSlashYearEra: GetMonthYear = (input, options) => {
-  const matches = input.match(
-    /^(?<year>[0-9]+)\/(?<month>[0-9]+)\s*(?<era>[a-z]*)$/
-  );
-  if (!matches?.groups) return null;
-  return mapMatchGroups(matches.groups, options);
-};
-
 const shortMonthNameYearEra: GetMonthYear = (input, options) => {
   const matches = input.match(
     RegExp(`^${EN_MONTHS.source}(?:,)?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`)
@@ -65,9 +57,8 @@ const textToYearAndMonth = (
   input: string,
   options: EpochizeOptions
 ): Maybe<{ year: number; month: number }> => {
-  return Maybe.fromValue(input).tryEach(
-    (text) => monthSlashYearEra(text, options),
-    (text) => shortMonthNameYearEra(text, options)
+  return Maybe.fromValue(input).tryEach((text) =>
+    shortMonthNameYearEra(text, options)
   );
 };
 

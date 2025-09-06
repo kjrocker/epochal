@@ -7,7 +7,6 @@ const NUM_RUNS = 1_000;
 describe("format IN matches start/end format OUT", () => {
   const TEST_FORMATS = [
     "yyyy",
-    "yyyy/MM",
     "yyyy/MM/dd",
     "MMM yyyy",
     "MMMM yyyy",
