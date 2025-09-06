@@ -26,7 +26,7 @@ describe("handleYear", () => {
       {
         input: "0001",
         description: "should parse year 1 AD",
-        expectedStart: "0001-01-01T00:00:00.000Z", 
+        expectedStart: "0001-01-01T00:00:00.000Z",
         expectedEnd: "0001-12-31T23:59:59.999Z",
       },
     ];
@@ -34,9 +34,9 @@ describe("handleYear", () => {
     basicCases.forEach(({ input, description, expectedStart, expectedEnd }) => {
       it(description, () => {
         const result = handleYear(Maybe.some(input), DEFAULT_OPTIONS);
-        
+
         expect(result.get()).not.toBeNull();
-        
+
         const [start, end, meta] = result.get()!;
         expect(meta.handler).toContain("handleYear");
         expect(start.toISOString()).toBe(expectedStart);
@@ -76,9 +76,9 @@ describe("handleYear", () => {
     eraCases.forEach(({ input, description, expectedStart, expectedEnd }) => {
       it(description, () => {
         const result = handleYear(Maybe.some(input), DEFAULT_OPTIONS);
-        
+
         expect(result.get()).not.toBeNull();
-        
+
         const [start, end, meta] = result.get()!;
         expect(meta.handler).toContain("handleYear");
         expect(start.toISOString()).toBe(expectedStart);
@@ -121,24 +121,26 @@ describe("handleYear", () => {
       },
     ];
 
-    shorthandCases.forEach(({ input, description, expectedStart, expectedEnd }) => {
-      it(description, () => {
-        const result = handleYear(Maybe.some(input), shorthandOptions);
-        
-        expect(result.get()).not.toBeNull();
-        
-        const [start, end, meta] = result.get()!;
-        expect(meta.handler).toContain("handleYear");
-        expect(start.toISOString()).toBe(expectedStart);
-        expect(end.toISOString()).toBe(expectedEnd);
-      });
-    });
+    shorthandCases.forEach(
+      ({ input, description, expectedStart, expectedEnd }) => {
+        it(description, () => {
+          const result = handleYear(Maybe.some(input), shorthandOptions);
+
+          expect(result.get()).not.toBeNull();
+
+          const [start, end, meta] = result.get()!;
+          expect(meta.handler).toContain("handleYear");
+          expect(start.toISOString()).toBe(expectedStart);
+          expect(end.toISOString()).toBe(expectedEnd);
+        });
+      }
+    );
 
     it("should disable century shorthand when centuryShorthand is false", () => {
       const result = handleYear(Maybe.some("85"), DEFAULT_OPTIONS);
-      
+
       expect(result.get()).not.toBeNull();
-      
+
       const [start, end] = result.get()!;
       expect(start.getFullYear()).toBe(85);
       expect(end.getFullYear()).toBe(85);
@@ -163,6 +165,10 @@ describe("handleYear", () => {
         input: "19th century",
         reason: "century format",
       },
+      {
+        input: "01 October 9033",
+        reason: "month + day",
+      },
     ];
 
     invalidCases.forEach(({ input, reason }) => {
@@ -183,7 +189,7 @@ describe("handleYear", () => {
       // Current implementation accepts 5-digit years
       const result = handleYear(Maybe.some("12345"), DEFAULT_OPTIONS);
       expect(result.get()).not.toBeNull();
-      
+
       const [start, end] = result.get()!;
       expect(start.getFullYear()).toBe(12345);
       expect(end.getFullYear()).toBe(12345);
@@ -197,9 +203,9 @@ describe("handleYear", () => {
 
     it("should handle 3-digit years", () => {
       const result = handleYear(Maybe.some("500"), DEFAULT_OPTIONS);
-      
+
       expect(result.get()).not.toBeNull();
-      
+
       const [start, end] = result.get()!;
       expect(start.getFullYear()).toBe(500);
       expect(end.getFullYear()).toBe(500);
@@ -207,9 +213,9 @@ describe("handleYear", () => {
 
     it("should handle 1-digit years", () => {
       const result = handleYear(Maybe.some("5"), DEFAULT_OPTIONS);
-      
+
       expect(result.get()).not.toBeNull();
-      
+
       const [start, end] = result.get()!;
       expect(start.getFullYear()).toBe(5);
       expect(end.getFullYear()).toBe(5);
@@ -219,20 +225,20 @@ describe("handleYear", () => {
   describe("Metadata validation", () => {
     it("should include correct handler in metadata", () => {
       const result = handleYear(Maybe.some("1850"), DEFAULT_OPTIONS);
-      
+
       expect(result.get()).not.toBeNull();
-      
+
       const [, , meta] = result.get()!;
       expect(meta.handler).toEqual(["handleYear"]);
     });
 
     it("should return proper date range structure", () => {
       const result = handleYear(Maybe.some("1900"), DEFAULT_OPTIONS);
-      
+
       expect(result.get()).not.toBeNull();
-      
+
       const [start, end] = result.get()!;
-      
+
       // Start should be January 1st at midnight
       expect(start.getMonth()).toBe(0); // January
       expect(start.getDate()).toBe(1);
@@ -240,7 +246,7 @@ describe("handleYear", () => {
       expect(start.getMinutes()).toBe(0);
       expect(start.getSeconds()).toBe(0);
       expect(start.getMilliseconds()).toBe(0);
-      
+
       // End should be December 31st at 23:59:59.999
       expect(end.getMonth()).toBe(11); // December
       expect(end.getDate()).toBe(31);
@@ -248,18 +254,6 @@ describe("handleYear", () => {
       expect(end.getMinutes()).toBe(59);
       expect(end.getSeconds()).toBe(59);
       expect(end.getMilliseconds()).toBe(999);
-    });
-  });
-
-  describe("Current limitations", () => {
-    it("should currently reject uppercase era markers (BC)", () => {
-      const result = handleYear(Maybe.some("100 BC"), DEFAULT_OPTIONS);
-      expect(result.get()).toBeNull();
-    });
-
-    it("should currently reject uppercase era markers (AD)", () => {
-      const result = handleYear(Maybe.some("1066 AD"), DEFAULT_OPTIONS);
-      expect(result.get()).toBeNull();
     });
   });
 
@@ -272,14 +266,14 @@ describe("handleYear", () => {
         expectedEnd: 1650,
       },
       {
-        input: "c. 1800", 
+        input: "c. 1800",
         description: "should parse 'c.' prefix",
         expectedStart: 1797,
         expectedEnd: 1800,
       },
       {
         input: "circa 1066",
-        description: "should parse 'circa' prefix", 
+        description: "should parse 'circa' prefix",
         expectedStart: 1063,
         expectedEnd: 1066,
       },

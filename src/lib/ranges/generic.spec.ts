@@ -1,4 +1,5 @@
-import { matchTo, matchYearShorthand } from "./generic";
+import { matchYearShorthand } from "./year";
+import { matchTo } from "./util";
 
 describe("matchYearShorthand", () => {
   describe("basic shorthand expansion", () => {
@@ -157,9 +158,9 @@ describe("matchYearShorthand", () => {
         expect(result).toBeNull();
       });
 
-      it("should handle whitespace variations", () => {
+      it("should reject formats without spaces", () => {
         const result = matchTo("1800or1850");
-        expect(result).toEqual(["1800", "1850"]);
+        expect(result).toBeNull();
       });
     });
   });

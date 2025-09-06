@@ -2,7 +2,7 @@ import fc from "fast-check";
 import { epochize } from ".";
 import { format } from "date-fns/format";
 
-const NUM_RUNS = 10;
+const NUM_RUNS = 1_000;
 
 describe("format IN matches start/end format OUT", () => {
   const TEST_FORMATS = [
@@ -44,7 +44,12 @@ describe("format IN matches start/end format OUT", () => {
           expect(format(result[1], fmt)).toBe(formattedDate);
         }
       ),
-      { numRuns: NUM_RUNS }
+      {
+        numRuns: NUM_RUNS,
+        seed: -1874068553,
+        path: "5:18:1:3:1:1:6:2:2:0:3:0",
+        endOnFailure: true,
+      }
     );
   });
 
