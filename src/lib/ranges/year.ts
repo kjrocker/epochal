@@ -1,3 +1,4 @@
+import { islamicModifier } from "../modifiers/islamic";
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
 import { handleYear } from "../year";
@@ -66,6 +67,10 @@ export const matchEraRange = (input: string): [string, string] | null => {
 
 export const handleYearRange: InputHandler = (input, options) => {
   return input
+    .map((text) => {
+      const { predicate, extractor } = islamicModifier();
+      return predicate(text) ? extractor(text) : text;
+    })
     .tryEach(
       (text) => matchYearShorthand(text),
       (text) => matchEraRange(text)

@@ -14,7 +14,7 @@ export const clean = (str: string): string | null => {
   result = result.replace(/^\s*\[\s*(.*?)\s*\]\s*$/, "$1");
   result = result.replace(/^\s*\{\s*(.*?)\s*\}\s*$/, "$1");
   // Replacing "mid-" with "mid " wherever it's found
-  result = result.replace(/mid[-–—]/g, "mid ");
+  result = result.replace(/mid[-–—‒]/g, "mid ");
   const cleaned = result.trim().toLowerCase();
   if (!cleaned || cleaned === "") return null;
   // Reduce multiple whitespaces to single whitespace

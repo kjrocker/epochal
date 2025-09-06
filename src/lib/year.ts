@@ -21,6 +21,7 @@ import {
   leadingWordModifier,
   parentheticalModifier,
   printedModifier,
+  zodiacModifier,
 } from "./modifiers/identity";
 import { seasonModifier } from "./modifiers/season";
 import { islamicModifier } from "./modifiers/islamic";
@@ -117,7 +118,6 @@ const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
   ],
 });
 
-
 export const handleYear: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
@@ -128,6 +128,7 @@ export const handleYear: InputHandler = (input, options) => {
         .withModifier(leadingWordModifier())
         .withModifier(printedModifier())
         .withModifier(parentheticalModifier())
+        .withModifier(zodiacModifier())
         .withModifier(afterOriginalModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))

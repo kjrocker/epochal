@@ -1,4 +1,4 @@
-import { printedModifier, parentheticalModifier, afterOriginalModifier } from "./identity";
+import { printedModifier, parentheticalModifier, afterOriginalModifier, zodiacModifier } from "./identity";
 
 describe("printedModifer", () => {
   const modifier = printedModifier();
@@ -81,6 +81,45 @@ describe("afterOriginalModifier", () => {
     "1610–11, before original", // different preposition
     "1850-1900", // no after phrase
     "19th century, after original work", // doesn't end with "original"
+  ])("predicate rejects '%s'", (input) => {
+    expect(predicate(input)).toBe(false);
+  });
+});
+
+describe("zodiacModifier", () => {
+  const modifier = zodiacModifier();
+  const { predicate, extractor } = modifier;
+
+  test.each([
+    // "<word> year" format at end
+    ["6th month ox year 1853", "6th month 1853"],
+    ["7th month tiger year 1854", "7th month 1854"], 
+    ["7th month Hare year 1855", "7th month 1855"],
+    ["4th month horse year 1858", "4th month 1858"],
+    ["3rd month dragon year 1868", "3rd month 1868"],
+    ["4th month snake year 1857", "4th month 1857"],
+    ["1850 rabbit year", "1850"],
+    ["early 20th century monkey year", "early 20th century"],
+    // "year of the <word>" format at beginning
+    ["year of the ox 1853", "1853"],
+    ["year of the tiger 1854", "1854"],
+    ["year of the dragon 1868", "1868"],
+    ["year of the snake 4th month 1857", "4th month 1857"],
+  ])(
+    "predicate accepts and extractor processes '%s' -> '%s'",
+    (input, expected) => {
+      expect(predicate(input)).toBe(true);
+      expect(extractor(input)).toBe(expected);
+    }
+  );
+
+  test.each([
+    "6th month 1853", // no zodiac word
+    "ox year", // no date part
+    "year ox 1853", // missing "of the"
+    "1853 year ox", // wrong order
+    "year of ox 1853", // missing "the"
+    "month ox 1853", // no "year"
   ])("predicate rejects '%s'", (input) => {
     expect(predicate(input)).toBe(false);
   });

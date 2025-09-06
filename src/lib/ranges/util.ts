@@ -17,7 +17,7 @@ export const matchTo = (input: string): [string, string] | null => {
 
 export const matchDash = (input: string): [string, string] | null => {
   // Match hyphen, en-dash, or em-dash
-  const matches = input.split(/[-–—]/);
+  const matches = input.split(/[-–—‒]/);
   if (matches.length !== 2) return null;
   return matches as [string, string];
 };
