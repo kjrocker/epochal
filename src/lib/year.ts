@@ -15,7 +15,11 @@ import {
   secondThirdModifier,
   thirdThirdModifier,
 } from "./modifiers/partials";
-import { identityModifier, leadingWordModifier } from "./modifiers/identity";
+import {
+  identityModifier,
+  leadingWordModifier,
+  printedModifier,
+} from "./modifiers/identity";
 import { seasonModifier } from "./modifiers/season";
 
 const getYear = (
@@ -28,16 +32,16 @@ const getYear = (
 };
 
 const eraMatch = (text: string, options: EpochizeOptions): number | null => {
-  const eraMatches = text.match(/^(?<num>[0-9]+)\s+(?<era>[a-z]*)$/);
+  const eraMatches = text.match(/^(?<num>[0-9,]+)\s+(?<era>[a-z.]*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups ?? { num: "", era: "" };
-  return getYear(num, era, options);
+  return getYear(num.replace(",", ""), era, options);
 };
 
 const noEraMatch = (text: string, options: EpochizeOptions): number | null => {
-  const noEraMatches = text.match(/^(?<num>[0-9]+)$/);
+  const noEraMatches = text.match(/^(?<num>[0-9,]+)$/);
   if (!noEraMatches?.groups) return null;
-  return getYear(noEraMatches.groups.num, "", options);
+  return getYear(noEraMatches.groups.num.replace(",", ""), "", options);
 };
 
 // Convert a millenium string to an integer, positive for AD, negative for BC
@@ -60,8 +64,8 @@ const yearToDate = (year: number): Date | null => {
 const circaModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /ca\.|c\.|circa/.test(text),
-  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  predicate: (text) => /ca\.|^c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|^c\.|circa/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => [
     sub(dates[0], { years: options.circaStartOffset }),
     add(dates[1], { years: options.circaEndOffset }),
@@ -117,6 +121,7 @@ export const handleYear: InputHandler = (input, options) => {
         .withModifier(identityModifier())
         .withModifier(seasonModifier())
         .withModifier(leadingWordModifier())
+        .withModifier(printedModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))
         .withModifier(orLaterModifier(options))

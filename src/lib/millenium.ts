@@ -15,7 +15,7 @@ import {
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)\s*(?<era>[a-z]*)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:millennium|millenium|mill)\s*(?<era>[a-z.]*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups ?? { num: "", era: "" };

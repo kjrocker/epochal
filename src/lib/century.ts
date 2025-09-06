@@ -18,7 +18,7 @@ import { identityModifier } from "./modifiers/identity";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>[a-z]*)$/
+    /^(?<num>[0-9]+)[a-z]*\s+(?:century|cen)\s*(?<era>[a-z.]*)$/
   );
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups ?? { num: "", era: "" };
@@ -50,12 +50,24 @@ const circaModifier = (
   transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 
+const orLaterModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /(or|and) later/.test(text),
+  extractor: (text) => text.replace(/(or|and) later/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => [
+    dates[0],
+    add(dates[1], { years: options.afterOffset * 10 }),
+  ],
+});
+
 export const handleCentury: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(circaModifier(options))
+        .withModifier(orLaterModifier(options))
         .withModifier(firstHalfModifier())
         .withModifier(secondHalfModifier())
         .withModifier(firstThirdModifier())

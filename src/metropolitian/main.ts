@@ -39,10 +39,17 @@ async function main(): Promise<void> {
     metrics.duration = (endTime - startTime) / 1000;
 
     console.log(`\nResults:`);
-    console.log(`- Exact matches: ${metrics.exactPassed} (${metrics.exactPassRate}%)`);
-    console.log(`- Approximate matches: ${metrics.approximatePassed} (${metrics.approximatePassRate}%)`);
-    console.log(`- Total passing: ${metrics.totalPassed} (${metrics.passRate}%)`);
-    console.log(`- Failing: ${metrics.failed}`);
+    console.log(
+      `- Exact matches: ${metrics.exactPassed} (${metrics.exactPassRate}%)`
+    );
+    console.log(
+      `- Approximate matches: ${metrics.approximatePassed} (${metrics.approximatePassRate}%)`
+    );
+    console.log(
+      `- Total passing: ${metrics.totalPassed} (${metrics.passRate}%)`
+    );
+    console.log(`- Inaccuracies: ${metrics.failed - metrics.nullResults}`);
+    console.log(`- Null Failures: ${metrics.nullResults}`);
 
     // Write all result files
     resultWriter.writeAllResults();

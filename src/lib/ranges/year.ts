@@ -1,7 +1,7 @@
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
 import { handleYear } from "../year";
-import { matchDash, matchSlash } from "./util";
+import { matchDash, matchSlash, matchTo } from "./util";
 
 const numbersBehaveLikeShorthand = (start: number, end: number): boolean => {
   if (end % 100 === end && end % 100 !== start % 100) {
@@ -43,9 +43,32 @@ export const matchYearShorthand = (input: string): [string, string] | null => {
   return null;
 };
 
+const hasEra = (text: string): string | null => {
+  const match = text.match(/(?:bc|ad|bce|ce|b.c.|a.d.|b.c.e.|c.e.)?$/);
+  return match ? match[0] : null;
+};
+export const matchEraRange = (input: string): [string, string] | null => {
+  const eraMatch = hasEra(input);
+  if (!eraMatch) return null;
+  return Maybe.fromValue(input)
+    .tryEach(
+      (text) => matchTo(text),
+      (text) => matchDash(text)
+    )
+    .map(([start, end]): [string, string] => {
+      const startHasEra = hasEra(start);
+      const newStart = startHasEra ? start : `${start} ${eraMatch}`;
+      return [newStart, end];
+    })
+    .get();
+};
+
 export const handleYearRange: InputHandler = (input, options) => {
   return input
-    .tryEach((text) => matchYearShorthand(text))
+    .tryEach(
+      (text) => matchYearShorthand(text),
+      (text) => matchEraRange(text)
+    )
     .map(([start, end]) => {
       const startRange = handleYear(Maybe.fromValue(start), options).get();
       const endRange = handleYear(Maybe.fromValue(end), options).get();

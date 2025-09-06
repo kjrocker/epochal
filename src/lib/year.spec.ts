@@ -60,6 +60,12 @@ describe("handleYear", () => {
         expectedEnd: "-000099-12-31T23:59:59.999Z",
       },
       {
+        input: "100 b.c.",
+        description: "should parse B.C. year (lowercase)",
+        expectedStart: "-000099-01-01T00:00:00.000Z",
+        expectedEnd: "-000099-12-31T23:59:59.999Z",
+      },
+      {
         input: "500 ad",
         description: "should parse AD year (lowercase)",
         expectedStart: "0500-01-01T00:00:00.000Z",
