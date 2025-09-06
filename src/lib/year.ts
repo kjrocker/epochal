@@ -82,8 +82,8 @@ const afterModifier = (
 const orLaterModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /or later/.test(text),
-  extractor: (text) => text.replace(/or later/, "").trim(),
+  predicate: (text) => /(or|and) later/.test(text),
+  extractor: (text) => text.replace(/(or|and) later/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => [
     dates[0],
     add(dates[1], { years: options.afterOffset }),

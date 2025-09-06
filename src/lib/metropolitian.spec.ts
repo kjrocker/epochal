@@ -59,6 +59,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["[1980]", 1980, 1980],
   ["(1980)", 1980, 1980],
   ["1887 or later", 1887, 1897],
+  // ["late 13th–first half 14th century", 1250, 1350],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

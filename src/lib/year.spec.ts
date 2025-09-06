@@ -298,5 +298,19 @@ describe("handleYear", () => {
       expect(start.getFullYear()).toBe(1910);
       expect(end.getFullYear()).toBe(1919);
     });
+
+    it("should handle '1887 or later' with default afterOffset", () => {
+      const result = handleYear(Maybe.some("1887 or later"), DEFAULT_OPTIONS);
+      const [start, end] = result.get()!;
+      expect(start.getFullYear()).toBe(1887);
+      expect(end.getFullYear()).toBe(1897);
+    });
+
+    it("should handle '1887 and later' with default afterOffset", () => {
+      const result = handleYear(Maybe.some("1887 and later"), DEFAULT_OPTIONS);
+      const [start, end] = result.get()!;
+      expect(start.getFullYear()).toBe(1887);
+      expect(end.getFullYear()).toBe(1897);
+    });
   });
 });
