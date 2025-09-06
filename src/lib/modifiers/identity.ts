@@ -56,7 +56,7 @@ export const printedModifier = (): ModifierConfig<string, [Date, Date]> => ({
 });
 
 // eslint-disable-next-line no-useless-escape
-const PARENTHETICAL_PATTERN = /\s*[\(\[].*?[\)\]]\s*$/;
+export const PARENTHETICAL_PATTERN = /\s*[\(\[].*?[\)\]]\s*$/;
 export const parentheticalModifier = (): ModifierConfig<
   string,
   [Date, Date]
