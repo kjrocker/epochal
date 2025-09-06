@@ -19,7 +19,9 @@ const thirdsOfRange = (input: [Date, Date]): [Date, Date, Date, Date] => {
   ];
 };
 
-const quartersOfRange = (input: [Date, Date]): [Date, Date, Date, Date, Date] => {
+const quartersOfRange = (
+  input: [Date, Date]
+): [Date, Date, Date, Date, Date] => {
   const [start, end] = input;
   const diff = end.getTime() - start.getTime();
   const quarter = diff / 4;
@@ -62,56 +64,76 @@ export const thirdThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
   },
 });
 
+const FIRST_HALF = /(?:first|1st) half\s+(?:of\s*(?:the\s*)?)?/;
 export const firstHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /first half\s+of\s*(?:the\s*)?/.test(text),
-  extractor: (text) => text.replace(/first half\s+of\s*(?:the\s*)?/, "").trim(),
+  predicate: (text) => FIRST_HALF.test(text),
+  extractor: (text) => text.replace(FIRST_HALF, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, _end] = halvesOfRange(dates);
     return [start, middle];
   },
 });
 
+const SECOND_HALF = /(?:second|2nd) half\s+(?:of\s*(?:the\s*)?)?/;
 export const secondHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /second half\s+of\s*(?:the\s*)?/.test(text),
-  extractor: (text) => text.replace(/second half\s+of\s*(?:the\s*)?/, "").trim(),
+  predicate: (text) => SECOND_HALF.test(text),
+  extractor: (text) => text.replace(SECOND_HALF, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [_start, middle, end] = halvesOfRange(dates);
     return [middle, end];
   },
 });
 
-export const firstQuarterModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(?:first|1st) quarter of (?:the )?/.test(text),
-  extractor: (text) => text.replace(/(?:first|1st) quarter of (?:the )?/, "").trim(),
+const FIRST_QUARTER = /(?:first|1st) quarter\s+(?:of\s*(?:the\s*)?)?/;
+export const firstQuarterModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => FIRST_QUARTER.test(text),
+  extractor: (text) => text.replace(FIRST_QUARTER, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, firstQuarter] = quartersOfRange(dates);
     return [start, firstQuarter];
   },
 });
 
-export const secondQuarterModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(?:second|2nd) quarter of (?:the )?/.test(text),
-  extractor: (text) => text.replace(/(?:second|2nd) quarter of (?:the )?/, "").trim(),
+const SECOND_QUARTER = /(?:second|2nd) quarter\s+(?:of\s*(?:the\s*)?)?/;
+export const secondQuarterModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => SECOND_QUARTER.test(text),
+  extractor: (text) => text.replace(SECOND_QUARTER, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [_start, firstQuarter, secondQuarter] = quartersOfRange(dates);
     return [firstQuarter, secondQuarter];
   },
 });
 
-export const thirdQuarterModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(?:third|3rd) quarter of (?:the )?/.test(text),
-  extractor: (text) => text.replace(/(?:third|3rd) quarter of (?:the )?/, "").trim(),
+const THIRD_QUARTER = /(?:third|3rd) quarter\s+(?:of\s*(?:the\s*)?)?/;
+export const thirdQuarterModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => THIRD_QUARTER.test(text),
+  extractor: (text) => text.replace(THIRD_QUARTER, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
-    const [_start, _firstQuarter, secondQuarter, thirdQuarter] = quartersOfRange(dates);
+    const [_start, _firstQuarter, secondQuarter, thirdQuarter] =
+      quartersOfRange(dates);
     return [secondQuarter, thirdQuarter];
   },
 });
 
-export const fourthQuarterModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(?:fourth|4th|last) quarter of (?:the )?/.test(text),
-  extractor: (text) => text.replace(/(?:fourth|4th|last) quarter of (?:the )?/, "").trim(),
+const FOURTH_QUARTER = /(?:fourth|4th|last) quarter\s+(?:of\s*(?:the\s*)?)?/;
+export const fourthQuarterModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => FOURTH_QUARTER.test(text),
+  extractor: (text) => text.replace(FOURTH_QUARTER, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
-    const [_start, _firstQuarter, _secondQuarter, thirdQuarter, end] = quartersOfRange(dates);
+    const [_start, _firstQuarter, _secondQuarter, thirdQuarter, end] =
+      quartersOfRange(dates);
     return [thirdQuarter, end];
   },
 });
