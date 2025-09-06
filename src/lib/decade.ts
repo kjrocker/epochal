@@ -9,7 +9,11 @@ import {
   secondThirdModifier,
   thirdThirdModifier,
 } from "./modifiers/partials";
-import { identityModifier, printedModifier } from "./modifiers/identity";
+import {
+  identityModifier,
+  parentheticalModifier,
+  printedModifier,
+} from "./modifiers/identity";
 
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>[a-z]*)$/);
@@ -58,6 +62,7 @@ export const handleDecade: InputHandler = (input, options) => {
       Modifier.fromValue(text)
         .withModifier(circaModifier(options))
         .withModifier(printedModifier())
+        .withModifier(parentheticalModifier())
         .withModifier(identityModifier())
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())

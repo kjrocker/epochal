@@ -71,6 +71,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["mid-16th–mid-17th century", 1534, 1667],
   ["7th–6th millennium BCE", -6999, -5000],
   ["April 22–24, 1865", 1865, 1865],
+  ["dated A.H. 369/ 979 CE", 979, 979],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<
@@ -87,6 +88,12 @@ const OPTIONED_METROPOLITAN_TEST_CASES: Array<
     -34999,
     -4999,
     { circaStartOffset: 0, circaEndOffset: 0 },
+  ],
+  [
+    "ca. 1961–1917 B.C. or later",
+    -1960,
+    -1916,
+    { circaStartOffset: 0, circaEndOffset: 0, afterOffset: 0 },
   ],
   ["ca. 1770", 1765, 1775, { circaStartOffset: 5, circaEndOffset: 5 }],
   ["ca. 1846", 1844, 1850, { circaStartOffset: 2, circaEndOffset: 4 }],

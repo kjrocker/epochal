@@ -44,16 +44,17 @@ export const matchYearShorthand = (input: string): [string, string] | null => {
 };
 
 const hasEra = (text: string): string | null => {
-  const match = text.match(/(?:bc|ad|bce|ce|b.c.|a.d.|b.c.e.|c.e.)?$/);
-  return match ? match[0] : null;
+  // Look for era markers anywhere in the string, not just at the end
+  const match = text.match(/(bc|ad|bce|ce|b\.c\.|a\.d\.|b\.c\.e\.|c\.e\.)/i);
+  return match ? match[1] : null;
 };
 export const matchEraRange = (input: string): [string, string] | null => {
   const eraMatch = hasEra(input);
   if (!eraMatch) return null;
   return Maybe.fromValue(input)
     .tryEach(
-      (text) => matchTo(text),
-      (text) => matchDash(text)
+      (text) => matchDash(text),
+      (text) => matchTo(text)
     )
     .map(([start, end]): [string, string] => {
       const startHasEra = hasEra(start);
