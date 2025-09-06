@@ -1,4 +1,4 @@
-import { printedModifier, parentheticalModifier } from "./identity";
+import { printedModifier, parentheticalModifier, afterOriginalModifier } from "./identity";
 
 describe("printedModifer", () => {
   const modifier = printedModifier();
@@ -51,6 +51,36 @@ describe("parentheticalModifier", () => {
     "(uncertain) 19th century", // at beginning
     "19th (middle) century", // in middle
     "1850-1900", // no brackets
+  ])("predicate rejects '%s'", (input) => {
+    expect(predicate(input)).toBe(false);
+  });
+});
+
+describe("afterOriginalModifier", () => {
+  const modifier = afterOriginalModifier();
+  const { predicate, extractor } = modifier;
+
+  test.each([
+    ["1610–11, after 1610–11 original", "1610–11"],
+    ["19th century, after Renaissance original", "19th century"],
+    ["1850-1900, after medieval original", "1850-1900"],
+    ["early 20th century, after Byzantine original", "early 20th century"],
+    ["Renaissance period, after Roman original", "Renaissance period"],
+    ["1789, after ancient Greek original", "1789"],
+  ])(
+    "predicate accepts and extractor processes '%s' -> '%s'",
+    (input, expected) => {
+      expect(predicate(input)).toBe(true);
+      expect(extractor(input)).toBe(expected);
+    }
+  );
+
+  test.each([
+    "1610–11 after original", // no comma
+    "after 1610–11 original", // at beginning
+    "1610–11, before original", // different preposition
+    "1850-1900", // no after phrase
+    "19th century, after original work", // doesn't end with "original"
   ])("predicate rejects '%s'", (input) => {
     expect(predicate(input)).toBe(false);
   });

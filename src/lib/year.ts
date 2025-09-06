@@ -16,6 +16,7 @@ import {
   thirdThirdModifier,
 } from "./modifiers/partials";
 import {
+  afterOriginalModifier,
   identityModifier,
   leadingWordModifier,
   parentheticalModifier,
@@ -124,6 +125,7 @@ export const handleYear: InputHandler = (input, options) => {
         .withModifier(leadingWordModifier())
         .withModifier(printedModifier())
         .withModifier(parentheticalModifier())
+        .withModifier(afterOriginalModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))
         .withModifier(orLaterModifier(options))
