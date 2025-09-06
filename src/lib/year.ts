@@ -18,6 +18,7 @@ import {
 import {
   identityModifier,
   leadingWordModifier,
+  parentheticalModifier,
   printedModifier,
 } from "./modifiers/identity";
 import { seasonModifier } from "./modifiers/season";
@@ -122,6 +123,7 @@ export const handleYear: InputHandler = (input, options) => {
         .withModifier(seasonModifier())
         .withModifier(leadingWordModifier())
         .withModifier(printedModifier())
+        .withModifier(parentheticalModifier())
         .withModifier(circaModifier(options))
         .withModifier(afterModifier(options))
         .withModifier(orLaterModifier(options))

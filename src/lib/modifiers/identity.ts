@@ -54,3 +54,14 @@ export const printedModifier = (): ModifierConfig<string, [Date, Date]> => ({
   extractor: (text) => text.replace(PRINTED_PATTERN, "").trim(),
   transformer: (dates) => dates,
 });
+
+// eslint-disable-next-line no-useless-escape
+const PARENTHETICAL_PATTERN = /\s*[\(\[].*?[\)\]]\s*$/;
+export const parentheticalModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => PARENTHETICAL_PATTERN.test(text),
+  extractor: (text) => text.replace(PARENTHETICAL_PATTERN, "").trim(),
+  transformer: (dates) => dates,
+});

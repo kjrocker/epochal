@@ -16,7 +16,7 @@ import {
   InputHandler,
   lookupMonth,
 } from "./util/util";
-import { identityModifier } from "./modifiers/identity";
+import { identityModifier, parentheticalModifier } from "./modifiers/identity";
 
 type GetMonthYear = (
   input: string,
@@ -67,6 +67,7 @@ export const handleMonth: InputHandler = (input, options) => {
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
+        .withModifier(parentheticalModifier())
         .withModifier(firstThirdModifier())
         .withModifier(secondThirdModifier())
         .withModifier(thirdThirdModifier())

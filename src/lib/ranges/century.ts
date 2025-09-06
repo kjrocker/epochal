@@ -14,8 +14,8 @@ export const matchCenturyRange = (input: string): [string, string] | null => {
   if (!centuryMatch) return null;
   return Maybe.fromValue(input)
     .tryEach(
-      (text) => matchTo(text),
-      (text) => matchDash(text)
+      (text) => matchDash(text),
+      (text) => matchTo(text)
     )
     .map(([start, end]): [string, string] => {
       const startHasCentury = hasCentury(start);
@@ -27,6 +27,11 @@ export const matchCenturyRange = (input: string): [string, string] | null => {
 
 export const handleCenturyRange: InputHandler = (input, options) => {
   return input
+    .map((text) => {
+      return /(or|and) later/.test(text)
+        ? text.replace(/(or|and) later/, "").trim()
+        : text.trim();
+    })
     .tryEach((text) => matchCenturyRange(text))
     .map(([start, end]) => {
       const startRange = handleCentury(Maybe.fromValue(start), options).get();
