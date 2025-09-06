@@ -13,7 +13,7 @@ const numbersBehaveLikeShorthand = (start: number, end: number): boolean => {
 };
 
 export const matchYearShorthand = (input: string): [string, string] | null => {
-  const matches = matchDash(input);
+  const matches = matchDash(input) || matchSlash(input);
   if (!matches) return null;
   const [startString, endString] = matches;
 
