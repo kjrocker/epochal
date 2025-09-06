@@ -62,6 +62,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["late 13th–first half 14th century", 1267, 1351],
   ["1184–1153 BC", -1183, -1152],
   ["1184–1153 B.C.", -1183, -1152],
+  ["June–July 1834", 1834, 1834],
   ["ca. 1184–1153 B.C.", -1186, -1152],
   ["10th–11th century or later", 901, 1100],
   // ["late 16th–mid-17th century"]

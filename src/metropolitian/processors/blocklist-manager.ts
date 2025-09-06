@@ -3,10 +3,7 @@ import { parse } from "csv-parse/sync";
 
 export class BlocklistManager {
   private blocklistSet = new Set<string>();
-  private regexBlocklist: RegExp[] = [
-    /blade/,
-    /modeled/,
-  ];
+  private regexBlocklist: RegExp[] = [/blade/, /modeled/];
 
   constructor(private blocklistPaths: string[]) {}
 
@@ -33,10 +30,10 @@ export class BlocklistManager {
           loadedCount++;
         }
       });
-
-      console.log(`Loaded ${loadedCount} items from ${filePath}`);
     } catch (error) {
-      console.log(`Error loading blocklist from ${filePath}: ${(error as Error).message}`);
+      console.log(
+        `Error loading blocklist from ${filePath}: ${(error as Error).message}`
+      );
     }
   }
 
