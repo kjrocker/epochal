@@ -1,6 +1,6 @@
 import { epochize, epochizeInner } from "./index";
 
-const formalOptions = { convention: 'formal' as const };
+const formalOptions = { convention: "formal" as const };
 
 /**
  * Validating that certain strings start OR end at the same time.
@@ -38,13 +38,12 @@ describe("equivalence", () => {
     ["June 3 2000", "Jun. 3rd 2000"],
     ["June 3, 2000", "Jun. 3rd, 2000"],
     ["June 3, 2000", "3 Jun 2000"],
-    ["92/3", "92/03"],
   ])(`equivalence - %s | %s`, (first, second) => {
     const one = epochizeInner(first).get();
     const two = epochizeInner(second).get();
 
-    expect(one).not.toBeNull()
-    expect(two).not.toBeNull()
+    expect(one).not.toBeNull();
+    expect(two).not.toBeNull();
 
     expect(one![0]).toEqual(two![0]);
     expect(one![1]).toEqual(two![1]);

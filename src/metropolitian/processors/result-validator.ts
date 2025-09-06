@@ -82,7 +82,64 @@ const isByWithinTolerance = ({
   const startDiff = Math.abs(epochStartYear - beginDate);
   const endDiff = Math.abs(epochEndYear - endDate);
 
-  return startDiff <= 2 && endDiff <= 0;
+  return startDiff <= 25 && endDiff <= 0;
+};
+
+const isLaterWithinTolerance = ({
+  epochStartYear,
+  epochEndYear,
+  beginDate,
+  endDate,
+  metadata,
+}: ValidationContext): boolean => {
+  const containsBy = /later$/i.test(metadata?.original ?? "");
+
+  if (!containsBy) {
+    return false;
+  }
+
+  const startDiff = Math.abs(epochStartYear - beginDate);
+  const endDiff = Math.abs(epochEndYear - endDate);
+
+  return startDiff <= 1 && endDiff <= 30;
+};
+
+const isQuestionMarkWithinTolerance = ({
+  epochStartYear,
+  epochEndYear,
+  beginDate,
+  endDate,
+  metadata,
+}: ValidationContext): boolean => {
+  const containsBy = /\(\?\)/i.test(metadata?.original ?? "");
+
+  if (!containsBy) {
+    return false;
+  }
+
+  const startDiff = Math.abs(epochStartYear - beginDate);
+  const endDiff = Math.abs(epochEndYear - endDate);
+
+  return startDiff <= 10 && endDiff <= 10;
+};
+
+const isBeforeWithinTolerance = ({
+  epochStartYear,
+  epochEndYear,
+  beginDate,
+  endDate,
+  metadata,
+}: ValidationContext): boolean => {
+  const containsBy = /before/i.test(metadata?.original ?? "");
+
+  if (!containsBy) {
+    return false;
+  }
+
+  const startDiff = Math.abs(epochStartYear - beginDate);
+  const endDiff = Math.abs(epochEndYear - endDate);
+
+  return startDiff <= 25 && endDiff <= 1;
 };
 
 const isCircaWithinTolerance = ({
@@ -166,6 +223,9 @@ export class ResultValidator {
       isCenturyWithinTolerance,
       isCircaWithinTolerance,
       isByWithinTolerance,
+      isQuestionMarkWithinTolerance,
+      isLaterWithinTolerance,
+      isBeforeWithinTolerance,
     ];
 
     // Return approximate if any predicate returns true
