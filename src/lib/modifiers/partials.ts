@@ -34,30 +34,33 @@ const quartersOfRange = (
   ];
 };
 
+const EARLY = /early/;
 export const firstThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /early/.test(text),
-  extractor: (text) => text.replace(/early\s*/, "").trim(),
+  predicate: (text) => EARLY.test(text),
+  extractor: (text) => text.replace(EARLY, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle] = thirdsOfRange(dates);
     return [start, middle];
   },
 });
 
+const MID = /mid[-\s]/;
 export const secondThirdModifier = (): ModifierConfig<
   string,
   [Date, Date]
 > => ({
-  predicate: (text) => /mid[-\s]/.test(text),
-  extractor: (text) => text.replace(/mid[-\s]*/, "").trim(),
+  predicate: (text) => MID.test(text),
+  extractor: (text) => text.replace(MID, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, secondMiddle] = thirdsOfRange(dates);
     return [middle, secondMiddle];
   },
 });
 
+const LATE = /\blate\b/;
 export const thirdThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /\blate\b/.test(text),
-  extractor: (text) => text.replace(/\blate\b\s*/, "").trim(),
+  predicate: (text) => LATE.test(text),
+  extractor: (text) => text.replace(LATE, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [start, middle, secondMiddle, end] = thirdsOfRange(dates);
     return [secondMiddle, end];
@@ -135,5 +138,16 @@ export const fourthQuarterModifier = (): ModifierConfig<
     const [_start, _firstQuarter, _secondQuarter, thirdQuarter, end] =
       quartersOfRange(dates);
     return [thirdQuarter, end];
+  },
+});
+
+const MIDDLE_HALF = /(?:middle|mid) half\s+(?:of\s*(?:the\s*)?)?/;
+export const middleHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => MIDDLE_HALF.test(text),
+  extractor: (text) => text.replace(MIDDLE_HALF, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => {
+    const [_start, firstQuarter, _secondQuarter, thirdQuarter, _end] =
+      quartersOfRange(dates);
+    return [firstQuarter, thirdQuarter];
   },
 });

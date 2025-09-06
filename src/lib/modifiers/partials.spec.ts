@@ -1,6 +1,7 @@
 import {
   firstHalfModifier,
   secondHalfModifier,
+  middleHalfModifier,
   firstThirdModifier,
   secondThirdModifier,
   thirdThirdModifier,
@@ -52,6 +53,32 @@ describe("secondHalfModifier", () => {
     ["2nd half of 1989", "1989"],
     ["2nd half 1919", "1919"],
     ["2nd half 14th century", "14th century"],
+  ])(
+    "predicate accepts and extractor processes '%s' -> '%s'",
+    (input, expected) => {
+      expect(predicate(input)).toBe(true);
+      expect(extractor(input)).toBe(expected);
+    }
+  );
+
+  test.each(["first half of the 19th century"])(
+    "predicate rejects '%s'",
+    (input) => {
+      expect(predicate(input)).toBe(false);
+    }
+  );
+});
+
+describe("middleHalfModifier", () => {
+  const modifier = middleHalfModifier();
+  const { predicate, extractor } = modifier;
+
+  test.each([
+    ["middle half of the 19th century", "19th century"],
+    ["middle half of 1989", "1989"],
+    ["middle half 1989", "1989"],
+    ["mid half of the 19th century", "19th century"],
+    ["mid half 14th century", "14th century"],
   ])(
     "predicate accepts and extractor processes '%s' -> '%s'",
     (input, expected) => {

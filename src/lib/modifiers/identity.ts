@@ -47,3 +47,10 @@ export const leadingWordModifier = (): ModifierConfig<
   },
   transformer: (dates) => dates,
 });
+
+const PRINTED_PATTERN = /,\s*printed.*/;
+export const printedModifier = (): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => PRINTED_PATTERN.test(text),
+  extractor: (text) => text.replace(PRINTED_PATTERN, "").trim(),
+  transformer: (dates) => dates,
+});

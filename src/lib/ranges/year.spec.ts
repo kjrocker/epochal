@@ -1,4 +1,4 @@
-import { matchYearShorthand } from "./year";
+import { matchEraRange, matchYearShorthand } from "./year";
 
 describe("matchYearShorthand", () => {
   describe("basic shorthand expansion", () => {
@@ -119,5 +119,22 @@ describe("matchYearShorthand", () => {
       const result = matchYearShorthand("1999-02");
       expect(result).toEqual(["1999", "2002"]);
     });
+  });
+});
+
+describe("matchEraRange", () => {
+  it("should handle the basic case", () => {
+    const result = matchEraRange("1999-2000 ad");
+    expect(result).toEqual(["1999 ad", "2000 ad"]);
+  });
+
+  it("should handle bc", () => {
+    const result = matchEraRange("1999-2000 bc");
+    expect(result).toEqual(["1999 bc", "2000 bc"]);
+  });
+
+  it("should handle b.c.", () => {
+    const result = matchEraRange("1999-2000 b.c.");
+    expect(result).toEqual(["1999 b.c.", "2000 b.c."]);
   });
 });

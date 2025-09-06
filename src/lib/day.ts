@@ -8,6 +8,8 @@ import {
 import { startOfDay } from "date-fns/startOfDay";
 import { endOfDay } from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
+import { Modifier } from "./util/modifier";
+import { identityModifier } from "./modifiers/identity";
 
 type GetMonthYearDay = (
   input: string
@@ -66,12 +68,17 @@ const textToYearMonthDay = (
 
 export const handleDay: InputHandler = (input) => {
   return input
-    .flatMap((string) => textToYearMonthDay(string))
-    .map(({ year, month, day }) => {
-      const date = new Date(year, month - 1, day);
-      date.setFullYear(year);
-      return date;
-    })
-    .map((date): [Date, Date] => [startOfDay(date), endOfDay(date)])
+    .flatMap((text) =>
+      Modifier.fromValue(text)
+        .withModifier(identityModifier())
+        .flatMap((text) => textToYearMonthDay(text))
+        .map(({ year, month, day }) => {
+          const date = new Date(year, month - 1, day);
+          date.setFullYear(year);
+          return date;
+        })
+        .map((date): [Date, Date] => [startOfDay(date), endOfDay(date)])
+        .unwrap()
+    )
     .map(attachMetadata(Handler.DAY));
 };
