@@ -70,6 +70,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["mid-7th–end of the 6th century BCE", -666, -500],
   ["mid-16th–mid-17th century", 1534, 1667],
   ["7th–6th millennium BCE", -6999, -5000],
+  ["April 22–24, 1865", 1865, 1865],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<
