@@ -73,11 +73,12 @@ const yearToDate = (year: number): Date | null => {
   return date;
 };
 
+const CIRCA_REGEX = /ca\.|^c\.|circa/;
 const circaModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /ca\.|^c\.|circa/.test(text),
-  extractor: (text) => text.replace(/ca\.|^c\.|circa/, "").trim(),
+  predicate: (text) => CIRCA_REGEX.test(text),
+  extractor: (text) => text.replace(CIRCA_REGEX, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => [
     sub(dates[0], { years: options.circaStartOffset }),
     add(dates[1], { years: options.circaEndOffset }),

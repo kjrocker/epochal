@@ -1,4 +1,4 @@
-import { matchEraRange, matchYearShorthand } from "./year";
+import { matchCastingRange, matchEraRange, matchYearShorthand } from "./year";
 
 describe("matchYearShorthand", () => {
   describe("basic shorthand expansion", () => {
@@ -179,5 +179,23 @@ describe("matchEraRange", () => {
   it("should handle era not at end of string", () => {
     const result = matchEraRange("1961–1917 B.C. or later");
     expect(result).toEqual(["1961 B.C.", "1917 B.C. or later"]);
+  });
+});
+
+describe("matchCastingRange", () => {
+  test.each([
+    ["1903, cast 1905", "1903", "1905"],
+    ["1903; cast 1905", "1903", "1905"],
+    ["1903, carved 1905", "1903", "1905"],
+    ["1903; carved 1905", "1903", "1905"],
+    ["1903, cast ca. 1905", "1903", "ca. 1905"],
+    ["ca. 1903, cast ca. 1905", "ca. 1903", "ca. 1905"],
+    ["ca. 1903; cast ca. 1905", "ca. 1903", "ca. 1905"],
+    ["903, carved 905", "903", "905"],
+    ["903; carved 905", "903", "905"],
+    ["903, cast ca. 905", "903", "ca. 905"],
+    ["1896, cast ca. 1906", "1896", "ca. 1906"],
+  ])("it should split %s into %s and %s", (input, start, end) => {
+    expect(matchCastingRange(input)).toEqual([start, end]);
   });
 });

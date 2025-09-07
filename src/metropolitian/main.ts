@@ -48,7 +48,11 @@ async function main(): Promise<void> {
     console.log(
       `- Total passing: ${metrics.totalPassed} (${metrics.passRate}%)`
     );
-    console.log(`- Inaccuracies: ${metrics.failed - metrics.nullResults}`);
+    console.log(
+      `- Inaccuracies: ${metrics.failed - metrics.nullResults} (${
+        metrics.inaccurateRate
+      }%)`
+    );
     console.log(
       `- Null Failures: ${metrics.nullResults} (${metrics.nullRate}%)`
     );

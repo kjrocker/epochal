@@ -57,19 +57,30 @@ const fullMonthNameDayYearEra: GetMonthYearDay = (input) => {
   return mapMatchGroups(matches.groups);
 };
 
+const monthCommaDayYearEra: GetMonthYearDay = (input) => {
+  const matches = input.match(
+    RegExp(
+      `^${EN_MONTHS.source},(?<day>[0-9]+)\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
+    )
+  );
+  if (!matches?.groups) return null;
+  return mapMatchGroups(matches.groups);
+};
+
 const textToYearMonthDay = (
   input: string
 ): Maybe<{ year: number; month: number; day: number }> => {
   return Maybe.fromValue(input).tryEach(
     dayMonthNameYearEra,
     yearSlashMonthSlashDayEra,
-    fullMonthNameDayYearEra
+    fullMonthNameDayYearEra,
+    monthCommaDayYearEra
   );
 };
 
 const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /by/.test(text),
-  extractor: (text) => text.replace(/by/, "").trim(),
+  predicate: (text) => /(by|after)/.test(text),
+  extractor: (text) => text.replace(/(by|after)/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 

@@ -14,6 +14,7 @@ export interface RunMetrics {
   passRate: string;
   exactPassRate: string;
   approximatePassRate: string;
+  inaccurateRate: string;
   duration: number;
   nullRate: string;
 }
@@ -187,6 +188,10 @@ export class ResultWriter {
       totalProcessed > 0
         ? ((this.nullResults.length / totalProcessed) * 100).toFixed(2)
         : "0";
+    const inaccurateRate =
+      totalProcessed > 0
+        ? ((this.failingResults.length / totalProcessed) * 100).toFixed(2)
+        : "0";
 
     return {
       timestamp: new Date().toISOString(),
@@ -199,6 +204,7 @@ export class ResultWriter {
       totalProcessed,
       exactPassRate,
       approximatePassRate,
+      inaccurateRate,
       passRate,
       duration: 0, // Will be set by caller
     };

@@ -85,6 +85,26 @@ const isByWithinTolerance = ({
   return startDiff <= 25 && endDiff <= 0;
 };
 
+const isBCEWithinOneYear = ({
+  epochStartYear,
+  epochEndYear,
+  beginDate,
+  endDate,
+  metadata,
+}: ValidationContext): boolean => {
+  const isStartOkay =
+    epochStartYear <= 0 &&
+    beginDate <= 0 &&
+    Math.abs(epochStartYear - beginDate) <= 1;
+
+  const isEndOkay =
+    epochEndYear <= 0 &&
+    endDate <= 0 &&
+    Math.abs(epochStartYear - beginDate) <= 1;
+
+  return isStartOkay && isEndOkay;
+};
+
 const isLaterWithinTolerance = ({
   epochStartYear,
   epochEndYear,
@@ -92,7 +112,7 @@ const isLaterWithinTolerance = ({
   endDate,
   metadata,
 }: ValidationContext): boolean => {
-  const containsBy = /later$/i.test(metadata?.original ?? "");
+  const containsBy = /(later|after)/i.test(metadata?.original ?? "");
 
   if (!containsBy) {
     return false;
@@ -140,6 +160,44 @@ const isBeforeWithinTolerance = ({
   const endDiff = Math.abs(epochEndYear - endDate);
 
   return startDiff <= 25 && endDiff <= 1;
+};
+
+const isWinterWithinTolerance = ({
+  epochStartYear,
+  epochEndYear,
+  beginDate,
+  endDate,
+  metadata,
+}: ValidationContext): boolean => {
+  const containsBy = /winter/i.test(metadata?.original ?? "");
+
+  if (!containsBy) {
+    return false;
+  }
+
+  const startDiff = Math.abs(epochStartYear - beginDate);
+  const endDiff = Math.abs(epochEndYear - endDate);
+
+  return startDiff <= 1 && endDiff <= 1;
+};
+
+const isProbablyWithinTolerance = ({
+  epochStartYear,
+  epochEndYear,
+  beginDate,
+  endDate,
+  metadata,
+}: ValidationContext): boolean => {
+  const containsBy = /probably/i.test(metadata?.original ?? "");
+
+  if (!containsBy) {
+    return false;
+  }
+
+  const startDiff = Math.abs(epochStartYear - beginDate);
+  const endDiff = Math.abs(epochEndYear - endDate);
+
+  return startDiff <= 25 && endDiff <= 25;
 };
 
 const isCircaWithinTolerance = ({
@@ -226,6 +284,9 @@ export class ResultValidator {
       isQuestionMarkWithinTolerance,
       isLaterWithinTolerance,
       isBeforeWithinTolerance,
+      isBCEWithinOneYear,
+      isWinterWithinTolerance,
+      isProbablyWithinTolerance,
     ];
 
     // Return approximate if any predicate returns true
