@@ -15,6 +15,7 @@ export interface RunMetrics {
   exactPassRate: string;
   approximatePassRate: string;
   duration: number;
+  nullRate: string;
 }
 
 export class ResultWriter {
@@ -39,16 +40,18 @@ export class ResultWriter {
       result.epochEnd?.getFullYear() || "",
     ];
 
-    if (result.status === 'null') {
+    if (result.status === "null") {
       this.nullResults.push([...row, "epochize returned null"]);
-    } else if (result.status === 'error') {
+    } else if (result.status === "error") {
       this.failingResults.push([...row, `Error: ${result.error}`]);
-    } else if (result.validationResult === 'exact') {
+    } else if (result.validationResult === "exact") {
       this.exactPassingResults.push([...row, "EXACT MATCH"]);
-    } else if (result.validationResult === 'approximate') {
+    } else if (result.validationResult === "approximate") {
       this.approximatePassingResults.push([...row, "APPROXIMATE MATCH"]);
     } else {
-      const message = `Expected: ${result.expectedBegin}-${result.expectedEnd}, Got: ${result.epochStart?.getFullYear()}-${result.epochEnd?.getFullYear()}`;
+      const message = `Expected: ${result.expectedBegin}-${
+        result.expectedEnd
+      }, Got: ${result.epochStart?.getFullYear()}-${result.epochEnd?.getFullYear()}`;
       this.failingResults.push([...row, message]);
     }
   }
@@ -56,22 +59,30 @@ export class ResultWriter {
   writeAllResults(): void {
     const headers = [
       "Object Date",
-      "Expected Begin", 
+      "Expected Begin",
       "Expected End",
       "Epochized Begin",
       "Epochized End",
-      "Status"
+      "Status",
     ];
 
     // Combine exact and approximate for the overall passing results
     const allPassingResults = [
       ...this.exactPassingResults,
-      ...this.approximatePassingResults
+      ...this.approximatePassingResults,
     ];
 
     this.writeCSV("passing_results.csv", headers, allPassingResults);
-    this.writeCSV("exact_passing_results.csv", headers, this.exactPassingResults);
-    this.writeCSV("approximate_passing_results.csv", headers, this.approximatePassingResults);
+    this.writeCSV(
+      "exact_passing_results.csv",
+      headers,
+      this.exactPassingResults
+    );
+    this.writeCSV(
+      "approximate_passing_results.csv",
+      headers,
+      this.approximatePassingResults
+    );
     this.writeCSV("failing_results.csv", headers, this.failingResults);
     this.writeCSV("null_results.csv", headers, this.nullResults);
   }
@@ -98,7 +109,7 @@ export class ResultWriter {
       "Exact Passed",
       "Approximate Passed",
       "Total Passed",
-      "Failed", 
+      "Failed",
       "Total Processed",
       "Exact Pass Rate (%)",
       "Approximate Pass Rate (%)",
@@ -113,7 +124,7 @@ export class ResultWriter {
       // Append to existing analytics file
       const analyticsContent = fs.readFileSync(analyticsPath, "utf-8");
       const existingData = this.parseCSV(analyticsContent);
-      
+
       // Handle both old and new format analytics
       const allRows: (string | number)[][] = existingData.map((row) => {
         // Check if this is old format (fewer columns)
@@ -159,10 +170,23 @@ export class ResultWriter {
     const totalPassed = exactPassed + approximatePassed;
     const failed = this.failingResults.length + this.nullResults.length;
     const totalProcessed = totalPassed + failed;
-    
-    const exactPassRate = totalProcessed > 0 ? ((exactPassed / totalProcessed) * 100).toFixed(2) : "0";
-    const approximatePassRate = totalProcessed > 0 ? ((approximatePassed / totalProcessed) * 100).toFixed(2) : "0";
-    const passRate = totalProcessed > 0 ? ((totalPassed / totalProcessed) * 100).toFixed(2) : "0";
+
+    const exactPassRate =
+      totalProcessed > 0
+        ? ((exactPassed / totalProcessed) * 100).toFixed(2)
+        : "0";
+    const approximatePassRate =
+      totalProcessed > 0
+        ? ((approximatePassed / totalProcessed) * 100).toFixed(2)
+        : "0";
+    const passRate =
+      totalProcessed > 0
+        ? ((totalPassed / totalProcessed) * 100).toFixed(2)
+        : "0";
+    const nullRate =
+      totalProcessed > 0
+        ? ((this.nullResults.length / totalProcessed) * 100).toFixed(2)
+        : "0";
 
     return {
       timestamp: new Date().toISOString(),
@@ -171,6 +195,7 @@ export class ResultWriter {
       totalPassed,
       failed,
       nullResults: this.nullResults.length,
+      nullRate,
       totalProcessed,
       exactPassRate,
       approximatePassRate,
@@ -179,7 +204,11 @@ export class ResultWriter {
     };
   }
 
-  private writeCSV(filename: string, headers: string[], rows: (string | number)[][]): void {
+  private writeCSV(
+    filename: string,
+    headers: string[],
+    rows: (string | number)[][]
+  ): void {
     const csvContent = stringify(rows, {
       header: true,
       columns: headers,

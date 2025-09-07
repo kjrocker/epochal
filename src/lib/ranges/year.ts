@@ -1,4 +1,5 @@
 import { islamicModifier } from "../modifiers/islamic";
+import { extractFromBrackets, handleBrackets } from "../util/bracket-extractor";
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
 import { handleYear } from "../year";
@@ -64,6 +65,7 @@ export const matchEraRange = (input: string): [string, string] | null => {
 
 export const handleYearRange: InputHandler = (input, options) => {
   return input
+    .map(handleBrackets)
     .map((text) => {
       const { predicate, extractor } = islamicModifier();
       return predicate(text) ? extractor(text) : text;

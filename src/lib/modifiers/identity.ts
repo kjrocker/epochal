@@ -3,6 +3,7 @@ import { EN_MONTHS } from "../util/regex";
 
 const patterns = [
   /^dated\s+to\s+/,
+  /^datable\s+to\s+the\s+/,
   /^datable\s+to\s+/,
   /^dated\s+/,
   /^d\s+a\s+t\s+e\s+d\s+/,

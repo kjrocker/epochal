@@ -49,7 +49,9 @@ async function main(): Promise<void> {
       `- Total passing: ${metrics.totalPassed} (${metrics.passRate}%)`
     );
     console.log(`- Inaccuracies: ${metrics.failed - metrics.nullResults}`);
-    console.log(`- Null Failures: ${metrics.nullResults}`);
+    console.log(
+      `- Null Failures: ${metrics.nullResults} (${metrics.nullRate}%)`
+    );
 
     // Write all result files
     resultWriter.writeAllResults();

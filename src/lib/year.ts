@@ -21,6 +21,7 @@ import {
   Handler,
   InputHandler,
 } from "./util/util";
+import { handleBrackets } from "./util/bracket-extractor";
 
 const getYear = (
   year: string,
@@ -116,6 +117,7 @@ const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
 
 export const handleYear: InputHandler = (input, options) => {
   return input
+    .map(handleBrackets)
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
