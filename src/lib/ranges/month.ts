@@ -1,7 +1,7 @@
 import { handleMonth } from "../month";
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
-import { matchDash, matchTo } from "./util";
+import { matchComma, matchDash, matchTo } from "./util";
 
 const hasYear = (text: string): string | null => {
   const match = text.match(/\d+.*/);
@@ -11,10 +11,7 @@ export const matchMonthRange = (input: string): [string, string] | null => {
   const yearMatch = hasYear(input);
   if (!yearMatch) return null;
   return Maybe.fromValue(input)
-    .tryEach(
-      (text) => matchTo(text),
-      (text) => matchDash(text)
-    )
+    .tryEach(matchTo, matchDash, matchComma)
     .map(([start, end]): [string, string] => {
       const startHasYear = hasYear(start);
       const newStart = startHasYear ? start : `${start} ${yearMatch}`;

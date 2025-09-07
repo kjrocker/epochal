@@ -22,7 +22,7 @@ export class ConfigManager {
         path.join(metropolitanDir, "data/bad-data-blocklist.csv"),
       ],
       tolerances: {
-        century: 10,
+        century: 33,
         earlyLate: 20,
         circa: 50,
       },

@@ -1,3 +1,4 @@
+import { match } from "assert";
 import { parentheticalModifier } from "../modifiers/identity";
 import { islamicModifier } from "../modifiers/islamic";
 import { handleBrackets } from "../util/bracket-extractor";
@@ -64,6 +65,11 @@ export const matchEraRange = (input: string): [string, string] | null => {
     .get();
 };
 
+export const matchCastingRange = (input: string): [string, string] | null => {
+  const years = input.split(/[,;]\s+(?:cast|carved)\s+/);
+  return years.length === 2 ? (years as [string, string]) : null;
+};
+
 export const handleYearRange: InputHandler = (input, options) => {
   return input
     .map(handleBrackets)
@@ -75,10 +81,7 @@ export const handleYearRange: InputHandler = (input, options) => {
       const { predicate, extractor } = parentheticalModifier();
       return predicate(text) ? extractor(text) : text;
     })
-    .tryEach(
-      (text) => matchYearShorthand(text),
-      (text) => matchEraRange(text)
-    )
+    .tryEach(matchYearShorthand, matchEraRange, matchCastingRange)
     .map(([start, end]) => {
       const startRange = handleYear(Maybe.fromValue(start), options).get();
       const endRange = handleYear(Maybe.fromValue(end), options).get();

@@ -10,7 +10,7 @@ const patterns = [
   /^d\s+a\s+t\s+e\s+d\s+/,
   /^originally\s+published\s+/,
   /^published\s+in\s+/,
-  /(probably|possibly|likely|about|cast|patented|published|suggested|check|originally|publication|primarily)\s+/,
+  /(probably|possibly|likely|about|cast|patented|published|suggested|check|originally|publication|primarily|issued|reissued)\s+/,
   /,\s*(probably|suggested|check)\s*$/,
   /\s+(probably|suggested|check)\s*$/,
   /\s+or\searlier\s*$/,

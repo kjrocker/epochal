@@ -35,3 +35,10 @@ export const matchSemicolon = (input: string): [string, string] | null => {
   if (matches.length !== 2) return null;
   return [matches[0].trim(), matches[1].trim()] as [string, string];
 };
+
+export const matchComma = (input: string): [string, string] | null => {
+  // Match hyphen, en-dash, or em-dash
+  const matches = input.split(/[,]/);
+  if (matches.length !== 2) return null;
+  return [matches[0].trim(), matches[1].trim()] as [string, string];
+};
