@@ -15,3 +15,8 @@ export const clean = (str: string): string | null => {
   // Reduce multiple whitespaces to single whitespace
   return cleaned.replace(/\s+/g, " ");
 };
+
+export const clean2 = (input: string): string | null => {
+  if (!input) return null;
+  return input.trim().toLowerCase();
+};

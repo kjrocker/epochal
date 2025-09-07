@@ -84,4 +84,11 @@ export class Maybe<T> {
       return Maybe.fromValue(f(this.value));
     }
   }
+
+  try(f: (wrapped: T) => T | null): Maybe<T> {
+    if (this.value === null) return Maybe.none<T>();
+    const result = f(this.value);
+    if (result === null) return this;
+    return Maybe.fromValue(result);
+  }
 }
