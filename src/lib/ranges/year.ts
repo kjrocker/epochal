@@ -53,10 +53,7 @@ export const matchEraRange = (input: string): [string, string] | null => {
   const eraMatch = hasEra(input);
   if (!eraMatch) return null;
   return Maybe.fromValue(input)
-    .tryEach(
-      (text) => matchDash(text),
-      (text) => matchTo(text)
-    )
+    .tryEach(matchDash, matchSlash, matchTo)
     .map(([start, end]): [string, string] => {
       const startHasEra = hasEra(start);
       const newStart = startHasEra ? start : `${start} ${eraMatch}`;
