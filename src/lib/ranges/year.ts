@@ -1,3 +1,4 @@
+import { parentheticalModifier } from "../modifiers/identity";
 import { islamicModifier } from "../modifiers/islamic";
 import { handleBrackets } from "../util/bracket-extractor";
 import { Maybe } from "../util/maybe";
@@ -68,10 +69,11 @@ export const handleYearRange: InputHandler = (input, options) => {
     .map(handleBrackets)
     .map((text) => {
       const { predicate, extractor } = islamicModifier();
-      if (predicate(text)) {
-        return extractor(text);
-      }
-      return text;
+      return predicate(text) ? extractor(text) : text;
+    })
+    .map((text) => {
+      const { predicate, extractor } = parentheticalModifier();
+      return predicate(text) ? extractor(text) : text;
     })
     .tryEach(
       (text) => matchYearShorthand(text),
