@@ -1,4 +1,5 @@
-import { clean, Metadata, HandlerMetadata } from "./util/util";
+import { clean } from "./util/clean";
+import { Metadata, HandlerMetadata } from "./util/util";
 import { handleCentury } from "./century";
 import { handleDecade } from "./decade";
 import { Maybe } from "./util/maybe";
