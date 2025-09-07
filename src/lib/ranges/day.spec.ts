@@ -10,6 +10,7 @@ describe("matchDayRange", () => {
     ["May 28-30, 1453", "May 28, 1453", "May 30, 1453"],
     ["June 1-7, 44 bc", "June 1, 44 bc", "June 7, 44 bc"],
     ["July 14-21, 1789 ad", "July 14, 1789 ad", "July 21, 1789 ad"],
+    // ["February 23 and/or 25, 1938", "February 23, 1938", "February 25, 1938"],
   ])("splits %s into %s and %s", (input, start, end) => {
     const result = matchDayRange(input);
     expect(result).toEqual([start, end]);

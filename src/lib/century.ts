@@ -76,7 +76,6 @@ export const handleCentury: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
-
         .withModifier(circaModifier(options))
         .withModifier(orLaterModifier(options))
         .withModifier(parentheticalModifier())
