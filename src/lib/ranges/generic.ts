@@ -7,7 +7,7 @@ import {
   Handler,
 } from "../util/util";
 import { EpochizeOptions } from "../util/options";
-import { matchDash, matchTo } from "./util";
+import { matchDash, matchSemicolon, matchSlash, matchTo } from "./util";
 
 const handleSplitStrings = (
   [first, second]: [string, string],
@@ -42,10 +42,7 @@ const handleSplitStrings = (
 
 export const handleGenericRange: InputHandler = (input, options) => {
   return input
-    .tryEach(
-      (text) => matchTo(text),
-      (text) => matchDash(text)
-    )
+    .tryEach(matchTo, matchDash, matchSlash, matchSemicolon)
     .map((parts) => handleSplitStrings(parts, options))
     .map(attachMetadata(Handler.RANGE));
 };

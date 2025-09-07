@@ -38,6 +38,9 @@ describe("printedModifer", () => {
     ["A.H. 158–68/ 774–84 CE", "774–84 ce"],
     ["A.H. 177–87/ 793–802 CE", "793–802 ce"],
     ["A.H. 170–177/ 786–93 CE", "786–93 ce"],
+    ["677 CE/58 A.H.", "677 ce"],
+    ["777–778 CE/161 A.H.", "777–778 ce"],
+    ["691–692 CE (?)/72 A.H. (?)", "691–692 ce (?)"],
   ])(
     "predicate accepts and extractor processes '%s' -> '%s'",
     (input, expected) => {

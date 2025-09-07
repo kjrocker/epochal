@@ -9,6 +9,7 @@ const patterns = [
   /^probably\s+/,
   /^possibly\s+/,
   /^likely\s+/,
+  /^about\s+/,
   /^cast\s+/,
   /,\s*probably\s*$/,
   /^patented\s+/,
@@ -81,7 +82,8 @@ export const afterOriginalModifier = (): ModifierConfig<
   transformer: (dates) => dates,
 });
 
-const ZODIAC_PATTERN = /\s+\w+\s+year(?=\s|$)|^year\s+of\s+the\s+\w+\s+|,\s*year\s+of\s+the\s+\w+\s*$/;
+const ZODIAC_PATTERN =
+  /\s+\w+\s+year(?=\s|$)|^year\s+of\s+the\s+\w+\s+|,\s*year\s+of\s+the\s+\w+\s*$/;
 export const zodiacModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => ZODIAC_PATTERN.test(text),
   extractor: (text) => text.replace(ZODIAC_PATTERN, "").trim(),

@@ -24,7 +24,6 @@ This is a TypeScript library for parsing ambiguous historical dates into precise
 - **Core Logic**: `src/lib/index.ts` contains `epochizeInner` which uses a cascading parser approach
 - **Parser Chain**: Handles different date formats through specialized parsers (tried in sequence):
   - `handleRange` - Date ranges (e.g., "1990-2000")
-  - `handleModifierPhrase` - Dates with modifier words (e.g., "early 17th century", "mid 1888")
   - `handleMonth` - Month-based dates
   - `handleDay` - Day-specific dates
   - `handleYear` - Year-based dates
