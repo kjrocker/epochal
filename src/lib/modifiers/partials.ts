@@ -154,9 +154,9 @@ export const middleHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
 });
 
 // Patterns for early-to-mid, mid-to-late, etc., plus singular cases
-const EARLY_TO_MID = /early\s+to\s+mid[-\s]/;
-const EARLY_TO_LATE = /early\s+to\s+late\b/;
-const MID_TO_LATE = /mid[-\s]to[-\s]late\b/;
+const EARLY_TO_MID = /early\s+(to|or)\s+mid[-\s]/;
+const EARLY_TO_LATE = /early\s+(to|or)\s+late\b/;
+const MID_TO_LATE = /mid[-\s](to|or)[-\s]late\b/;
 const EARLY_MID = /early[-\s]mid[-\s]/;
 const MID_LATE = /mid[-\s]late\b/;
 

@@ -2,7 +2,7 @@ import { handleCentury } from "../century";
 import { PARENTHETICAL_PATTERN } from "../modifiers/identity";
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
-import { matchDash, matchSlash, matchTo } from "./util";
+import { matchComma, matchDash, matchSlash, matchTo } from "./util";
 
 const hasCentury = (text: string): string | null => {
   const match = text.match(
@@ -14,11 +14,7 @@ export const matchCenturyRange = (input: string): [string, string] | null => {
   const centuryMatch = hasCentury(input);
   if (!centuryMatch) return null;
   return Maybe.fromValue(input)
-    .tryEach(
-      (text) => matchDash(text),
-      (text) => matchSlash(text),
-      (text) => matchTo(text)
-    )
+    .tryEach(matchDash, matchSlash, matchTo, matchComma)
     .map(([start, end]): [string, string] => {
       const startHasCentury = hasCentury(start);
       const newStart = startHasCentury ? start : `${start} ${centuryMatch}`;

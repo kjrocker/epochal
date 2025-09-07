@@ -79,8 +79,8 @@ const textToYearMonthDay = (
 };
 
 const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /(by|after)/.test(text),
-  extractor: (text) => text.replace(/(by|after)/, "").trim(),
+  predicate: (text) => /(by|after|before)/.test(text),
+  extractor: (text) => text.replace(/(by|after|before)/, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 

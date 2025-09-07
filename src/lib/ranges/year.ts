@@ -66,7 +66,9 @@ export const matchEraRange = (input: string): [string, string] | null => {
 };
 
 export const matchCastingRange = (input: string): [string, string] | null => {
-  const years = input.split(/[,;]\s+(?:cast|carved)\s+/);
+  const years = input.split(
+    /[,;]\s+(?:cast|carved|reworked|replica|published)\s+/
+  );
   return years.length === 2 ? (years as [string, string]) : null;
 };
 
