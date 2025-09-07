@@ -45,6 +45,39 @@ describe("matchYearShorthand", () => {
     });
   });
 
+  describe("question mark and dash patterns", () => {
+    it("should handle question mark before dash", () => {
+      const result = matchYearShorthand("1760?–70");
+      expect(result).toEqual(["1760", "1770"]);
+    });
+
+    it("should handle question marks around dash", () => {
+      const result = matchYearShorthand("1720?–?25");
+      expect(result).toEqual(["1720", "1725"]);
+    });
+
+    it("should handle question mark after dash", () => {
+      const result = matchYearShorthand("1705–?15");
+      expect(result).toEqual(["1705", "1715"]);
+    });
+
+    it("should handle various dash types with question marks", () => {
+      expect(matchYearShorthand("1740?—?50")).toEqual(["1740", "1750"]);
+      expect(matchYearShorthand("1730?–?40")).toEqual(["1730", "1740"]);
+      expect(matchYearShorthand("1735?‒?45")).toEqual(["1735", "1745"]);
+    });
+
+    it("should handle spaces around question marks and dashes", () => {
+      const result = matchYearShorthand("1715 ? – ? 20");
+      expect(result).toEqual(["1715", "1720"]);
+    });
+
+    it("should handle question marks with longer shorthand", () => {
+      const result = matchYearShorthand("1800?–?25");
+      expect(result).toEqual(["1800", "1825"]);
+    });
+  });
+
   describe("with modifiers", () => {
     it("should handle circa prefix", () => {
       const result = matchYearShorthand("ca. 1909-27");

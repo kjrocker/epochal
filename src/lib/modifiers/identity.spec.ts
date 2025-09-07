@@ -1,4 +1,4 @@
-import { printedModifier, parentheticalModifier, afterOriginalModifier, zodiacModifier } from "./identity";
+import { identityModifier, printedModifier, parentheticalModifier, afterOriginalModifier, zodiacModifier } from "./identity";
 
 describe("printedModifer", () => {
   const modifier = printedModifier();
@@ -105,6 +105,12 @@ describe("zodiacModifier", () => {
     ["year of the tiger 1854", "1854"],
     ["year of the dragon 1868", "1868"],
     ["year of the snake 4th month 1857", "4th month 1857"],
+    // "year-first, year of the <word>" format (new cases from failing examples)
+    ["1794, year of the tiger", "1794"],
+    ["1795, year of the rabbit", "1795"],
+    ["1798, year of the horse", "1798"],
+    ["1796, year of the dragon", "1796"],
+    ["1800, year of the monkey", "1800"],
   ])(
     "predicate accepts and extractor processes '%s' -> '%s'",
     (input, expected) => {
@@ -120,6 +126,64 @@ describe("zodiacModifier", () => {
     "1853 year ox", // wrong order
     "year of ox 1853", // missing "the"
     "month ox 1853", // no "year"
+    "1794 year of the tiger", // missing comma
+    "1795, year the rabbit", // missing "of"
+    "1798, year of tiger", // missing "the"
+  ])("predicate rejects '%s'", (input) => {
+    expect(predicate(input)).toBe(false);
+  });
+});
+
+describe("identityModifier", () => {
+  const modifier = identityModifier();
+  const { predicate, extractor } = modifier;
+
+  test.each([
+    // Existing patterns
+    ["dated to 1850", "1850"],
+    ["datable to early 19th century", "early 19th century"],
+    ["dated 1920", "1920"],
+    ["dated 20th century", "20th century"],
+    ["d a t e d 1900", "1900"],
+    ["probably 1850-1900", "1850-1900"],
+    ["possibly 19th century", "19th century"],
+    ["likely early 20th century", "early 20th century"],
+    ["cast 1855", "1855"],
+    ["1850, probably", "1850"],
+    ["patented 1920", "1920"],
+    // New dated/undated patterns
+    ["dated, 20th century", "20th century"],
+    ["undated, 20th century", "20th century"],
+    ["20th century, undated", "20th century"],
+    ["dated, 1850-1900", "1850-1900"],
+    ["undated, medieval period", "medieval period"],
+    ["Renaissance era, undated", "Renaissance era"],
+    // Published patterns
+    ["published August 1836", "August 1836"],
+    ["published mid-18th century", "mid-18th century"],
+    ["published mid-19th century", "mid-19th century"],
+    ["originally published 1880s", "1880s"],
+    ["published 1920", "1920"],
+    ["published early 20th century", "early 20th century"],
+    ["originally published Renaissance period", "Renaissance period"],
+    ["published in 1920", "in 1920"],
+  ])(
+    "predicate accepts and extractor processes '%s' -> '%s'",
+    (input, expected) => {
+      expect(predicate(input)).toBe(true);
+      expect(extractor(input)).toBe(expected);
+    }
+  );
+
+  test.each([
+    "20th century", // no dating prefix/suffix
+    "1850-1900", // no dating prefix/suffix
+    "medieval period", // no dating prefix/suffix
+    "Renaissance era", // no dating prefix/suffix
+    "undated 20th century", // no comma
+    "20th century undated", // no comma (not at end)
+    "publication 1920", // different word
+    "originally 1880s", // missing "published"
   ])("predicate rejects '%s'", (input) => {
     expect(predicate(input)).toBe(false);
   });

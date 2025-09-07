@@ -1,19 +1,15 @@
-import { endOfDecade, startOfDecade } from "./date-fns";
-import { Maybe } from "./util/maybe";
-import { attachMetadata, InputHandler, Handler } from "./util/util";
-import { Modifier, ModifierConfig } from "./util/modifier";
-import { EpochizeOptions } from "./util/options";
 import { add, sub } from "date-fns";
-import {
-  firstThirdModifier,
-  secondThirdModifier,
-  thirdThirdModifier,
-} from "./modifiers/partials";
+import { endOfDecade, startOfDecade } from "./date-fns";
 import {
   identityModifier,
   parentheticalModifier,
   printedModifier,
 } from "./modifiers/identity";
+import { earlyMidLateModifier } from "./modifiers/partials";
+import { Maybe } from "./util/maybe";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import { attachMetadata, Handler, InputHandler } from "./util/util";
 
 const eraMatch = (text: string): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9]+)s\s*(?<era>[a-z]*)$/);
@@ -64,9 +60,7 @@ export const handleDecade: InputHandler = (input, options) => {
         .withModifier(printedModifier())
         .withModifier(parentheticalModifier())
         .withModifier(identityModifier())
-        .withModifier(firstThirdModifier())
-        .withModifier(secondThirdModifier())
-        .withModifier(thirdThirdModifier())
+        .withModifier(earlyMidLateModifier())
         .flatMap(decadeToOrdinal)
         .map(decadeToDate)
         .map((date): [Date, Date] => [startOfDecade(date), endOfDecade(date)])
