@@ -84,6 +84,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["ca. 2381–2323 B.C. probably", -2383, -2322],
   ["ca. 1814–1805 B.C. suggested", -1816, -1804],
   ["ca. 1802–1640 B.C. check", -1804, -1639],
+  ["ca. 1700–1500 B.C. (Middle Bronze Age IIB-IIC)", -1702, -1499],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<
