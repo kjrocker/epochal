@@ -17,13 +17,13 @@ export const epochizeInner = (
   const myOptions = getOptions(options);
   return Maybe.fromValue(clean(input))
     .tryMany<[Date, Date, HandlerMetadata]>(
-      (text) => handleRange(Maybe.fromValue(text), myOptions),
       (text) => handleMonth(Maybe.fromValue(text), myOptions),
       (text) => handleDay(Maybe.fromValue(text), myOptions),
       (text) => handleYear(Maybe.fromValue(text), myOptions),
       (text) => handleDecade(Maybe.fromValue(text), myOptions),
       (text) => handleCentury(Maybe.fromValue(text), myOptions),
-      (text) => handleMillenium(Maybe.fromValue(text), myOptions)
+      (text) => handleMillenium(Maybe.fromValue(text), myOptions),
+      (text) => handleRange(Maybe.fromValue(text), myOptions)
     )
     .map(([first, ...rest]): [Date, Date, Metadata] => {
       return [

@@ -10,6 +10,7 @@ import {
 import { Modifier, ModifierConfig } from "./util/modifier";
 import { EpochizeOptions } from "./util/options";
 import { attachMetadata, Handler, InputHandler } from "./util/util";
+import { handleBrackets } from "./util/bracket-extractor";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -49,6 +50,7 @@ const circaModifier = (
 
 export const handleMillenium: InputHandler = (input, options) => {
   return input
+    .map(handleBrackets)
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(circaModifier(options))
