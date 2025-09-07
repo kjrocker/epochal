@@ -1,24 +1,21 @@
 import { endOfCentury, startOfCentury } from "./date-fns";
-import { attachMetadata, InputHandler, Handler } from "./util/util";
-import { Modifier, ModifierConfig } from "./util/modifier";
-import { EpochizeOptions } from "./util/options";
-import { add, sub } from "date-fns";
-import {
-  firstThirdModifier,
-  secondThirdModifier,
-  thirdThirdModifier,
-  firstHalfModifier,
-  secondHalfModifier,
-  firstQuarterModifier,
-  secondQuarterModifier,
-  thirdQuarterModifier,
-  fourthQuarterModifier,
-} from "./modifiers/partials";
 import {
   afterOriginalModifier,
   identityModifier,
   parentheticalModifier,
 } from "./modifiers/identity";
+import {
+  earlyMidLateModifier,
+  firstHalfModifier,
+  firstQuarterModifier,
+  fourthQuarterModifier,
+  secondHalfModifier,
+  secondQuarterModifier,
+  thirdQuarterModifier,
+} from "./modifiers/partials";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import { attachMetadata, Handler, InputHandler } from "./util/util";
 
 const centuryToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -73,9 +70,7 @@ export const handleCentury: InputHandler = (input, options) => {
         .withModifier(afterOriginalModifier())
         .withModifier(firstHalfModifier())
         .withModifier(secondHalfModifier())
-        .withModifier(firstThirdModifier())
-        .withModifier(secondThirdModifier())
-        .withModifier(thirdThirdModifier())
+        .withModifier(earlyMidLateModifier())
         .withModifier(firstQuarterModifier())
         .withModifier(secondQuarterModifier())
         .withModifier(thirdQuarterModifier())

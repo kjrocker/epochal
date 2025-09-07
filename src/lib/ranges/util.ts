@@ -16,10 +16,10 @@ export const matchTo = (input: string): [string, string] | null => {
 };
 
 export const matchDash = (input: string): [string, string] | null => {
-  // Match hyphen, en-dash, or em-dash
-  const matches = input.split(/[-–—‒]/);
+  // Match hyphen, en-dash, or em-dash, with optional question marks
+  const matches = input.split(/\??\s*[-–—‒]\s*\??/);
   if (matches.length !== 2) return null;
-  return matches as [string, string];
+  return [matches[0].trim(), matches[1].trim()];
 };
 
 export const matchSlash = (input: string): [string, string] | null => {

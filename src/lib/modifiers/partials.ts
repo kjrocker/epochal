@@ -35,14 +35,14 @@ const quartersOfRange = (
 };
 
 const EARLY = /early/;
-export const firstThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => EARLY.test(text),
-  extractor: (text) => text.replace(EARLY, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => {
-    const [start, middle] = thirdsOfRange(dates);
-    return [start, middle];
-  },
-});
+// export const firstThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
+//   predicate: (text) => EARLY.test(text),
+//   extractor: (text) => text.replace(EARLY, "").trim(),
+//   transformer: (dates: [Date, Date]): [Date, Date] => {
+//     const [start, middle] = thirdsOfRange(dates);
+//     return [start, middle];
+//   },
+// });
 
 const MID = /mid[-\s]/;
 export const secondThirdModifier = (): ModifierConfig<
@@ -77,7 +77,8 @@ export const firstHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
   },
 });
 
-const SECOND_HALF = /(?:(?:second|2nd|last|latter) half\s+(?:of\s*(?:the\s*)?)?|end\s+of\s*(?:the\s*)?)/;
+const SECOND_HALF =
+  /(?:(?:second|2nd|last|latter) half\s+(?:of\s*(?:the\s*)?)?|end\s+of\s*(?:the\s*)?)/;
 export const secondHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => SECOND_HALF.test(text),
   extractor: (text) => text.replace(SECOND_HALF, "").trim(),
@@ -149,5 +150,78 @@ export const middleHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
     const [_start, firstQuarter, _secondQuarter, thirdQuarter, _end] =
       quartersOfRange(dates);
     return [firstQuarter, thirdQuarter];
+  },
+});
+
+// Patterns for early-to-mid, mid-to-late, etc., plus singular cases
+const EARLY_TO_MID = /early\s+to\s+mid[-\s]/;
+const EARLY_TO_LATE = /early\s+to\s+late\b/;
+const MID_TO_LATE = /mid[-\s]to[-\s]late\b/;
+const EARLY_MID = /early[-\s]mid[-\s]/;
+const MID_LATE = /mid[-\s]late\b/;
+
+export const earlyMidLateModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) =>
+    EARLY_TO_MID.test(text) ||
+    EARLY_TO_LATE.test(text) ||
+    MID_TO_LATE.test(text) ||
+    EARLY_MID.test(text) ||
+    MID_LATE.test(text) ||
+    EARLY.test(text) ||
+    MID.test(text) ||
+    LATE.test(text),
+  extractor: (text: string): string => {
+    let extracted = text;
+
+    // Try range patterns first (more specific)
+    if (EARLY_TO_MID.test(extracted)) {
+      extracted = extracted.replace(EARLY_TO_MID, "").trim();
+    } else if (EARLY_TO_LATE.test(extracted)) {
+      extracted = extracted.replace(EARLY_TO_LATE, "").trim();
+    } else if (MID_TO_LATE.test(extracted)) {
+      extracted = extracted.replace(MID_TO_LATE, "").trim();
+    } else if (EARLY_MID.test(extracted)) {
+      extracted = extracted.replace(EARLY_MID, "").trim();
+    } else if (MID_LATE.test(extracted)) {
+      extracted = extracted.replace(MID_LATE, "").trim();
+    } else if (EARLY.test(extracted)) {
+      extracted = extracted.replace(EARLY, "").trim();
+    } else if (MID.test(extracted)) {
+      extracted = extracted.replace(MID, "").trim();
+    } else if (LATE.test(extracted)) {
+      extracted = extracted.replace(LATE, "").trim();
+    }
+
+    return extracted;
+  },
+  transformer: (dates: [Date, Date], text): [Date, Date] => {
+    const [start, firstThird, secondThird, end] = thirdsOfRange(dates);
+
+    // Handle range patterns first (more specific)
+    if (EARLY_TO_MID.test(text) || EARLY_MID.test(text)) {
+      // early to mid: start to end of middle third
+      return [start, secondThird];
+    } else if (EARLY_TO_LATE.test(text)) {
+      // early to late: start to end (full range)
+      return [start, end];
+    } else if (MID_TO_LATE.test(text) || MID_LATE.test(text)) {
+      // mid to late: start of middle third to end
+      return [firstThird, end];
+    } else if (EARLY.test(text)) {
+      // early: first third
+      return [start, firstThird];
+    } else if (MID.test(text)) {
+      // mid: middle third
+      return [firstThird, secondThird];
+    } else if (LATE.test(text)) {
+      // late: last third
+      return [secondThird, end];
+    }
+
+    // Default fallback
+    return dates;
   },
 });

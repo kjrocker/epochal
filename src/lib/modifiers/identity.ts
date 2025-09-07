@@ -12,6 +12,11 @@ const patterns = [
   /^cast\s+/,
   /,\s*probably\s*$/,
   /^patented\s+/,
+  /^dated,\s+/,
+  /^undated,\s+/,
+  /,\s*undated\s*$/,
+  /^published\s+/,
+  /^originally\s+published\s+/,
 ];
 export const identityModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => patterns.some((pattern) => pattern.test(text)),
@@ -76,7 +81,7 @@ export const afterOriginalModifier = (): ModifierConfig<
   transformer: (dates) => dates,
 });
 
-const ZODIAC_PATTERN = /\s+\w+\s+year(?=\s|$)|^year\s+of\s+the\s+\w+\s+/;
+const ZODIAC_PATTERN = /\s+\w+\s+year(?=\s|$)|^year\s+of\s+the\s+\w+\s+|,\s*year\s+of\s+the\s+\w+\s*$/;
 export const zodiacModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => ZODIAC_PATTERN.test(text),
   extractor: (text) => text.replace(ZODIAC_PATTERN, "").trim(),

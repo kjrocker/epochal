@@ -1,20 +1,6 @@
-import { startOfYear } from "date-fns/startOfYear";
-import { Maybe } from "./util/maybe";
-import { endOfYear } from "date-fns/endOfYear";
-import {
-  attachMetadata,
-  getYearWithCenturyBreakpoint,
-  InputHandler,
-  Handler,
-} from "./util/util";
-import { EpochizeOptions } from "./util/options";
 import { add, sub } from "date-fns";
-import { Modifier, ModifierConfig } from "./util/modifier";
-import {
-  firstThirdModifier,
-  secondThirdModifier,
-  thirdThirdModifier,
-} from "./modifiers/partials";
+import { endOfYear } from "date-fns/endOfYear";
+import { startOfYear } from "date-fns/startOfYear";
 import {
   afterOriginalModifier,
   identityModifier,
@@ -23,8 +9,18 @@ import {
   printedModifier,
   zodiacModifier,
 } from "./modifiers/identity";
-import { seasonModifier } from "./modifiers/season";
 import { islamicModifier } from "./modifiers/islamic";
+import { earlyMidLateModifier } from "./modifiers/partials";
+import { seasonModifier } from "./modifiers/season";
+import { Maybe } from "./util/maybe";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import {
+  attachMetadata,
+  getYearWithCenturyBreakpoint,
+  Handler,
+  InputHandler,
+} from "./util/util";
 
 const getYear = (
   year: string,
@@ -135,9 +131,7 @@ export const handleYear: InputHandler = (input, options) => {
         .withModifier(orLaterModifier(options))
         .withModifier(beforeModifier(options))
         .withModifier(byHandler())
-        .withModifier(firstThirdModifier())
-        .withModifier(secondThirdModifier())
-        .withModifier(thirdThirdModifier())
+        .withModifier(earlyMidLateModifier())
         .flatMap((text) => yearToNumber(text, options))
         .map((num) => yearToDate(num))
         .map((year): [Date, Date] => [startOfYear(year), endOfYear(year)])

@@ -1,10 +1,11 @@
 import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
 import {
-  firstThirdModifier,
-  secondThirdModifier,
-  thirdThirdModifier,
-} from "./modifiers/partials";
+  identityModifier,
+  parentheticalModifier,
+  zodiacModifier,
+} from "./modifiers/identity";
+import { earlyMidLateModifier } from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
 import { Modifier, ModifierConfig } from "./util/modifier";
 import { EpochizeOptions } from "./util/options";
@@ -16,11 +17,6 @@ import {
   InputHandler,
   lookupMonth,
 } from "./util/util";
-import {
-  identityModifier,
-  parentheticalModifier,
-  zodiacModifier,
-} from "./modifiers/identity";
 
 type GetMonthYear = (
   input: string,
@@ -60,7 +56,7 @@ const shortMonthNameYearEra: GetMonthYear = (input, options) => {
 
 const ORDINAL_WORDS: { [key: string]: string } = {
   first: "1",
-  second: "2", 
+  second: "2",
   third: "3",
   fourth: "4",
   fifth: "5",
@@ -76,8 +72,8 @@ const ORDINAL_WORDS: { [key: string]: string } = {
 export const ordinalMonthAndYear: GetMonthYear = (input, options) => {
   // Turn "1st month, 1919" or "first month, 1919" into { month: 1, year: 1919 }
   // Also handle "1774, 2nd month" and "1774, second month" formats
-  
-  // Try numeric ordinals first: "1st month, 1919" 
+
+  // Try numeric ordinals first: "1st month, 1919"
   let matches = input.match(
     /^(?<month>\d+)(?:st|nd|rd|th)\s+month\s*,?\s*(?<year>[0-9]+)\s*(?<era>[a-z]*)$/i
   );
@@ -99,8 +95,8 @@ export const ordinalMonthAndYear: GetMonthYear = (input, options) => {
         ...wordMatch,
         groups: {
           ...wordMatch.groups,
-          month: ORDINAL_WORDS[wordMatch.groups.month.toLowerCase()]
-        }
+          month: ORDINAL_WORDS[wordMatch.groups.month.toLowerCase()],
+        },
       } as RegExpMatchArray;
     }
   }
@@ -115,8 +111,8 @@ export const ordinalMonthAndYear: GetMonthYear = (input, options) => {
         ...wordMatch,
         groups: {
           ...wordMatch.groups,
-          month: ORDINAL_WORDS[wordMatch.groups.month.toLowerCase()]
-        }
+          month: ORDINAL_WORDS[wordMatch.groups.month.toLowerCase()],
+        },
       } as RegExpMatchArray;
     }
   }
@@ -157,9 +153,7 @@ export const handleMonth: InputHandler = (input, options) => {
         .withModifier(parentheticalModifier())
         .withModifier(circaModifier(options))
         .withModifier(zodiacModifier())
-        .withModifier(firstThirdModifier())
-        .withModifier(secondThirdModifier())
-        .withModifier(thirdThirdModifier())
+        .withModifier(earlyMidLateModifier())
         .flatMap((text) => textToYearAndMonth(text, options))
         .map(({ year, month }) => {
           const date = new Date(year, month - 1);

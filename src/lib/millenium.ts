@@ -1,17 +1,15 @@
-import { endOfMillenium, startOfMillenium } from "./date-fns";
-import { attachMetadata, InputHandler, Handler } from "./util/util";
-import { Modifier, ModifierConfig } from "./util/modifier";
-import { EpochizeOptions } from "./util/options";
 import { add, sub } from "date-fns";
+import { endOfMillenium, startOfMillenium } from "./date-fns";
 import {
-  firstThirdModifier,
-  secondThirdModifier,
-  thirdThirdModifier,
+  earlyMidLateModifier,
   firstQuarterModifier,
+  fourthQuarterModifier,
   secondQuarterModifier,
   thirdQuarterModifier,
-  fourthQuarterModifier,
 } from "./modifiers/partials";
+import { Modifier, ModifierConfig } from "./util/modifier";
+import { EpochizeOptions } from "./util/options";
+import { attachMetadata, Handler, InputHandler } from "./util/util";
 
 const milleniumToOrdinal = (text: string): number | null => {
   const eraMatches = text.match(
@@ -54,9 +52,7 @@ export const handleMillenium: InputHandler = (input, options) => {
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(circaModifier(options))
-        .withModifier(firstThirdModifier())
-        .withModifier(secondThirdModifier())
-        .withModifier(thirdThirdModifier())
+        .withModifier(earlyMidLateModifier())
         .withModifier(firstQuarterModifier())
         .withModifier(secondQuarterModifier())
         .withModifier(thirdQuarterModifier())
