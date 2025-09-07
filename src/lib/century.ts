@@ -18,16 +18,33 @@ import { EpochizeOptions } from "./util/options";
 import { attachMetadata, Handler, InputHandler } from "./util/util";
 
 const centuryToOrdinal = (text: string): number | null => {
-  const eraMatches = text.match(
-    /^(?<num>[0-9]+)[a-z]*\s+(?:century|centuries|century\?|centuries\?)\s*(?<era>[a-z.]*)$/
+  // Try pattern: "A.D. 2nd century" (era at beginning)
+  const frontEraMatches = text.match(
+    /^(?<era>[a-z.]+)\s+(?<num>[0-9]+)[a-z]*\s+(?:century|centuries|century\?|centuries\?)$/i
   );
-  if (!eraMatches?.groups) return null;
-  const { num, era } = eraMatches?.groups ?? { num: "", era: "" };
-  if (era.startsWith("b")) {
-    return Number.parseInt(num) * -1;
-  } else {
-    return Number.parseInt(num);
+  if (frontEraMatches?.groups) {
+    const { num, era } = frontEraMatches.groups;
+    if (era.toLowerCase().startsWith("b")) {
+      return Number.parseInt(num) * -1;
+    } else {
+      return Number.parseInt(num);
+    }
   }
+
+  // Try pattern: "2nd century A.D." (era at end)
+  const endEraMatches = text.match(
+    /^(?<num>[0-9]+)[a-z]*\s+(?:century|centuries|century\?|centuries\?)\s*(?<era>[a-z.]*)$/i
+  );
+  if (endEraMatches?.groups) {
+    const { num, era } = endEraMatches.groups;
+    if (era.toLowerCase().startsWith("b")) {
+      return Number.parseInt(num) * -1;
+    } else {
+      return Number.parseInt(num);
+    }
+  }
+
+  return null;
 };
 
 const CENTURY_LENGTH = 1000 * 60 * 60 * 24 * 365.25 * 100;
