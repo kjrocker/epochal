@@ -1,4 +1,10 @@
-import { identityModifier, printedModifier, parentheticalModifier, afterOriginalModifier, zodiacModifier } from "./identity";
+import {
+  identityModifier,
+  printedModifier,
+  parentheticalModifier,
+  afterOriginalModifier,
+  zodiacModifier,
+} from "./identity";
 
 describe("printedModifer", () => {
   const modifier = printedModifier();
@@ -93,7 +99,7 @@ describe("zodiacModifier", () => {
   test.each([
     // "<word> year" format at end
     ["6th month ox year 1853", "6th month 1853"],
-    ["7th month tiger year 1854", "7th month 1854"], 
+    ["7th month tiger year 1854", "7th month 1854"],
     ["7th month Hare year 1855", "7th month 1855"],
     ["4th month horse year 1858", "4th month 1858"],
     ["3rd month dragon year 1868", "3rd month 1868"],
@@ -176,7 +182,9 @@ describe("identityModifier", () => {
     ["published 1920", "1920"],
     ["published early 20th century", "early 20th century"],
     ["originally published Renaissance period", "Renaissance period"],
-    ["published in 1920", "in 1920"],
+    ["published in 1920", "1920"],
+    ["publication 1920", "1920"],
+    ["originally 1880s", "1880s"],
   ])(
     "predicate accepts and extractor processes '%s' -> '%s'",
     (input, expected) => {
@@ -192,8 +200,6 @@ describe("identityModifier", () => {
     "Renaissance era", // no dating prefix/suffix
     "undated 20th century", // no comma
     "20th century undated", // no comma (not at end)
-    "publication 1920", // different word
-    "originally 1880s", // missing "published"
   ])("predicate rejects '%s'", (input) => {
     expect(predicate(input)).toBe(false);
   });

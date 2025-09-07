@@ -1,22 +1,21 @@
-export const clean = (str: string): string | null => {
-  if (!str) return null;
-  // Remove uncertainty markers like "(?) before cleaning
-  let result = str.toLowerCase().replace(/\s*\(\?\)\s*/g, "");
-  // Remove single trailing question marks
-  result = result.replace(/\s*\?\s*$/, "");
-  // Remove complete wrapping parentheses, brackets, or braces
-  result = result.replace(/^\s*\(\s*(.*?)\s*\)\s*$/, "$1");
-  result = result.replace(/^\s*\[\s*(.*?)\s*\]\s*$/, "$1");
-  result = result.replace(/^\s*\{\s*(.*?)\s*\}\s*$/, "$1");
-  // Replacing "mid-" with "mid " wherever it's found
-  result = result.replace(/mid[-–—‒]/g, "mid ");
-  const cleaned = result.trim().toLowerCase();
-  if (!cleaned || cleaned === "") return null;
-  // Reduce multiple whitespaces to single whitespace
-  return cleaned.replace(/\s+/g, " ");
-};
+import { identityModifier } from "../modifiers/identity";
+import { Maybe } from "./maybe";
 
-export const clean2 = (input: string): string | null => {
+const { predicate, extractor } = identityModifier();
+
+export const clean = (input: string): string | null => {
   if (!input) return null;
-  return input.trim().toLowerCase();
+  return Maybe.fromValue(input)
+    .map((text) => text.trim().toLowerCase().replace(/\s+/g, " "))
+    .map((text) => text.replace(/\s*\(\?\)\s*/g, "").replace(/\s*\?\s*$/, ""))
+    .map((text) =>
+      text
+        .replace(/[-–—‒]/, "-")
+        .replace(/^\s*\(\s*(.*?)\s*\)\s*$/, "$1")
+        .replace(/^\s*\[\s*(.*?)\s*\]\s*$/, "$1")
+        .replace(/^\s*\{\s*(.*?)\s*\}\s*$/, "$1")
+    )
+    .map((text) => text.replace(/mid-/g, "mid "))
+    .map((text) => (predicate(text) ? extractor(text) : text))
+    .get();
 };
