@@ -7,6 +7,7 @@ describe("printedModifer", () => {
   test.each([
     ["dated A.H. 199/799", "799"],
     ["A.H. 199/799", "799"],
+    ["dated A.H. 369/ 979 CE", "979 ce"],
     ["dated A.H. 37?/ 98 CE ?", "98 ce ?"],
     ["dated A.H. 372?/ 982 CE ?", "982 ce ?"],
     ["dated A.H. 355/ A.H. 966", "a.h. 966"],

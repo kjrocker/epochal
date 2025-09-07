@@ -8,12 +8,13 @@ import {
 import { startOfDay } from "date-fns/startOfDay";
 import { endOfDay } from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
-import { Modifier } from "./util/modifier";
+import { Modifier, ModifierConfig } from "./util/modifier";
 import {
   identityModifier,
   parentheticalModifier,
   printedModifier,
 } from "./modifiers/identity";
+import { handleBrackets } from "./util/bracket-extractor";
 
 type GetMonthYearDay = (
   input: string
@@ -70,12 +71,20 @@ const textToYearMonthDay = (
   );
 };
 
+const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /by/.test(text),
+  extractor: (text) => text.replace(/by/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => dates,
+});
+
 export const handleDay: InputHandler = (input) => {
   return input
+    .map(handleBrackets)
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(printedModifier())
+        .withModifier(byHandler())
         .withModifier(parentheticalModifier())
         .flatMap((text) => textToYearMonthDay(text))
         .map(({ year, month, day }) => {

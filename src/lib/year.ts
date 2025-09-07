@@ -32,6 +32,16 @@ const getYear = (
   return getYearWithCenturyBreakpoint(year, era, options);
 };
 
+const startEraMatch = (
+  text: string,
+  options: EpochizeOptions
+): number | null => {
+  const startEraMatches = text.match(/^(?<era>[a-z.]+)\s+(?<num>[0-9,]+)$/i);
+  if (!startEraMatches?.groups) return null;
+  const { num, era } = startEraMatches.groups;
+  return getYear(num.replace(",", ""), era, options);
+};
+
 const eraMatch = (text: string, options: EpochizeOptions): number | null => {
   const eraMatches = text.match(/^(?<num>[0-9,]+)\s+(?<era>[a-z.]*)$/);
   if (!eraMatches?.groups) return null;
@@ -51,6 +61,7 @@ const yearToNumber = (
   options: EpochizeOptions
 ): Maybe<number> => {
   return Maybe.fromValue(text).tryEach(
+    (text) => startEraMatch(text, options),
     (text) => eraMatch(text, options),
     (text) => noEraMatch(text, options)
   );
@@ -118,11 +129,14 @@ const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
 export const handleYear: InputHandler = (input, options) => {
   return input
     .map(handleBrackets)
+    .map((text) => {
+      const { predicate, extractor } = islamicModifier();
+      return predicate(text) ? extractor(text) : text;
+    })
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
         .withModifier(seasonModifier())
-        .withModifier(islamicModifier())
         .withModifier(leadingWordModifier())
         .withModifier(printedModifier())
         .withModifier(parentheticalModifier())

@@ -145,11 +145,20 @@ const circaModifier = (
   transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 
+const afterModifier = (
+  options: EpochizeOptions
+): ModifierConfig<string, [Date, Date]> => ({
+  predicate: (text) => /after/.test(text),
+  extractor: (text) => text.replace(/after/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => dates,
+});
+
 export const handleMonth: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
         .withModifier(identityModifier())
+        .withModifier(afterModifier(options))
         .withModifier(parentheticalModifier())
         .withModifier(circaModifier(options))
         .withModifier(zodiacModifier())

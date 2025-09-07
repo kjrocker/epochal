@@ -2,6 +2,7 @@ import { ModifierConfig } from "../util/modifier";
 import { EN_MONTHS } from "../util/regex";
 
 const patterns = [
+  /\?/,
   /^dated\s+to\s+/,
   /^datable\s+to\s+the\s+/,
   /^datable\s+to\s+/,
@@ -13,12 +14,20 @@ const patterns = [
   /^about\s+/,
   /^cast\s+/,
   /,\s*probably\s*$/,
+  /,\s*suggested\s*$/,
+  /,\s*check\s*$/,
+  /\s+probably\s*$/,
+  /\s+suggested\s*$/,
+  /\s+check\s*$/,
+  /\s+or\searlier\s*$/,
   /^patented\s+/,
   /^dated,\s+/,
   /^undated,\s+/,
   /,\s*undated\s*$/,
   /^published\s+/,
   /^originally\s+published\s+/,
+  /^suggested\s+/,
+  /^check\s+/,
 ];
 export const identityModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => patterns.some((pattern) => pattern.test(text)),

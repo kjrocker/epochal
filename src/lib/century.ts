@@ -17,6 +17,11 @@ import { Modifier, ModifierConfig } from "./util/modifier";
 import { EpochizeOptions } from "./util/options";
 import { attachMetadata, Handler, InputHandler } from "./util/util";
 
+const parseEraAndNumber = (num: string, era: string): number => {
+  const parsedNum = Number.parseInt(num);
+  return era.toLowerCase().startsWith("b") ? parsedNum * -1 : parsedNum;
+};
+
 const centuryToOrdinal = (text: string): number | null => {
   // Try pattern: "A.D. 2nd century" (era at beginning)
   const frontEraMatches = text.match(
@@ -24,11 +29,7 @@ const centuryToOrdinal = (text: string): number | null => {
   );
   if (frontEraMatches?.groups) {
     const { num, era } = frontEraMatches.groups;
-    if (era.toLowerCase().startsWith("b")) {
-      return Number.parseInt(num) * -1;
-    } else {
-      return Number.parseInt(num);
-    }
+    return parseEraAndNumber(num, era);
   }
 
   // Try pattern: "2nd century A.D." (era at end)
@@ -37,11 +38,7 @@ const centuryToOrdinal = (text: string): number | null => {
   );
   if (endEraMatches?.groups) {
     const { num, era } = endEraMatches.groups;
-    if (era.toLowerCase().startsWith("b")) {
-      return Number.parseInt(num) * -1;
-    } else {
-      return Number.parseInt(num);
-    }
+    return parseEraAndNumber(num, era);
   }
 
   return null;
