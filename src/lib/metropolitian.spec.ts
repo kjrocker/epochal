@@ -79,6 +79,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["1704, 1708", 1704, 1708],
   ["[about 1770s]", 1770, 1779],
   ["1575; 1577", 1575, 1577],
+  ["A.D. 2nd–7th century", 101, 700],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

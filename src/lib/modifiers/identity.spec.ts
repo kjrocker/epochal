@@ -142,6 +142,9 @@ describe("identityModifier", () => {
     // Existing patterns
     ["dated to 1850", "1850"],
     ["datable to early 19th century", "early 19th century"],
+    ["datable to the 1930s", "1930s"],
+    ["datable to the early 20th century", "early 20th century"],
+    ["datable to the Renaissance period", "Renaissance period"],
     ["dated 1920", "1920"],
     ["dated 20th century", "20th century"],
     ["d a t e d 1900", "1900"],
