@@ -135,7 +135,6 @@ export const handleYear: InputHandler = (input, options) => {
     })
     .flatMap((text) =>
       Modifier.fromValue(text)
-        .withModifier(identityModifier())
         .withModifier(seasonModifier())
         .withModifier(leadingWordModifier())
         .withModifier(printedModifier())

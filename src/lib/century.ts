@@ -1,7 +1,6 @@
 import { endOfCentury, startOfCentury } from "./date-fns";
 import {
   afterOriginalModifier,
-  identityModifier,
   parentheticalModifier,
 } from "./modifiers/identity";
 import {
@@ -77,7 +76,7 @@ export const handleCentury: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
-        .withModifier(identityModifier())
+
         .withModifier(circaModifier(options))
         .withModifier(orLaterModifier(options))
         .withModifier(parentheticalModifier())

@@ -157,7 +157,6 @@ export const handleMonth: InputHandler = (input, options) => {
   return input
     .flatMap((text) =>
       Modifier.fromValue(text)
-        .withModifier(identityModifier())
         .withModifier(afterModifier(options))
         .withModifier(parentheticalModifier())
         .withModifier(circaModifier(options))
