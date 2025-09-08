@@ -79,12 +79,12 @@ class Modifier<T, Current, Target = Current> {
     );
   }
 
-  curvedTryEach<NewR>(
+  dutchTryEach<NewR>(
     ...args: ((value: Maybe<Current>) => Maybe<NewR>)[]
   ): Modifier<T, NewR, Target> {
     return new Modifier<T, NewR, Target>(
       this.originalInput,
-      this.maybe.curvedTryEach(...args),
+      this.maybe.dutchTryEach(...args),
       this.rules
     );
   }

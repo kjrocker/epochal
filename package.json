@@ -8,7 +8,8 @@
     "test": "jest",
     "lint": "eslint src",
     "test:watch": "jest --watch",
-    "process:metropolitan": "npx ts-node src/metropolitian/main.ts"
+    "check": "npx ts-node src/metropolitian/main.ts",
+    "block": "npx ts-node src/metropolitian/interactive-blocklist-manager.ts"
   },
   "keywords": [
     "date",

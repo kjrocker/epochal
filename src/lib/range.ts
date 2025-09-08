@@ -8,7 +8,7 @@ import { handleYearListRange } from "./ranges/year-list";
 import { InputHandler } from "./util/util";
 
 export const handleRange: InputHandler = (input, options) => {
-  return input.curvedTryEach(
+  return input.dutchTryEach(
     (text) => handleDayRange(text, options),
     (text) => handleYearRange(text, options),
     (text) => handleYearListRange(text, options),
