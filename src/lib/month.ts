@@ -75,7 +75,7 @@ export const ordinalMonthAndYear: GetMonthYear = (input, options) => {
 
   // Try numeric ordinals first: "1st month, 1919"
   let matches = input.match(
-    /^(?<month>\d+)(?:st|nd|rd|th)\s+month\s*,?\s*(?<year>[0-9]+)\s*(?<era>[a-z]*)$/i
+    /^(?<month>\d+)(?:st|nd|rd|th)\s+month\s*(of|,)?\s*(?<year>[0-9]+)\s*(?<era>[a-z]*)$/i
   );
 
   // Try year-first numeric format: "1774, 2nd month"
@@ -83,38 +83,6 @@ export const ordinalMonthAndYear: GetMonthYear = (input, options) => {
     matches = input.match(
       /^(?<year>[0-9]+)\s*(?<era>[a-z]*)\s*,\s*(?<month>\d+)(?:st|nd|rd|th)\s+month$/i
     );
-  }
-
-  // Try word ordinals: "first month, 1919"
-  if (!matches?.groups) {
-    const wordMatch = input.match(
-      /^(?<month>first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth)\s+month\s*,?\s*(?<year>[0-9]+)\s*(?<era>[a-z]*)$/i
-    );
-    if (wordMatch?.groups) {
-      matches = {
-        ...wordMatch,
-        groups: {
-          ...wordMatch.groups,
-          month: ORDINAL_WORDS[wordMatch.groups.month.toLowerCase()],
-        },
-      } as RegExpMatchArray;
-    }
-  }
-
-  // Try year-first word format: "1774, first month"
-  if (!matches?.groups) {
-    const wordMatch = input.match(
-      /^(?<year>[0-9]+)\s*(?<era>[a-z]*)\s*,\s*(?<month>first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth)\s+month$/i
-    );
-    if (wordMatch?.groups) {
-      matches = {
-        ...wordMatch,
-        groups: {
-          ...wordMatch.groups,
-          month: ORDINAL_WORDS[wordMatch.groups.month.toLowerCase()],
-        },
-      } as RegExpMatchArray;
-    }
   }
 
   if (!matches?.groups) return null;
