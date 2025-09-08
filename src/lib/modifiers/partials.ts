@@ -143,9 +143,13 @@ export const fourthQuarterModifier = (): ModifierConfig<
 });
 
 const MIDDLE_HALF = /(?:middle|mid) half\s+(?:of\s*(?:the\s*)?)?/;
+const MIDDLE_HALF_2 = /(?:middle)\s+(?:of\s*(?:the\s*)?)?/;
 export const middleHalfModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => MIDDLE_HALF.test(text),
-  extractor: (text) => text.replace(MIDDLE_HALF, "").trim(),
+  predicate: (text) => MIDDLE_HALF.test(text) || MIDDLE_HALF_2.test(text),
+  extractor: (text) =>
+    MIDDLE_HALF.test(text)
+      ? text.replace(MIDDLE_HALF, "").trim()
+      : text.replace(MIDDLE_HALF_2, ""),
   transformer: (dates: [Date, Date]): [Date, Date] => {
     const [_start, firstQuarter, _secondQuarter, thirdQuarter, _end] =
       quartersOfRange(dates);

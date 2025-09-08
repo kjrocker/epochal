@@ -56,11 +56,12 @@ const centuryToDate = (century: number): Date | null => {
   return new Date(CENTURY_MIDPOINT + offset);
 };
 
+const CIRCA_REGEX = /ca\.|c\.|circa|ca/;
 const circaModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /ca\.|c\.|circa/.test(text),
-  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  predicate: (text) => CIRCA_REGEX.test(text),
+  extractor: (text) => text.replace(CIRCA_REGEX, "").trim(),
   transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
 

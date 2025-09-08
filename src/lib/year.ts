@@ -43,7 +43,7 @@ const startEraMatch = (
 };
 
 const eraMatch = (text: string, options: EpochizeOptions): number | null => {
-  const eraMatches = text.match(/^(?<num>[0-9,]+)\s+(?<era>[a-z.]*)$/);
+  const eraMatches = text.match(/^(?<num>[0-9,]+)\s+(?<era>[a-z.\s]*)$/);
   if (!eraMatches?.groups) return null;
   const { num, era } = eraMatches?.groups ?? { num: "", era: "" };
   return getYear(num.replace(",", ""), era, options);

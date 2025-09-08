@@ -1,0 +1,1004 @@
+Object Date,Expected Begin,Expected End,Epochized Begin,Epochized End,Status
+"before 1924, after a 1660 design",1914,1923,,,epochize returned null
+"Qing dynasty (1644–1911), ca. 1784–92",1784,1792,,,epochize returned null
+"ca. 1980, after 1905 design",1905,1983,,,epochize returned null
+"Probably late 19th century, style of 1700–1730",1875,1900,,,epochize returned null
+"1895, revised 1909, cast by November 1910",1895,1909,,,epochize returned null
+"1905, revised 1908; this cast, before 1939",1905,1938,,,epochize returned null
+"1892–1903; this cast, 1914 or after (by 1916)",1892,1903,,,epochize returned null
+1905–6 (?) or 1905–?6,1905,1906,,,epochize returned null
+19th cenutry,1800,1900,,,epochize returned null
+"Mounting, 19th century; pommel cap, 16th century",1501,1900,,,epochize returned null
+"mounting, 19th century",1801,1900,,,epochize returned null
+"largest lame of shoulder defense, ca. 1475; other elements probably 19th century",1450,1900,,,epochize returned null
+"partially mid-16th century, comprehensively reworked in the 19th century",1535,1900,,,epochize returned null
+"ca. 1525; left arm defense, 19th century; rondels, 1923",1500,1923,,,epochize returned null
+"barrel late 18th–early 19th century; stock, dated 1865",1775,1865,,,epochize returned null
+"helmet late 15th–16th century, mountings late 18th century",1475,1800,,,epochize returned null
+ca. 12500 BCE–ca. 4th or 3rd century BCE,-12500,-300,,,epochize returned null
+"ca. 1560 and later; greaves and sabatons, ca. 1570–80",1535,1900,,,epochize returned null
+"ca. 1545 and later; helmet, ca. 1550",1520,1900,,,epochize returned null
+"ca. 1520; left tasset, probably 19th or 20th century",1495,1950,,,epochize returned null
+"dated 1621; helmet brim and buffe, 19th century",1621,1900,,,epochize returned null
+"ca. 1560 and later; restoration of decoration, 19th century",1535,1900,,,epochize returned null
+"mainly 19th century, in style of 15th century",1800,1880,,,epochize returned null
+"ca. 1575; breastplate, later; lancerest and gilt decoration, probably 18th–19th century",1550,1900,,,epochize returned null
+"ca. 1500–1510 and later; helmet, ca. 1480",1455,1900,,,epochize returned null
+"left knee defense, ca. 1460; right knee defense, possibly 19th century",1435,1925,,,epochize returned null
+"left gauntlet, early 17th century; right gauntlet, later",1600,1900,,,epochize returned null
+"right gauntlet, ca. 1570; left gauntlet, later",1545,1900,,,epochize returned null
+late 15th–16th century; probably relaced in the 18th century,1450,1800,,,epochize returned null
+"armor, ca. 1550; helmet, 18th century",1525,1800,,,epochize returned null
+"ca. 1600; cheekplates of helmet and part of left gauntlet thumb, probably 19th century",1575,1900,,,epochize returned null
+"dated 1571; upper plate of the gorget, skirt lames, and cheek pieces, 1917",1571,1917,,,epochize returned null
+"19th century, dated 1854",1801,1900,,,epochize returned null
+"man's armor, ca. 1535–40; horse armor, dated 1554; saddle steels, later restorations",1510,1900,,,epochize returned null
+late 15th century; extensively restored and completed ca. 1926,1450,1950,,,epochize returned null
+"ca. 1485 and later, composed in the early 20th century",1475,1925,,,epochize returned null
+"ca. 1375–1400, modified in early 15th century",1350,1450,,,epochize returned null
+ca. 1400–1450 and later,1375,1950,,,epochize returned null
+"ca. 1470; gilt mounts, probably added early 16th century",1445,1550,,,epochize returned null
+"ca. 1460; decoration, probably 17th century and later",1435,1900,,,epochize returned null
+"arm defense (b), ca. 1450; arm defense (a), later restoration",1425,1475,,,epochize returned null
+"left greave (b), ca. 1450; right greave (a), mid-20th century",1425,1975,,,epochize returned null
+"right greave and sabaton, ca. 1510–30; left greave and sabaton excepting toe-cap, early 20th century",1485,1950,,,epochize returned null
+"crossbow, ca. 1720–30; winder, ca. 1575–1600",1550,1755,,,epochize returned null
+"mid-19th century; barrel, dated A.H. 1207/1792–93 CE; lock, ca. 1825–50",1792,1875,,,epochize returned null
+"mounting, ca. 1750–1800",1725,1825,,,epochize returned null
+late 19th century; scabbard 17th–early 18th century,1650,1900,,,epochize returned null
+mid–late17th century,1601,1700,,,epochize returned null
+"14th century; mounting, 19th century",1301,1900,,,epochize returned null
+"Blade, late 18th century; mounting, late 18th century",1750,1800,,,epochize returned null
+"Horn, 1779; engraving, 19th century",1779,1900,,,epochize returned null
+"16th century; etched and gilt decoration, probably 19th century",1501,1925,,,epochize returned null
+"17th–18th century, in the style of the 12th–13th century",1600,1799,,,epochize returned null
+"1853; converted for cartidges, ca. 1868–71",1853,1896,,,epochize returned null
+"20th century, in the style of the 16th century",1901,2000,,,epochize returned null
+"left, ca. 1500; right, late 19th century",1475,1900,,,epochize returned null
+"badge, 1400–1450; shield, ca. 1800",1400,1825,,,epochize returned null
+"saddle plate, 17th–18th century; harness fittings, 15th–17th century",1401,1800,,,epochize returned null
+"16th century; etching, probably 19th century",1501,1900,,,epochize returned null
+possibly 18th century or modern,1701,1725,,,epochize returned null
+"horn, 11th–12th century; case, 16th century",1001,1600,,,epochize returned null
+1675–1700 and later,1675,1900,,,epochize returned null
+"ca. 1490–1500, redecorated 1539",1465,1539,,,epochize returned null
+"ca. 1490; rondel, late 19th century",1465,1900,,,epochize returned null
+"19th century, in the late 15th century style",1825,1875,,,epochize returned null
+late19th–early 20th century,1850,1906,,,epochize returned null
+late19th century–early 20th century,1875,1925,,,epochize returned null
+probably 19th century in the 16th century style,1850,1900,,,epochize returned null
+"armet, ca. 1460–70; wrapper, ca. 1450; rondel, probably 18th–19th century",1425,1920,,,epochize returned null
+"ca. 1630; bottom front and back collar lames, later restorations",1605,1655,,,epochize returned null
+"16th century; embossed decoration, probably 18th–19th century",1501,1925,,,epochize returned null
+19th century in the style of the 15th century,1801,1900,,,epochize returned null
+ca. 1555; probably repainted later,1530,1900,,,epochize returned null
+ca. 1555; probably repainted and eye guards restored later,1530,1900,,,epochize returned null
+ca. 1450–1525 and later,1425,1550,,,epochize returned null
+probably early 19th century in the 16th century style,1800,1850,,,epochize returned null
+"probably 19th century, in the 15th century style",1801,1875,,,epochize returned null
+"mid-to late 19th century, in late 15th century style",1850,1900,,,epochize returned null
+ca. 1850 in the style of the mid-16th centuru,1775,1875,,,epochize returned null
+"ca. 1560; restored, 19th century",1535,1900,,,epochize returned null
+late15th–early 16th century,1550,1650,,,epochize returned null
+"tassets, ca. 1560; etched and embossed decoration probably 19th century",1535,1585,,,epochize returned null
+"left pauldron, ca. 1500; right pauldron, possibly 19th century",1475,1925,,,epochize returned null
+"17th century; grip and restorations, 19th century",1601,1900,,,epochize returned null
+"ca. 1480–95; bottom lame and mail fringe, restored ca. 1863–1900",1455,1900,,,epochize returned null
+"probably 17th or 18th century, with later modifications",1601,1800,,,epochize returned null
+"17th century; restorations, 2015",1600,2015,,,epochize returned null
+"helmet, late 16th–early 17th century; crest, 18th century",1550,1800,,,epochize returned null
+"18th century; restorations, 2015",1700,2015,,,epochize returned null
+"ca. 1683 and later; buff coat, 17th–18th century",1601,1916,,,epochize returned null
+"helmet 17th–19th century, crest 19th century",1601,1900,,,epochize returned null
+"crossbow, ca. 1560–80; cranequin, first half of the 16th century",1500,1605,,,epochize returned null
+"minted, 1517; dies cut and dated, 1509",1509,1517,,,epochize returned null
+ca. 1615–1868),1590,1900,,,epochize returned null
+"lock and stock, dated A.H. 1224/1809–10 CE; barrel, 18th century",1701,1810,,,epochize returned null
+"probably mid-to late 19th century, in the style of the 15th century",1850,1900,,,epochize returned null
+17th and 18th–19th century,1601,1900,,,epochize returned null
+"Horn, 18th to 19th century; engraving, late 19th to early 20th century",1750,1925,,,epochize returned null
+dated Mauludi-era 1225/1796–97 CE,1793,1794,,,epochize returned null
+"possibly 16th century; decorated, 19th century",1475,1900,,,epochize returned null
+"19th century; grip, dated A.H. 1268/1851–2 CE",1801,1900,,,epochize returned null
+"19th century, decorations dated 1829",1801,1900,,,epochize returned null
+"18th century, lock dated 1793–94",1701,1800,,,epochize returned null
+"barrel, possibly late 17th century; lock, mountings, decorations early 19th century",1600,1850,,,epochize returned null
+"Barrel 17th c.., gun later",1601,1900,,,epochize returned null
+"hilt and guard, 19th century; grip, possibly 18th century",1675,1900,,,epochize returned null
+"1808–39; grip, 18th–19th century",1701,1900,,,epochize returned null
+"Blade, 1766–67; Mount, 19th century",1766,1900,,,epochize returned null
+"18th century; bowl, 17th century",1601,1800,,,epochize returned null
+"17th century; nasal, possibly 16th century",1501,1700,,,epochize returned null
+"hilt, dated A.H. 1266/1849–50 CE; scabbard, dated A.H. 1271/1854–55 CE",1849,1855,,,epochize returned null
+"probably 19th century, in the style of the late 14th century",1800,1900,,,epochize returned null
+"ca. 14th–15th century; grip, later",1275,1900,,,epochize returned null
+19th century in the 16th century style,1801,1900,,,epochize returned null
+"19th century; lock, dated 1812",1801,1900,,,epochize returned null
+"flask, before 1801; spout, after 1835",1750,1900,,,epochize returned null
+16th century copy of a mid-15th century manuscript,1440,1600,,,epochize returned null
+"Helmet, possibly ca. 1575; decoration, ca. 1875",1575,1875,,,epochize returned null
+"Blade, dated 1738–39; hilt and scabbard, 19th century",1738,1900,,,epochize returned null
+15th century; mounting modern,1401,1900,,,epochize returned null
+"bit, ca. 1700; bosses, late 16th - early 17th century",1550,1725,,,epochize returned null
+"late 15th or early 16th century, and later; date 1584 engraved probably during the 19th century",1450,1913,,,epochize returned null
+"crossbow, ca. 1575–1650; cranequin dated 1562",1550,1675,,,epochize returned null
+"early 16th century; 14.25.1576g, probably 17th or 18th century",1500,1800,,,epochize returned null
+"tiller of crossbow, mid-18th century; bow, probably 19th century; windlass, ca. 1600–1750",1575,1925,,,epochize returned null
+"crossbow, probably mid-18th century; windlass, dated 1741",1725,1775,,,epochize returned null
+"15th–17th century; j, probably 15th or 16th century",1375,1700,,,epochize returned null
+"dated 1623; locks, second half 18th century",1623,1900,,,epochize returned null
+In style of 16th century,1501,1600,,,epochize returned null
+probably mid to late 19th century in style of 16th century,1850,1875,,,epochize returned null
+Early 19th century in the early 17th century style,1600,1840,,,epochize returned null
+"probably 16th century; hilt, dated 1569",1501,1600,,,epochize returned null
+early 15th century; mounting modern,1401,1900,,,epochize returned null
+end of 15th Century; mounting modern,1450,1900,,,epochize returned null
+"quiver, probably early 16th century; bolts, 14th–16th century",1275,1625,,,epochize returned null
+"ca. 1580; embossed decoration, probably 18th–19th century",1555,1925,,,epochize returned null
+"9th to 10th century, with modern restorations",800,1000,,,epochize returned null
+"left gauntlet, late 15th century; right gauntlet, probably 19th century",1450,1925,,,epochize returned null
+"1565; thumb and forefinger, restored 1915",1565,1915,,,epochize returned null
+"ca. 1500, remade ca. 1550",1475,1585,,,epochize returned null
+"crossbow, ca. 1540–60 and later; spanning lever, probably first half of the 16th century",1500,1900,,,epochize returned null
+"crossbow, ca. 1540–60; spanning lever, ca. 1525–75",1500,1600,,,epochize returned null
+first third 19th century,1800,1830,,,epochize returned null
+"early 16th century; engraved decoration, probably 18th–19th century",1501,1925,,,epochize returned null
+"mounting 19th century; grip ornaments 16th century; hilt collar (<i>fuchi</i>), dated 1849",1500,1900,,,epochize returned null
+"man's armor, ca. 1570 and later; horse armor, ca. 1580–90 and later",1545,1900,,,epochize returned null
+"man's armor, ca. 1575 and later; horse armor, ca. 1560 and later",1535,1900,,,epochize returned null
+"17th century, with later alterations",1601,1950,,,epochize returned null
+"armor, ca. 1623–30; spurs, early 17th century",1598,1655,,,epochize returned null
+"cuirass, 17th–early 18th century; mail shirt, 18th–19th century",1601,1900,,,epochize returned null
+"18th century or later, spurious date of 1680",1700,1911,,,epochize returned null
+"18th century or later, spurious date of 1706",1700,1911,,,epochize returned null
+"18th century or later, spurious date of 1676",1700,1911,,,epochize returned null
+"18th century or later, spurious date of 1648",1700,1911,,,epochize returned null
+"18th century or later, spurious date of 1707",1707,1911,,,epochize returned null
+"17th century or later, spurious date of 1649",1644,1911,,,epochize returned null
+"17th century or later, spurious date of 1569",1600,1644,,,epochize returned null
+"18th century or later, spurious date of 1492",1700,1911,,,epochize returned null
+14th century; plus later addition,1300,1368,,,epochize returned null
+"dated ""xinyou"" (1561 or 1621?)",1561,1621,,,epochize returned null
+ｄａｔｅｄ 1654,1654,1654,,,epochize returned null
+dated the 7th month of 1815,1815,1815,,,epochize returned null
+"dated 11th month, Ox year, 1853",11,1853,,,epochize returned null
+"dated 8th month of the Snake year, 1857",1857,1857,,,epochize returned null
+"1782 (Tenmei 2), 5th month",1782,1782,,,epochize returned null
+"1785 (Tenmei 5), 11th month",1785,1785,,,epochize returned null
+"8th or 9th month, 1784",1784,1784,,,epochize returned null
+"probably 1792 (Kansei 4), 4th month",1792,1792,,,epochize returned null
+"1792 (Kansei 4), 8th month",1792,1792,,,epochize returned null
+"1795 (Kansei 7), 11th month",1795,1795,,,epochize returned null
+"summer, 1772",1772,1772,,,epochize returned null
+"1775 (An'ei 4), 11th month",1775,1775,,,epochize returned null
+"summer, 1768",1768,1768,,,epochize returned null
+"1769 (Meiwa 6), 3rd month",1769,1769,,,epochize returned null
+"1795 (Kansei 7), 4th month",1795,1795,,,epochize returned null
+11th–13th or 15th–16th centuries,1000,1599,,,epochize returned null
+equivalent to February / March 1322,1322,1322,,,epochize returned null
+date uncertain,1300,1999,,,epochize returned null
+First three quarters of the 1st century(?),1,75,,,epochize returned null
+first three quarters of first century,1,75,,,epochize returned null
+fourth quarter of the 10th–century,976,999,,,epochize returned null
+"12th century, under worship in Tibet",1100,1199,,,epochize returned null
+ca. second half of the 11th–century,1050,1099,,,epochize returned null
+11th–12th centur (?),1000,1199,,,epochize returned null
+late18th–early 19th century,1767,1833,,,epochize returned null
+late18th or19th century,1767,1899,,,epochize returned null
+13th century rubbing of a 4th century text,1200,1299,,,epochize returned null
+Machang phase (ca. 2350–2050 BCE),-2350,-2050,,,epochize returned null
+"Saddle: Muromachi period (1392–1573), dated 1491 (Entoku 3); lacquer decoration: Edo period (1615–1868), 17th century",1392,1573,,,epochize returned null
+early 17th period,1500,1700,,,epochize returned null
+"17th century, probably after 1625",1625,1636,,,epochize returned null
+first half 2nd millennium BCE,-1600,-1000,,,epochize returned null
+To be determined,0,0,,,epochize returned null
+n.d.a.,-3200,1700,,,epochize returned null
+(3200–2000 BCE) – (1368–1644 CE),-3200,1700,,,epochize returned null
+Bashu culture 4th–3rd century BCE,-481,-221,,,epochize returned null
+Machang type (ca. 2350–2050 BCE),-2300,-2000,,,epochize returned null
+Modern,1900,1999,,,epochize returned null
+"Machang phase, ca. 2350–2050 BCE",-2400,-2000,,,epochize returned null
+Banshan phase (ca. 2650–2350 BCE),-2650,-2350,,,epochize returned null
+mid- to late19th century,1834,1867,,,epochize returned null
+"after 1782, ca. 1784",1782,1784,,,epochize returned null
+(right screen) late 16th–early 17th century; (left screen) early to mid-17th century,1571,1666,,,epochize returned null
+"16th century; sheets of poetry, one dated 1553",1500,1599,,,epochize returned null
+mid 18th-century,1734,1766,,,epochize returned null
+"early 20th century, spurious date of 1577",1900,1934,,,epochize returned null
+"dated yiwei 乙未, 1655?",1655,1655,,,epochize returned null
+"17th century or later, spurious date of 1633",1600,1699,,,epochize returned null
+"17th century, after 1661",1616,1671,,,epochize returned null
+"18th century or later, spurious date of 1715",1715,1911,,,epochize returned null
+Last quarter of the 10th–last quarterof the 15th century,975,1499,,,epochize returned null
+18th cenury or later,1700,1911,,,epochize returned null
+n. d.,1271,1368,,,epochize returned null
+Kashō 2 (1107),1107,1107,,,epochize returned null
+"Year of the Dragon, probably 1832",1832,1832,,,epochize returned null
+"1795 (Kan’ei 7), 4th month",1795,1795,,,epochize returned null
+"Summer, 1891",1891,1891,,,epochize returned null
+"1862 (Bunkyū 2), 6th month",1862,1862,,,epochize returned null
+"Sept. 5, 1877 (Meiji 10)",1877,1877,,,epochize returned null
+"1854, 7th month)",1854,1854,,,epochize returned null
+mid- to late18th century,1734,1799,,,epochize returned null
+"1748 (Enkyō 5), first month",1748,1748,,,epochize returned null
+"1780 (An’ei 9), 1st month",1780,1780,,,epochize returned null
+mid-to-late19th century,1850,1899,,,epochize returned null
+"late 19th century, before 1870",1868,1869,,,epochize returned null
+style of 18th century,1700,1799,,,epochize returned null
+18th century; lid probably relacquered in the 19th century,1700,1799,,,epochize returned null
+first half of the 1st millennium BCE,-949,-500,,,epochize returned null
+early–middle 18th century,1733,1749,,,epochize returned null
+early 20th-century copy of 8th-century original,1900,1925,,,epochize returned null
+modern imitation,0,0,,,epochize returned null
+"13th–12th century BCE; cover, Qing dynasty (1644–1911), possibly 19th century",-1300,-1100,,,epochize returned null
+7th–8th century or later re-cast copy,600,799,,,epochize returned null
+uncertain date,1368,1899,,,epochize returned null
+datable to1678,1678,1678,,,epochize returned null
+"First edition, 1679",1679,1679,,,epochize returned null
+"first edition, printed 1679",1679,1679,,,epochize returned null
+"first edition, printed in 1679",1679,1679,,,epochize returned null
+"1782, 2nd edition",1782,1782,,,epochize returned null
+stone carved in 1757; rubbing 18th or 19th century?,1900,1959,,,epochize returned null
+date of stele: Song dynasty (960–1279),960,1279,,,epochize returned null
+19th century rubbing of a 10th century stone carving,1800,1899,,,epochize returned null
+late17th–early 18th century,1667,1722,,,epochize returned null
+"18th century, before 1738",1700,1737,,,epochize returned null
+"18th century, before 1793",1700,1792,,,epochize returned null
+mid–16th to mid–18th century,1550,1749,,,epochize returned null
+last third 19th century,1867,1899,,,epochize returned null
+"Early to mid 20th century, after 1922",1922,1966,,,epochize returned null
+"7th–10th month, 1870",1870,1870,,,epochize returned null
+"cyclical dated listed in donor inscription, most probably 1635",1635,1635,,,epochize returned null
+"late 20th century, before 1973",1967,1973,,,epochize returned null
+second half of the 1790s,1796,1799,,,epochize returned null
+"early 19th century, before 1829",1800,1825,,,epochize returned null
+"preface date: 1816, (Bunka 13)",1816,1816,,,epochize returned null
+preface date: 1831 (Tenpō 2),1831,1831,,,epochize returned null
+"1834, January, (Tenpō 5)",1834,1834,,,epochize returned null
+"1829, Early Winter, (Bunsei 12)",1829,1829,,,epochize returned null
+1849 (Kaei 2,1849,1849,,,epochize returned null
+"Preface: 1850, early Autumn (Kaei 3)",1850,1867,,,epochize returned null
+"late 19th 
+century reprint of original edition of 1836",1875,1899,,,epochize returned null
+"1813, tenth month (Bunka 1",1813,1813,,,epochize returned null
+"1802, early autumn, (Kyōwa 2)",1802,1802,,,epochize returned null
+"1810, first month (Bunka 7",1810,1810,,,epochize returned null
+"1751, first month, (Hōreki 1 and Kan'en 4)",1751,1751,,,epochize returned null
+"first designed 1925, purchased 1930",1925,1930,,,epochize returned null
+spring/summber 1948,1948,1948,,,epochize returned null
+last third 18th century,1760,1799,,,epochize returned null
+"designed 1980, made 2002",1980,2002,,,epochize returned null
+early–late 18th century,1775,1825,,,epochize returned null
+late 18th cenutry,1750,1799,,,epochize returned null
+"spring/summer 1947, edition 1960",1947,1960,,,epochize returned null
+"1730s, maybe earlier",1700,1739,,,epochize returned null
+first third 18th century,1700,1733,,,epochize returned null
+mid-19th centruy,1825,1875,,,epochize returned null
+"spring/summer 2000, edition 2005 ",2000,2000,,,epochize returned null
+fall-winter 1986,1986,1987,,,epochize returned null
+"Late 16th Century; cut, patched and reshaped at a later date",1575,1600,,,epochize returned null
+"16th Century (embroidery), 17th Century (velvet), cut, patched and reshaped at a later date",1550,1690,,,epochize returned null
+thrid quarter 19th century,1851,1875,,,epochize returned null
+first quarter 20th cnetury,1900,1925,,,epochize returned null
+"ca. 1720, partially cut, patched and reshaped in the 19th century",0,0,,,epochize returned null
+"18th century, decoration ca. 1750",1700,1799,,,epochize returned null
+"19th century, after 17th century (?) original",1800,1899,,,epochize returned null
+"19th century, after 16th century (?) original",1800,1899,,,epochize returned null
+"19th century, early 17th century original",1800,1899,,,epochize returned null
+"stem and foot late 16th–early 17th century, tray 19th century",1585,1899,,,epochize returned null
+"probably 17th century, with later additions",1600,1699,,,epochize returned null
+"cast in plaster 1821, executed in bronze ca. 1833",1821,1838,,,epochize returned null
+16th century with modern mounts,1500,1599,,,epochize returned null
+second half 16th century with later alterations,1550,1599,,,epochize returned null
+late 19th century in 18th century style,1875,1899,,,epochize returned null
+Probably 19th century in 18th century style,1875,1899,,,epochize returned null
+"19th century, after 17th century model",1600,1899,,,epochize returned null
+"late 18th century, after model of 1778",1778,1799,,,epochize returned null
+"19th–early 20th century, cast after a model of 1788",1788,1915,,,epochize returned null
+1600–1630 or later,1600,1699,,,epochize returned null
+"16th century, with later replacements",1500,1599,,,epochize returned null
+"early 20th century cast, after model of 1803",1803,1909,,,epochize returned null
+ring: mid-16th century; cameo: early Hellenistic 4th century BCE,1530,1565,,,epochize returned null
+original model late 19th—early 20th century,0,0,,,epochize returned null
+"17th century, with 19th century additions",1600,1900,,,epochize returned null
+"15th century or later, after ca. 1450 model",1445,1599,,,epochize returned null
+"mid-17th century, with later additions",1630,1665,,,epochize returned null
+"silver 18th century, book 1731",1700,1799,,,epochize returned null
+probably second or third quarter 17th century,1625,1675,,,epochize returned null
+"rock crystal second half 16th century, cover, foot and mounts 19th century",1550,1899,,,epochize returned null
+17th century with later additions,1600,1699,,,epochize returned null
+"verre egomisé medallions 16th century, entablature and enamel group 19th century",1500,1899,,,epochize returned null
+"metalwork late 15th century, intaglio probably 16th century, composed probably 19th century",1485,1899,,,epochize returned null
+"1779, after a portrait of 1777",1777,1779,,,epochize returned null
+"probably 19th century, after a model of ca. 1741",1741,1899,,,epochize returned null
+18th–19th century cast,1700,1899,,,epochize returned null
+"body ca. 1725, decoration ca. 1730–35",1720,1740,,,epochize returned null
+"1903, after a model of 1781",1781,1903,,,epochize returned null
+probably after model of 1780s,1780,1789,,,epochize returned null
+"rock crystal late 16th century, mounts 19th century",1585,1899,,,epochize returned null
+"ca. 1575–1600, mounts with diamonds late 19th century",1570,1605,,,epochize returned null
+"late 16th or early 17th century, with later additions",1585,1615,,,epochize returned null
+"ca. 1590, with 19th century additions",1585,1595,,,epochize returned null
+"possibly late 16th century amber, with 18th-19th century metalwork mount",1585,1916,,,epochize returned null
+"18th century, with later alterations",1700,1799,,,epochize returned null
+"cup 900–1100 CE; stem, base, and mounts ca. 1655–60",1650,1665,,,epochize returned null
+"base and figure late 16th century, shell and mount 19th century",1585,1899,,,epochize returned null
+"late 16th or early 17th century, mounts 19th century",1585,1899,,,epochize returned null
+"late 16th–early 17th century, with later additions",1585,1615,,,epochize returned null
+"late 15th–early 16th century, with later additions",1485,1515,,,epochize returned null
+"17th century, with modern chains and links",1600,1699,,,epochize returned null
+"second half 19th century, after 16th century Italian model",1850,1899,,,epochize returned null
+"first quarter 16th century, with 17th century additions",1500,1699,,,epochize returned null
+"miniatures ca. 1775, box ca. 1838–47",1775,1847,,,epochize returned null
+"case ca. 1645, movement ca. 1750",1645,1750,,,epochize returned null
+"19th or 20th century, in the style of 16th–early 17th century",1800,1917,,,epochize returned null
+"case 1554, movement ca. 1680",1554,1685,,,epochize returned null
+"watch ca. 1650, cameo 16th–17th century",1645,1699,,,epochize returned null
+"case ca. 1688, movement ca. 1750",1683,1755,,,epochize returned null
+"15th century, with later additions",1400,1499,,,epochize returned null
+"17th century cast, after model ca. 1600",1595,1699,,,epochize returned null
+after an early 16th-century model,1500,0,,,epochize returned null
+16th century; globe: 19th century,1500,1899,,,epochize returned null
+"Designed 1545, woven ca. 1550",1545,1555,,,epochize returned null
+"ca. 1725, engraved 1728",1720,1730,,,epochize returned null
+statuette: 17th century; trunk: 19th century or later,1600,1899,,,epochize returned null
+"probably second quarter 17th century, with later additions",1625,1650,,,epochize returned null
+"early 19th century, crystal bust possibly 17th or 18th century",1800,1815,,,epochize returned null
+"17th century, after model ca. 1600",1595,1699,,,epochize returned null
+"crystal and upper mount 15th century, handle and foot 17th century",1400,1699,,,epochize returned null
+"mid-17th century, finial 19th–early 20th century",1630,1665,,,epochize returned null
+"second half 16th century, mounts 1880–90",1550,1890,,,epochize returned null
+"third quarter 16th century, with later additions",1550,1575,,,epochize returned null
+"18th century, decoration ca. 1720–25",1700,1730,,,epochize returned null
+"designed 1845, woven 1846",1845,1846,,,epochize returned null
+"cameo ca. 1500, mount 19th century",1495,1899,,,epochize returned null
+"cameo ca. 1580, mount second half 19th century",1575,1899,,,epochize returned null
+"18th century, with expert later repairs",1700,1799,,,epochize returned null
+"16th century, with 19th century additions",1800,1899,,,epochize returned null
+"19th century, with older elements",1800,1899,,,epochize returned null
+"foot late 15th–early 16th century, cup 19th century",1485,1899,,,epochize returned null
+"mid-16th century, with later additions",1530,1565,,,epochize returned null
+16th–17th century style,1500,1699,,,epochize returned null
+"19th century, in part 16th century",1800,1899,,,epochize returned null
+"20th century, after 18th century model",1900,1941,,,epochize returned null
+16th century or late imitation of Renaissance style,1500,1599,,,epochize returned null
+"20th century, style of ca. 1660–85",1655,1999,,,epochize returned null
+"19th century (?), after a model of 1774",1800,1899,,,epochize returned null
+"ca. 1725, decorated ca. 1748–50",1720,1755,,,epochize returned null
+"ca. 1720, decorated ca. 1728",1715,1733,,,epochize returned null
+"ca. 1725, decorated ca. 1730–40",1720,1745,,,epochize returned null
+"porcelain 1573– ca. 1585, mounts ca. 1585",1573,1585,,,epochize returned null
+"Chinese porcelain 1573– ca. 1585, British mounts ca. 1585",1573,1585,,,epochize returned null
+lapidary work: early 19th century; pedestal and mounts: 1819,1819,1819,,,epochize returned null
+"case ca. 1710, movement ca. 1760–70",1705,1775,,,epochize returned null
+"ca. 1640, with 18th century additions",1635,1645,,,epochize returned null
+"ca. 1725, decorated ca. 1735",1720,1740,,,epochize returned null
+"cup 1756, saucer 1754",1754,1756,,,epochize returned null
+"ca. 1715, decorated ca. 1725–30",1710,1735,,,epochize returned null
+"ca. 1720, decorated 1732",1715,1732,,,epochize returned null
+"ca. 1720, decorated ca. 1725–35",1715,1740,,,epochize returned null
+"designed 1684–86, woven 1692–1700",1684,1700,,,epochize returned null
+late 16th–early 17th century.,1585,1615,,,epochize returned null
+"ca. 1731, mounts 18th–19th century",1726,1899,,,epochize returned null
+"early 18th century, decoration ca. 1729–32",1700,1737,,,epochize returned null
+"early 20th century, style of 18th century",1700,1915,,,epochize returned null
+"ca. 1763, lower tray after 1851",1758,1768,,,epochize returned null
+"porcelain ca. 1764, secretary ca. 1775",1759,1780,,,epochize returned null
+"table top 1759, base 1794",1759,1794,,,epochize returned null
+"ca. 1745, decorated ca. 1760",1740,1765,,,epochize returned null
+late aftercast of 16th century model,1500,1599,,,epochize returned null
+"1881, decorated 1922",1881,1922,,,epochize returned null
+"designed in 1733, probably woven in 1740",1733,1740,,,epochize returned null
+"designed 1679 and 1700, borders ca. 1720, woven 1728–30",1679,1730,,,epochize returned null
+"19th century, cast after a 15th century composition",1800,1899,,,epochize returned null
+"ca. 1725, vase and gilt-bronze mount ca. 1745",1720,1750,,,epochize returned null
+"ca. 1725, decorated ca. 1725–30",1720,1735,,,epochize returned null
+"ca. 1720, decorated ca. 1740–45",1715,1750,,,epochize returned null
+"unknown date, previously considered 15th century",1450,1964,,,epochize returned null
+"designed before 1680, woven late 17th–early 18th century",1650,1715,,,epochize returned null
+"19th century, after a model of ca. 1877",1872,1899,,,epochize returned null
+19th–20th century copy after third quarter 16th century (possibly 1560),1560,1970,,,epochize returned null
+"Chinese porcelain, Ming dynasty, ca. 1507–66, British mounts ca. 1570",1560,1570,,,epochize returned null
+"third quarter 17th century, in part (cover finial)",1650,1675,,,epochize returned null
+"ca. 1719, decorated 1720–30",1714,1730,,,epochize returned null
+18th century with later decoration,1700,1800,,,epochize returned null
+"stoneware 18th century, mounts 1745–49",1745,1749,,,epochize returned null
+"porcelain early 18th century, mounts ca. 1750",1745,1755,,,epochize returned null
+"porcelain after 1761, gilt bronze ca. 1775",1761,1780,,,epochize returned null
+"ca. 1725, decorated ca. 1740",1725,1745,,,epochize returned null
+"porcelain ca. 1725, mounts 1745–49",1720,1749,,,epochize returned null
+"clock ca. 1750, figures decorated ca. 1737/38",1732,1755,,,epochize returned null
+"ca. 1730, cover 1737",1725,1735,,,epochize returned null
+"porcelain mid-18th century, mounts ca. 1750",1745,1755,,,epochize returned null
+probably 19th century in imitation of 18th century mode,1800,1899,,,epochize returned null
+"designed ca. 1688, woven ca. 1690–1711",1683,1716,,,epochize returned null
+"1806, modified 1818",1806,1806,,,epochize returned null
+"designed ca. 1786, woven 1790–91",1781,1791,,,epochize returned null
+"porcelain late 17th century, mounts ca. 1745–50",1685,1755,,,epochize returned null
+Model: early 17th century; cast: 18th or 19th century,1600,1899,,,epochize returned null
+"ca. 1750, watch dial a later 18th century replacement",1745,1755,,,epochize returned null
+"ca. 1760, decoration 19th–20th century",1755,1765,,,epochize returned null
+"1764, after model of ca. 1754",1749,1764,,,epochize returned null
+"ca. 1770, after model of ca. 1750–55",1745,1775,,,epochize returned null
+"ca.1740, after a model of ca.1732",1727,1745,,,epochize returned null
+"19th century, after a model of 1744",1800,1899,,,epochize returned null
+"second quarter 17th century, with 18th century additions",1625,1650,,,epochize returned null
+"porcelain mid-18th century, mounts ca. 1740–50",1735,1765,,,epochize returned null
+"rock crystal ca. 1700, mounts ca. 1720",1695,1725,,,epochize returned null
+"manufactured 1832, decorated 1844",1832,1844,,,epochize returned null
+"16th century; stand, second half 19th century",1500,1599,,,epochize returned null
+"18th century, decorated ca. 1730–40",1700,1799,,,epochize returned null
+"early 18th century, decoration ca. 1750",1700,1755,,,epochize returned null
+"ca. 1690, decorated ca. 1730",1685,1735,,,epochize returned null
+"designed ca. 1860, made ca. 1862–63",1855,1868,,,epochize returned null
+"ca. 1740, engraved decoration first quarter 18th century",1700,1745,,,epochize returned null
+"late 15th century, with 19th century alterations",1485,1899,,,epochize returned null
+"signed and dated 1845, cast between 1845 and 1857",1845,1857,,,epochize returned null
+"Replica, minted 1990",1985,1995,,,epochize returned null
+16th–17th and 20th century,1500,1999,,,epochize returned null
+17th (?) and 20th century,1600,1999,,,epochize returned null
+19th (?) and 20th century,1800,1999,,,epochize returned null
+18th–19th and 20th century,1700,1999,,,epochize returned null
+20th century cast of 19th century original,1800,1999,,,epochize returned null
+"designed ca. 1650, woven 1650–77",1645,1677,,,epochize returned null
+17th century or possibly modern,1600,1699,,,epochize returned null
+late 17th and late 19th century elements,1685,1899,,,epochize returned null
+"design registered May 20, 1882; printed 1917–23",1882,1923,,,epochize returned null
+"design registered October 18, 1883; printed 1917–23",1883,1923,,,epochize returned null
+"design registered 1883, printed 1917–23",1883,1923,,,epochize returned null
+"design registered 1884, printed 1917–23",1884,1923,,,epochize returned null
+"design registered October 18, 1883",1883,1883,,,epochize returned null
+"design registered 1875, printed 1877–1917",1875,1917,,,epochize returned null
+"design registered 1876, printed 1877–1917",1876,1917,,,epochize returned null
+"design registered 1876, printed 1876–77",1876,1877,,,epochize returned null
+17th century or modern,1600,1699,,,epochize returned null
+"designed ca. 1531, woven 1692–93",1526,1693,,,epochize returned null
+"designed ca. 1540, woven ca. 1570",1535,1575,,,epochize returned null
+"design ca. 1515, woven ca. 1525",1510,1530,,,epochize returned null
+"designed ca. 1535, woven 1732–37",1732,1737,,,epochize returned null
+"designed ca. 1685–90, woven ca. 1685–1740",1680,1745,,,epochize returned null
+"designed 1727–55, woven April 1752–Dec. 24, 1754",1725,1755,,,epochize returned null
+"designed ca. 1780, woven ca. 1782–90",1775,1795,,,epochize returned null
+"designed before 1645, woven ca. 1645–75",1600,1680,,,epochize returned null
+main textile: 1720s; hood textile: mid-17th century,1650,1729,,,epochize returned null
+"designed ca. 1690, woven before 1730",1685,1730,,,epochize returned null
+central panel and outer border: 17th century; inner border: second half of 17th century,1600,1699,,,epochize returned null
+"model begun 1819, electrotype produced 1849–52",1819,1852,,,epochize returned null
+"designed ca. 1786, woven 1790–91; settee frame second half 19th century",1786,1791,,,epochize returned null
+"designed ca. 1786, woven 1790–91; chair frame second half 19th century",1786,1791,,,epochize returned null
+"18th century, aftercast of a model of 1588",1700,1799,,,epochize returned null
+made between early March and end of April 1803,1803,1803,,,epochize returned null
+"porcelain early 18th century, mounts ca. 1765",1700,1770,,,epochize returned null
+"early 17th century, with later additions",1600,1615,,,epochize returned null
+"designed 1545, woven ca. 1550",1545,1555,,,epochize returned null
+mid-19th century after a model of 1830,1830,1865,,,epochize returned null
+"porcelain ca. 1700–1720, mounts 1726–32, with later additions",1695,1732,,,epochize returned null
+"porcelain ca. 1730, mounts ca. 1780–90",1730,1795,,,epochize returned null
+"porcelain ca. 1700, mounts ca. 1750",1700,1755,,,epochize returned null
+mid- or 2nd half of  6th century BCE,-560,-501,,,epochize returned null
+second or third quarter of the 6th century BCE,-575,-525,,,epochize returned null
+middle of the 6th century BCE,-560,-540,,,epochize returned null
+middle or 3rd quarter of the 6th century BCE,-560,-525,,,epochize returned null
+first half the the 6th century BCE,-600,-550,,,epochize returned null
+first half or middle of the 6th century BCE,-600,-540,,,epochize returned null
+2nd quarter or middle of the 6th century BCE,-575,-540,,,epochize returned null
+2nd or middle quarter of the 6th century BCE,-575,-540,,,epochize returned null
+middle of the 5th century BCE,-460,-440,,,epochize returned null
+mid- to 3rd quarter of the 6th century BCE,-575,-525,,,epochize returned null
+middle or second half of the 5th century BCE,-460,-401,,,epochize returned null
+2nd quarter or middle of the 5th century BCE,-475,-440,,,epochize returned null
+middle or 3rd quarter of the 5th century BCE,-460,-425,,,epochize returned null
+middle or 2nd half of the 6th century BCE,-560,-501,,,epochize returned null
+1st half of. 5th century BCE,-500,-450,,,epochize returned null
+1st quarter fo the 4th century BCE,-400,-375,,,epochize returned null
+middle or third quarter of the 6th century BCE,-560,-525,,,epochize returned null
+2nd millennium BCE or later,-1999,-1000,,,epochize returned null
+latter part of the 6th century BCE,-550,-500,,,epochize returned null
+early 7th entury BCE,-699,-600,,,epochize returned null
+second century BCE,-200,-100,,,epochize returned null
+end of 1st century BCE–beginning of 1st century CE,-25,25,,,epochize returned null
+V Century BCE,-499,-400,,,epochize returned null
+2nd and 3rd quarters of the 6th century BCE,-575,-526,,,epochize returned null
+3rd–2nd centruy BCE,-300,-100,,,epochize returned null
+1st–3rd century CE later,1,300,,,epochize returned null
+6th century BCE–late,-550,-500,,,epochize returned null
+modern?,-670,330,,,epochize returned null
+2nd half of 1st century BCE–1st first of 1st century CE,-50,50,,,epochize returned null
+1st century CE–Late,50,99,,,epochize returned null
+beginning of 1st century CE,-20,20,,,epochize returned null
+Modern?,31,330,,,epochize returned null
+last decade of the 1st century BCE,-10,-1,,,epochize returned null
+4th–3rd century BC.,-399,-200,,,epochize returned null
+"ca. 2000–1900 BCE, possibly later",-2000,-1900,,,epochize returned null
+"late 7th–6th century B,C.",-625,-500,,,epochize returned null
+late 1st century BCE–middle of 1st century CE,-25,50,,,epochize returned null
+V Century BCE–Late,-450,-400,,,epochize returned null
+legs: ca. 700–650 BCE; handled basin: 6th century BCE,-700,-500,,,epochize returned null
+"ca. 5 BCE, or later",-5,312,,,epochize returned null
+mid-fifth century BCE,-470,-420,,,epochize returned null
+"1944–45, printed late 1940s–53",1944,1945,,,epochize returned null
+"1930, assembled ca. 1932",1930,1930,,,epochize returned null
+"1906, print 1909",1906,1906,,,epochize returned null
+"1900–1901, printed 1903–04",1900,1901,,,epochize returned null
+"1900–1901, printed 1903–4",1900,1901,,,epochize returned null
+"1934 August 1, 1934",1934,1934,,,epochize returned null
+February–[May] 1950,1950,1950,,,epochize returned null
+"February 23 and/or 25, 1938",1938,1938,,,epochize returned null
+"June–August 11, 1958",1958,1958,,,epochize returned null
+"1900–1914, printed 1960s–70s",1900,1914,,,epochize returned null
+"1933–34, printed 1930s–40s",1933,1934,,,epochize returned null
+"1861–67, printed 1895–1910",1861,1910,,,epochize returned null
+"after 1929, before 1938",1929,1938,,,epochize returned null
+"March 4 ,1865",1865,1865,,,epochize returned null
+"February–July 14, 1864",1864,1864,,,epochize returned null
+Undetermined,0,0,,,epochize returned null
+late19th–mid-20th century,1870,1970,,,epochize returned null
+late19th century,1865,1899,,,epochize returned null
+16th–17th century with later additions,1500,1699,,,epochize returned null
+Late19th–early 20th century,1850,1950,,,epochize returned null
+1970s or later,1970,2003,,,epochize returned null
+13thb7th century BCE,-1200,-800,,,epochize returned null
+6th–7th century CE and modern,500,700,,,epochize returned null
+ca. 10th−9th century BCE,-1000,-800,,,epochize returned null
+ca. first half 1st millennium BCE,-1000,-1,,,epochize returned null
+"5th millennium BCE, inscription ca. 10th century CE",-5000,1000,,,epochize returned null
+ca. 7th century CE and Modern,7,7,,,epochize returned null
+1st millennium BCE–CE1st millennium,-1000,1000,,,epochize returned null
+ca. first half 2nd millennium BCE,-2000,-1000,,,epochize returned null
+ca. 1295–1186B.C.,-1295,-1186,,,epochize returned null
+First half of First Millennium B.C.,-1000,-525,,,epochize returned null
+1800–1804 (published 1828–67),1800,1804,,,epochize returned null
+late-19th to early-20th century,1850,1924,,,epochize returned null
+1628–30,1628,1630,,,epochize returned null
+"1893, begun in 1891",1893,1891,,,epochize returned null
+"March 20, 1499, possibly 1499–1500",1499,1500,,,epochize returned null
+"December 22, 1516 colophon December 22, 1506",1506,1516,,,epochize returned null
+[1895 printing of 1894 image],1894,1895,,,epochize returned null
+? – 1737,1737,1737,,,epochize returned null
+"late 19th century, based on 16th–17th century original",1880,1900,,,epochize returned null
+ca. 1637–1639 or after,1632,1644,,,epochize returned null
+ca. 1639–1648 or after,1634,1644,,,epochize returned null
+ca. 1630–1648 or after,1625,1635,,,epochize returned null
+"1668, reprinted ca. 1860",1668,1860,,,epochize returned null
+"1782, reprinted ca. 1860",1782,1860,,,epochize returned null
+"etched 1844, reprinted 1900",1844,1900,,,epochize returned null
+"ca. 1592, dated 1617",1587,1617,,,epochize returned null
+"ca. 1750, ca. 1760",1745,1765,,,epochize returned null
+"19th century, 1850 (?)",1800,1899,,,epochize returned null
+"April–July, October 1947",1947,1947,,,epochize returned null
+"ca. 1477, 1922 facsimile",1477,1477,,,epochize returned null
+"November, December 1885; January–April, June 1886",1885,1886,,,epochize returned null
+"January 20, 1513, December 19, 1513",1513,1513,,,epochize returned null
+Sprüche aus den Jahren 1901,1901,1901,,,epochize returned null
+1632; 1683; 1685,1632,1685,,,epochize returned null
+"1612, reprint of 1929",1612,1612,,,epochize returned null
+"July 28, 1501, Venice",1501,1501,,,epochize returned null
+"1929, facsimile of 1525 edition",1525,1525,,,epochize returned null
+"ca. 1490 [facsimile, 1913]",1485,1495,,,epochize returned null
+"1664, reprint of 1848",1664,1848,,,epochize returned null
+"spring 1884, spring 1886",1884,1884,,,epochize returned null
+"Janaury 18, 1518",1518,1518,,,epochize returned null
+"Rome, 1767",1750,1800,,,epochize returned null
+"Feburary 20, 1896",1896,1896,,,epochize returned null
+"Paris, 1922",1900,1950,,,epochize returned null
+"Nuremberg, 1580",1550,1600,,,epochize returned null
+"Vienna, 1693",1650,1700,,,epochize returned null
+[n.d.],1800,1943,,,epochize returned null
+"Breslau, 1834",1800,1850,,,epochize returned null
+"February 5, 1493 [modern style, 1494]",1493,1494,,,epochize returned null
+"1941, revised 1953",1941,1953,,,epochize returned null
+"15th year of Meiji, 1882",1882,1882,,,epochize returned null
+"ca. 1590, about 1591",1590,1590,,,epochize returned null
+"first published 1867, reissued 1874",1867,1874,,,epochize returned null
+"1748, after 1750",1748,1770,,,epochize returned null
+1898–1905 or later,1898,1905,,,epochize returned null
+"(priv.) 1649, (pref.) 1651",1649,1649,,,epochize returned null
+"Thursday, May 26, 1832",1832,1832,,,epochize returned null
+"text 1775–1846, illustrations 1765–1865",1765,1865,,,epochize returned null
+"1559, 1560, ca. 1562",1559,1567,,,epochize returned null
+5th year of Kaei,1852,1852,,,epochize returned null
+4th year of Kaei,1851,1851,,,epochize returned null
+n.d. (1930s?),1920,1940,,,epochize returned null
+"1894, 1895 on title page",1894,1894,,,epochize returned null
+"ca. 1883, based on designs 1860–83",1878,1888,,,epochize returned null
+"preface dated January, 1749",1749,1749,,,epochize returned null
+"[after 1876, probably 1881]",1876,1881,,,epochize returned null
+"1927, reprint of 1474 original",1474,1927,,,epochize returned null
+"1964, reprint of 1943 edition",1964,1964,,,epochize returned null
+"1764, reprinted ca. 1860",1764,1860,,,epochize returned null
+"Rouen, 1551",1551,1551,,,epochize returned null
+"1967, published in 1st Etchings, 2nd State 1967–69",1967,1969,,,epochize returned null
+"1852, ca. 1860",1852,1865,,,epochize returned null
+"1804, reprinted ca. 1860",1804,1860,,,epochize returned null
+first published 1665 [this a later issue],1665,1700,,,epochize returned null
+1645 reprinted ca. 1860,1645,1860,,,epochize returned null
+"originally published 1729, inscribed 1752",1729,1752,,,epochize returned null
+"ca. 1883, based on a design of ca. 1867",1878,1888,,,epochize returned null
+"Febuary 18, 1898",1898,1898,,,epochize returned null
+"1664, reprinted ca. 1860",1664,1860,,,epochize returned null
+"17th century, reprinted ca. 1860",1635,1860,,,epochize returned null
+"1884, 4th edition 1898",1884,1884,,,epochize returned null
+mid-1520s or later,1525,1620,,,epochize returned null
+"1907, 2nd edition published 1921",1921,1921,,,epochize returned null
+"1965,published 1966",1965,1965,,,epochize returned null
+"1885, facsimile of 1790",1885,1885,,,epochize returned null
+1859 [later printing],1859,1859,,,epochize returned null
+"1955, dated 1957",1955,1957,,,epochize returned null
+"Feburary 7, 1796",1796,1796,,,epochize returned null
+"Dumonstier 1625, Mellan 1638",1625,1638,,,epochize returned null
+"ca, 1860",1850,1870,,,epochize returned null
+"published 1841, here reprinted ca. 1850",1841,1855,,,epochize returned null
+"after 1842, probably 1852",1842,1842,,,epochize returned null
+"19th century, second half",1850,1920,,,epochize returned null
+"1922, restrike of 15th century original",1922,1922,,,epochize returned null
+"first published March 14, 1783 [a later reissue?]",1783,1810,,,epochize returned null
+"1936, reprint of 1915 edition",1936,1936,,,epochize returned null
+"1682, reprinted ca. 1860",1682,1860,,,epochize returned null
+"block cut 1909, printed 1923",1909,1923,,,epochize returned null
+"Feburary 1, 1800",1800,1800,,,epochize returned null
+"Feburary 15, 1800",1800,1800,,,epochize returned null
+"fructidor l'an 3e, 1795",1795,1795,,,epochize returned null
+"Juky, 1909",1909,1909,,,epochize returned null
+late 19th century reproduction of 1790 original,1790,1900,,,epochize returned null
+late 19th century reproduction of work of ca. 1752,1740,1900,,,epochize returned null
+ca0 1500–1510,1500,1510,,,epochize returned null
+"July, 15, 1838",1838,1838,,,epochize returned null
+"born Whittier, CA 1937",1937,1937,,,epochize returned null
+made in early–late 14th century; altered shortly before mid-15th century,1325,1450,,,epochize returned null
+"19th century, imitation of 17th century",1800,1899,,,epochize returned null
+"19th century, imitation of early 17th century",1800,1899,,,epochize returned null
+3rd–12th centruy,200,1199,,,epochize returned null
+"20th century; or 12th–13th century, with alterations first half 20th century",1900,1950,,,epochize returned null
+manuscript: 13th century; cover: dated 1691,1200,1699,,,epochize returned null
+"late 12th–13th century, with 20th-century fills",1175,1299,,,epochize returned null
+"late 11th–12th century, with additions first half 20th century",1075,1199,,,epochize returned null
+imitation of 16th century,1500,1599,,,epochize returned null
+10th century; modern fillings,900,999,,,epochize returned null
+"12th–13th century, with early 20th-century additions",1100,1299,,,epochize returned null
+recto: ca. 1620; verso: ca. 1540,1515,1645,,,epochize returned null
+verso: ca. 1630; recto: ca. 1500,1475,1655,,,epochize returned null
+verso: ca. 1620; recto ca. 1540,1515,1645,,,epochize returned null
+verso: ca. 1610; recto: ca. 1530,1505,1635,,,epochize returned null
+recto and verso: early 19th century,1800,1825,,,epochize returned null
+recto: early 19th century; verso: later copy of 16th century original,1700,1825,,,epochize returned null
+recto: late 16th century; verso: ca. 1500,1475,1599,,,epochize returned null
+verso: ca. 1620; recto: 1534 or later,1510,1645,,,epochize returned null
+Dhu'l Hijja 839 A.H./June–July 1436 CE,1410,1461,,,epochize returned null
+"late 12th–early 13th century, with early 20th century additions",1175,1225,,,epochize returned null
+"first half 14th century, with additions first half 20th century",1300,1350,,,epochize returned null
+second–third quarter 10th century,925,975,,,epochize returned null
+"12th–13th century, with alterations first half 20th century; or 20th century",12,13,,,epochize returned null
+"late 11th–12th century, with 20th century fills",1075,1199,,,epochize returned null
+"late 12th–13th century, probably with early 20th century additions",1175,1299,,,epochize returned null
+painting 3rd qtr. 18th century; border dated A.H. 1338/1919 CE,1725,1944,,,epochize returned null
+mid-to late13th century,1250,1299,,,epochize returned null
+dated A.H.1317/A.H. 1899–1900,1875,1925,,,epochize returned null
+"text, ca. 1500; borders, first quarter 17th century",1475,1725,,,epochize returned null
+17th,1600,1700,,,epochize returned null
+"7th century, possibly",600,699,,,epochize returned null
+"720–970 Radiocarbon date, 95% probability",720,970,,,epochize returned null
+dated A.H. Rabi' al-Awwal 1069/ December 1658 CE,1633,1683,,,epochize returned null
+recto: late 16th century; verso: ca. 1640,1575,1665,,,epochize returned null
+text: dated A.H. 892/ 1487 CE; illumination: ca. 1600,1462,1625,,,epochize returned null
+"uncertain, probably 488–590",463,615,,,epochize returned null
+uncertain,932,1062,,,epochize returned null
+Emerald: 17th century; setting: ca. 1920,1600,1945,,,epochize returned null
+"15th century style, made in the late 19th to early 20th century",1875,1950,,,epochize returned null
+"15th century style, painted at an unknown later date (perhaps late 19th to early 20th century)",1850,1925,,,epochize returned null
+"15th century style, made at a later unknown date",1500,1925,,,epochize returned null
+Early sixteenth century,1484,1490,,,epochize returned null
+probably seventeenth century,1600,1699,,,epochize returned null
+mid-fifteenth century,1436,1470,,,epochize returned null
+"ca. 1875 after a dinanderie model from the Southern Netherlands, ca. 1450",1872,1878,,,epochize returned null
+"19th century, second half or early 20th century",1850,1935,,,epochize returned null
+"17th century, partly, and later 19th century",1600,1900,,,epochize returned null
+"style 16th century, made ca. 1920",1915,1925,,,epochize returned null
+"18th or 19th century, after a 15th century model",1700,1900,,,epochize returned null
+third quarter fifteenth century,1450,1475,,,epochize returned null
+"model, 1624 (contemporary cast)",1624,1624,,,epochize returned null
+first third of the 17th century,1600,1633,,,epochize returned null
+"19th century, after a 16th century Italian model",1800,1900,,,epochize returned null
+"19th or 20th century, after a 16th century Tuscan model",1800,2000,,,epochize returned null
+"(model), Montbéliard, late 16th century",1571,1600,,,epochize returned null
+"19th century (?), in 17th century Flemish or German style",1800,1900,,,epochize returned null
+"17th century, partly, with later replacements and additions",1600,1700,,,epochize returned null
+ca. 1575–1625 with 19th century additions,1570,1630,,,epochize returned null
+"13th century, second half",1250,1300,,,epochize returned null
+19th or first decade of 20th century (with earlier parts),1800,1910,,,epochize returned null
+"16th century, partly; late 19th or early 20th century",1500,1935,,,epochize returned null
+"16th century, second half (woodwork), 16th or 17th century (textiles)",1550,1700,,,epochize returned null
+16th century and 19th or early 20th century,1500,1935,,,epochize returned null
+"17th century, partly, and later",1600,1700,,,epochize returned null
+"style 16th century, made 19th or 20th century",1800,1950,,,epochize returned null
+middle of the 17th century,1636,1670,,,epochize returned null
+"style early 18th century, made in 19th century (?)",1800,1900,,,epochize returned null
+"16th century, second quarter",1525,1550,,,epochize returned null
+"late 15th century, mostly, with later alterations",1470,1499,,,epochize returned null
+model ca. 1566 or 1571 (cast 18th or 19th century),1563,1574,,,epochize returned null
+"middle or second half of 19th century, in the style of a mid-13th century Limoges original",1836,1900,,,epochize returned null
+"style of early 18th century, heavily restored at unknown later date",1700,1799,,,epochize returned null
+"1604, with late 18th or early 19th century additions",1604,1604,,,epochize returned null
+"19th century, in late cinquecento Venetian style",1800,1900,,,epochize returned null
+ca. 1795–1818 and later,1792,1821,,,epochize returned null
+model ca. 1480 or 1484 (cast 16th or 17th century),1477,1487,,,epochize returned null
+1880–1900; made in style of early 17th century,1880,1900,,,epochize returned null
+"19th century, after a 16th century Iberian model",1800,1900,,,epochize returned null
+19th century in 15th century style,1800,1900,,,epochize returned null
+mid 16th century; ca. 1550–1600 (mounts); 19th-century? (lion finial),1525,1625,,,epochize returned null
+19th century copy of Louis XV style,1800,1900,,,epochize returned null
+"early 19th century (?), style Louis XVI",1800,1835,,,epochize returned null
+"model, ca. 1453–55 (possibly cast 19th century)",1450,1458,,,epochize returned null
+"ca. 1920, style 1530–50",1917,1923,,,epochize returned null
+"mid-to-late 18th century, style mid-17th century",1736,1800,,,epochize returned null
+19th century copy of Louis XIV style,1800,1900,,,epochize returned null
+last third 16th century,1566,1600,,,epochize returned null
+"ca. 1570, adapted ca. 1960",1565,1575,,,epochize returned null
+"early 20th century, style ca. 1700",1900,1935,,,epochize returned null
+"ca. 1840–50, style 1700–1715",1837,1853,,,epochize returned null
+mid--17th century,1636,1670,,,epochize returned null
+"1895–1910 (?), style ca. 1735 (?)",1890,1915,,,epochize returned null
+14th century with later recarving,1300,1399,,,epochize returned null
+"13th century, with 15th century additions",1200,1299,,,epochize returned null
+9th–12th century and/or later,800,1900,,,epochize returned null
+19th century or modern,1800,1900,,,epochize returned null
+middle of 6th century,545,555,,,epochize returned null
+middle of the 6th century,545,555,,,epochize returned null
+Middle of the 6th century,545,555,,,epochize returned null
+end of 6th century-middle of 7th century,575,650,,,epochize returned null
+Middle of 6th century,545,555,,,epochize returned null
+Middle of the 6th Century,545,555,,,epochize returned null
+ca. middle of the 6th century,545,555,,,epochize returned null
+end of 6th or beginning of 7th century,545,625,,,epochize returned null
+"early 300s, with modern restoration",300,350,,,epochize returned null
+first third 15th century,1400,1430,,,epochize returned null
+"8th–9th century, 15th century additions (?), authenticity questioned",700,899,,,epochize returned null
+15th century with modern restorations,1400,1499,,,epochize returned null
+15th–16th century with extensive restoration,1400,1900,,,epochize returned null
+late 14th centuy,1300,1399,,,epochize returned null
+"19th century, in the style of the 13th century",1800,1899,,,epochize returned null
+"15th century, with modern additions",1400,1499,,,epochize returned null
+19th century with 14th century elements,1300,1900,,,epochize returned null
+"late 19th–early 20th century, Byzantine style",1875,1925,,,epochize returned null
+"1st–2nd century, BCE–end of CE",-99,199,,,epochize returned null
+"6th century, 20th century restorations",500,599,,,epochize returned null
+"carved 1000s, assembled 1100s or 1200s",1000,1299,,,epochize returned null
+"6th century, with modern restoration",500,600,,,epochize returned null
+ca. 1880–1900 (14th–15th century style),1880,1900,,,epochize returned null
+3rd or 4th century and later transformation,300,400,,,epochize returned null
+1475–1500 or modern,1475,1932,,,epochize returned null
+1480–1500 or modern,1480,1932,,,epochize returned null
+1500–1510 or modern,1500,1932,,,epochize returned null
+1490–1510 or modern,1490,1932,,,epochize returned null
+"19th century, with minor elements of about 1200",1800,1900,,,epochize returned null
+fourth quarter 15th century with modern additons,1475,1500,,,epochize returned null
+"made 500–700, restored and possibly reconfigured 1900s",500,700,,,epochize returned null
+"12th century, modern restoration",1100,1200,,,epochize returned null
+first third of 16th century,1500,1533,,,epochize returned null
+11th–12th century or modern (?),1000,1100,,,epochize returned null
+"1962, design date 1951",1962,1962,,,epochize returned null
+late 19th–early 20th,1900,1981,,,epochize returned null
+"designed 1982, presented 1983",1982,1983,,,epochize returned null
+"designed 1929, manufactured1960",1929,1960,,,epochize returned null
+1929; painted 1930 or after,1929,1935,,,epochize returned null
+"1930s, 1940s, 1950s",1930,1959,,,epochize returned null
+post WWII,1945,1975,,,epochize returned null
+1917; enlarged 1947–48;  cast ca 1947–48,1917,1953,,,epochize returned null
+"1930; cast 1970s (?), by 1995",1930,1930,,,epochize returned null
+"1933; reduction, 1959 ; cast  1976",1933,1976,,,epochize returned null
+"1935, posthumously printed in 1996",1935,1996,,,epochize returned null
+"1928; cast 1970s (?), by 1998",1928,1928,,,epochize returned null
+post WWI,1918,1930,,,epochize returned null
+1921; revised 1923: this cast 1924,1921,1923,,,epochize returned null
+"1920; reworked 1926, 1935, 1936",1920,1936,,,epochize returned null
+"1957, designed 1925",1957,1957,,,epochize returned null
+"Paris, 1915",1915,1915,,,epochize returned null
+"Paris, 1911",1911,1911,,,epochize returned null
+"Cadaqués, summer 1910",1910,1910,,,epochize returned null
+"Horta de Ebro (present-day Horta de Sant Joan), summer 1909",1909,1909,,,epochize returned null
+"Paris, summer 1911",1911,1911,,,epochize returned null
+"Paris, winter 1906–7",1906,1907,,,epochize returned null
+"Paris, late 1908",1908,1908,,,epochize returned null
+"Paris, early 1909",1909,1909,,,epochize returned null
+"Sorgues, summer 1912",1912,1912,,,epochize returned null
+"Paris, 1912",1912,1912,,,epochize returned null
+"Avignon, summer 1914",1914,1914,,,epochize returned null
+"Sorgues, autumn 1912",1912,1912,,,epochize returned null
+"Beaulieu (present-day Beaulieu-les-Loches), 1918",1918,1918,,,epochize returned null
+"June 10, 1935, July 27, 1949",1949,1935,,,epochize returned null
+"August 5, 1935, 1944",1935,1940,,,epochize returned null
+"October 3, 1928, June 3, 1937",1928,1937,,,epochize returned null
+"September, 1926, 1927, 1930",1926,1930,,,epochize returned null
+"designed 1938, executed ca. 1938",1938,1938,,,epochize returned null
+"original design 1864, adapted 1993",1993,1993,,,epochize returned null
+"Paris, spring–summer 1914",1914,1914,,,epochize returned null
+"Paris, 1907",1907,1907,,,epochize returned null
+"Paris, spring 1914",1914,1914,,,epochize returned null
+designed 1923; manufactured probably late 1920s,1923,1923,,,epochize returned null
+"designed 1924, probably made ca. 1926",1924,1931,,,epochize returned null
+"Paris, late 1913–early 1914",1913,1914,,,epochize returned null
+"Paris, early 1914",1914,1914,,,epochize returned null
+"Paris, 1914",1914,1914,,,epochize returned null
+"Paris, winter–spring 1914",1914,1914,,,epochize returned null
+"Paris, 1915–16",1915,1916,,,epochize returned null
+"Beaulieu (present-day Beaulieu-les-Loches), 1916",1916,1916,,,epochize returned null
+"Gósol, summer 1906",1906,1906,,,epochize returned null
+"Paris, autumn 1909",1909,1909,,,epochize returned null
+"Clay original: Paris, autumn 1909; Plaster model: Paris, late 1910; Bronze cast: Foundry Désiré or Florentin Godard, Paris, made to order for Ambroise Vollard between July 27, 1926, and March 11, 1927",1909,1909,,,epochize returned null
+Composite instrument 17th century? and 20th century,1601,2000,,,epochize returned null
+19th century copy of 1500 BCE object,-1500,-1500,,,epochize returned null
+"ca,1887",1887,1887,,,epochize returned null
+19th century copy of 15th century object,1401,1500,,,epochize returned null
+ancient?,5000,1,,,epochize returned null
+19th century copy of 17th century object,1875,1900,,,epochize returned null
+composite instrument part 17th century part 19th century,1600,1900,,,epochize returned null
+17th (?) and 19th century (?),1600,1899,,,epochize returned null
+"mid-19th century, after 1846",1845,1875,,,epochize returned null
+19th century reproduction of 16th c,1800,1899,,,epochize returned null
+Various dates,1750,1900,,,epochize returned null
+0,0,0,,,epochize returned null
+"A.D. 1914–1916, original ca. 1479–1458 B.C.",-1473,-1458,,,epochize returned null
+A.D. 1922; original -1479–1425 B.C.,-1479,-1425,,,epochize returned null
+"ca. 3100–2649 B.C.,  reused 1479–1425 B.C.",-3100,-2649,,,epochize returned null
+ca.3300–3100 0 B.C.,-3300,-3100,,,epochize returned null
+"4th century B.C., late",-4,-4,,,epochize returned null
+"A.D. 2nd century, early",100,199,,,epochize returned null
+"A.D. 2nd century, perhaps about 140 A.D.",2,2,,,epochize returned null
+A.D. 150 perhaps,150,150,,,epochize returned null
+"A.D. 1st century, middle",1,1,,,epochize returned null
+A.D. 2nd century perhaps,100,199,,,epochize returned null
+A.D. 3rd century perhaps,3,3,,,epochize returned null
+"4th century –30 B.C., perhaps",-400,-30,,,epochize returned null
+mid Eighth Century B.C.,-775,-725,,,epochize returned null
+"ca, 1200–332 B.C.",-1200,-1200,,,epochize returned null
+late Fourth to early Third Century B.C.,-300,-300,,,epochize returned null
+30 B.C.–A.D. 364.,-30,364,,,epochize returned null
+ca. 1981–1550 B.C.; reused dates to about 8th Century  B.C.,-1981,-1981,,,epochize returned null
+ca. 1295–1070B.C.,-1300,-1050,,,epochize returned null
+ca. 837–812B.C,-837,-812,,,epochize returned null
+ca/ 360–300 BC,-360,-300,,,epochize returned null
+ca. 1850–1802B.C.,-1855,-1800,,,epochize returned null
+"High Priest of Amun ca. 1064–1055 B.C., then co-regent",-1064,-1040,,,epochize returned null
+"ca. 1295–1070 B.C., later",-1295,-1295,,,epochize returned null
+"ca. 1295–1070 B.C., later than",-1295,-1295,,,epochize returned null
+"ca. 1295–1070 B.C., possibly later",-1295,-1295,,,epochize returned null
+"ca. 1295–1070 B.C., probably later",-1295,-1295,,,epochize returned null
+653 B.C–A.D.320,653,653,,,epochize returned null
+304 B.C.–A.D. 364 B.C.,-304,364,,,epochize returned null
+ca. 1550–1295B.C.,-1550,-1295,,,epochize returned null
+ca. 733–664B.C.,-733,-664,,,epochize returned null
+"ca. 1323–1295 B.C., possibly",-1323,-1295,,,epochize returned null
+"2nd century B.C., perhaps",-200,-100,,,epochize returned null
+"A.D. 20th century, early",20,20,,,epochize returned null
+Model: A.D. 1913–1916; Original ca. 2381–2323 B.C.,1913,1913,,,epochize returned null
+16th entury,1500,1599,,,epochize returned null
+Early 20th c.,1900,1950,,,epochize returned null
+late19th–early 20th cenutry,1880,1920,,,epochize returned null
+5th millennium or later,-4000,-1000,,,epochize returned null
+ca 1560s,1560,1560,,,epochize returned null
+"2012, image ca. 1950",2012,2012,,,epochize returned null
+"late 13th century, probably 1286–92",1286,1292,,,epochize returned null
+"Nocember 1, 1839",1839,1839,,,epochize returned null
+"1550; grip and pommel, 1820–40 (?)",1550,1850,,,epochize returned null
+ca. 1747; altered 1770s,1742,1779,,,epochize returned null
+late fifth century BCE,-425,-400,,,epochize returned null
+second half 1930s–early 1940s,1935,1943,,,epochize returned null
+"Paris, spring 1915",1915,1915,,,epochize returned null
+"dated May 1, 1791, issued 1792",1791,1792,,,epochize returned null
+"November , 1857",1857,1857,,,epochize returned null
+"Paris, spring 1908",1908,1908,,,epochize returned null
+19th century in 16th century style,1801,1899,,,epochize returned null
+1772 [modern restrike],1772,1907,,,epochize returned null
+"plate dated May 1, 1791, issued 1792",1791,1792,,,epochize returned null
+[first published 1730s] reissued second half 18th century,1732,1780,,,epochize returned null
+"Glass: 1897–99, Mounts: 1899–1904",1897,1899,,,epochize returned null
+"designed before 1520, woven between 1525 and 1532",1510,1532,,,epochize returned null
+end of the first quarter BCE,-500,-450,,,epochize returned null
+late sixth century BCE,-500,-450,,,epochize returned null
+late 6th BCE/early 5th BCE,-500,-450,,,epochize returned null
+1757; 1746; 1767,1757,1757,,,epochize returned null
+right screen: 1774; left screen: 1793,1774,1793,,,epochize returned null
+late sixth/early 5th century BCE,-500,-450,,,epochize returned null
+second quarter/mid-5th century BCE,-500,-450,,,epochize returned null
+ca. 1555; probably repainted and shaffron eye guards restored later,1530,1900,,,epochize returned null
+"late 4th–early 3rd century BCE; cheekpieces, modern",-350,-250,,,epochize returned null
+19th–early 20th century or before,1800,1930,,,epochize returned null
+late sixth century BCE/early 5th century BCE,-500,-450,,,epochize returned null
+1840; (verso) 1837,1837,1840,,,epochize returned null
+early 4th centaury BCE,-500,-450,,,epochize returned null
+late sixth century BCE/early fifth century BCE,-500,-450,,,epochize returned null
+"spring/summer 2013, edition 2015",2013,2013,,,epochize returned null
+"spring/summer 1983, edition 2015",1983,1983,,,epochize returned null
+"block cut 1907, printed 1923",1907,1923,,,epochize returned null
+"block cut 1900, printed 1923",1900,1923,,,epochize returned null
+"block cut 1898, printed 1923",1898,1923,,,epochize returned null
+"block cut 1908, printed 1923",1908,1923,,,epochize returned null
+"block cut 1913, printed 1922",1913,1922,,,epochize returned null
+"block cut 1905, printed 1924",1905,1924,,,epochize returned null
+"1568, this impression published 1602",1568,1602,,,epochize returned null
+mid -16th–mid-17th century,1550,1650,,,epochize returned null
+"spring/summer 1994, edition 2016",1994,1994,,,epochize returned null
+"August–September 2000, printed November 2, 2000",2000,2000,,,epochize returned null
+c. 1657; this state printed 1658 or later,1650,1658,,,epochize returned null
+Design dates to 1900; 1902,1900,1902,,,epochize returned null
+silver: 1721–ca. 1727; book: 1699–1701 and 1700–1701,1700,1732,,,epochize returned null
+nd,1864,1880,,,epochize returned null
+first half of the fifth century BCE,-530,-400,,,epochize returned null
+collected 1960s–70s,1960,1975,,,epochize returned null
+"Dec. 17, 1793",1793,1793,,,epochize returned null
+3rd quarter of the sixth century BCE,-550,-525,,,epochize returned null
+dated A.H.1294/1877 CE,1852,1902,,,epochize returned null
+"Decmeber 2, 1789",1789,1789,,,epochize returned null
+An VII (1799),1799,1799,,,epochize returned null
+"2015, signed 2016",2015,2016,,,epochize returned null
+mid- to- late 1610s,1605,1610,,,epochize returned null
+first quarter of the sixth century BCE,-650,-450,,,epochize returned null
+third quarter of the sixth century BCE,-650,-450,,,epochize returned null
+second quarter of the sixth century BCE,-650,-450,,,epochize returned null
+late/early 5th century BCE,-680,-450,,,epochize returned null
+"barrel, probably 18th–19th century; stock and other fittings, probably mid-19th–early 20th century",1675,1950,,,epochize returned null
+"May 15 ,1867",1867,1867,,,epochize returned null
+"February 22 ,1867",1867,1867,,,epochize returned null
+"March 8 ,1867",1867,1867,,,epochize returned null
+"July 1 ,1867",1867,1867,,,epochize returned null
+ｄａｔｅｄ 1867,1867,1867,,,epochize returned null
+"spring/summer 2000, edition 2017",2000,2017,,,epochize returned null
+second half of the seventh century BCE,-750,-400,,,epochize returned null
+"1976; scroll: Heisei period (1989–2019), 2017",1976,2017,,,epochize returned null
+second half of the fourth century BCE,-700,-300,,,epochize returned null
+second half of the sixth century BCE,-700,-300,,,epochize returned null
+second quarter of the fourth century BCE,-600,-400,,,epochize returned null
+"armor, 18th century; helmet, 16th century; restorations, 2015",1701,2015,,,epochize returned null
+"armor, dated 1717; helmet, late 16th century; restorations, 2015",1550,2015,,,epochize returned null
+19th century reproduction of 1594 original,1594,1900,,,epochize returned null
+pre-fall 2018,2018,2018,,,epochize returned null
+"1680–1720, with 19th century modifications and restorations",1680,1720,,,epochize returned null
+"1971, exhibition prints made 2002",1971,1971,,,epochize returned null
+possibly 18th-century copy of a 1614 work,1700,1799,,,epochize returned null
+painting:1770−80; inscription: 1820s–30s,1770,1839,,,epochize returned null
+"ca. 1635, base possibly late 1830s",1630,1640,,,epochize returned null
+"1984, edition 2018",1984,2018,,,epochize returned null
+"1909; this example, 1936",1909,1909,,,epochize returned null
+"spring/summer 1987, edition 2018",1987,2018,,,epochize returned null
+19th C.,1850,1950,,,epochize returned null
+2017-ongoing,2017,2017,,,epochize returned null
+19th century or older,100,1899,,,epochize returned null
+"swan, ca. 1745–50; gilt-bronze mount, ca. 1750",1745,1750,,,epochize returned null
+"porcelain ca. 1735, mounts ca. 1740–50 and later",1735,1750,,,epochize returned null
+"porcelain, early to mid-eighteenth century; mount, ca. 1750",1700,1750,,,epochize returned null
+"1700, after a 1652 model",1700,1700,,,epochize returned null
+print: 2017; book: 2019,2017,2019,,,epochize returned null
+"first published 1866, reissued 1874",1866,1874,,,epochize returned null
+"first published 1865, reissued 1874",1865,1874,,,epochize returned null
+"19th century, after 1837",1837,1900,,,epochize returned null
+"carving dated 1943, painting dated 1942",1942,1943,,,epochize returned null
+"Februrary 10, 1831",1831,1831,,,epochize returned null
+"spring/summer 2017, edition 2020",2017,2017,,,epochize returned null
+"early 13th century, probably 1220s",1200,1229,,,epochize returned null
+"spring/summer 2014, edition 2020",2014,2014,,,epochize returned null
+"1985, edition 2020",1985,1985,,,epochize returned null
+"November 26−27, 1882",1882,1882,,,epochize returned null
+"1686, with other seventeenth-century elements, assembled ca. 1725",1686,1730,,,epochize returned null
+Mid-20th century copy of ca. 1771 original,1950,1980,,,epochize returned null
+"dated equivalent to July 20, 1856",1856,1856,,,epochize returned null
+"engraved ca. 1762, restruck 1877–96",1762,1896,,,epochize returned null
+fall/winter 2021−22,2021,2022,,,epochize returned null
+fall/winter 1978−79,1978,1979,,,epochize returned null
+1726 [3rd ed.],1726,1726,,,epochize returned null
+Pre-fall 2020,2020,2020,,,epochize returned null
+See individual reports and attached checklist,1860,1933,,,epochize returned null
+autumn/winter 2017; spring/summer 2019,2017,2019,,,epochize returned null
+"1809 (Bunka 6), 11th month",1809,1809,,,epochize returned null
+early- to mid-15th century,1400,1450,,,epochize returned null
+"spring/summer 1983, edition 2013",1983,1983,,,epochize returned null
+ca. 1375–1300BCE,-1376,-1300,,,epochize returned null
+"mid-18th century, before 1766",1734,1765,,,epochize returned null
+calligraphy datable to 1240s,1240,1249,,,epochize returned null
+"designed ca. 1900, executed ca. 1904",1900,1904,,,epochize returned null
+mid-1910s or later,1915,1926,,,epochize returned null
+1992/1999 (attributed date/date of production),1992,1999,,,epochize returned null
+"1898, published ca. 1901−1906",1898,1898,,,epochize returned null
+early 20th c.,20,20,,,epochize returned null
+"1894–1905, after a model of 1894",1894,1905,,,epochize returned null
+various dates in 18th century,1700,1875,,,epochize returned null
+sprin/summer 1992,1992,1992,,,epochize returned null
+pre-fall 2012,2012,2012,,,epochize returned null

@@ -1,9 +1,9 @@
 import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
 import {
-  identityModifier,
   parentheticalModifier,
   zodiacModifier,
+  circaIdentityModifier,
 } from "./modifiers/identity";
 import { earlyMidLateModifier } from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
@@ -137,14 +137,6 @@ const textToYearAndMonth = (
   );
 };
 
-const circaModifier = (
-  options: EpochizeOptions
-): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => /ca\.|c\.|circa/.test(text),
-  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => dates,
-});
-
 const afterModifier = (
   options: EpochizeOptions
 ): ModifierConfig<string, [Date, Date]> => ({
@@ -159,7 +151,7 @@ export const handleMonth: InputHandler = (input, options) => {
       Modifier.fromValue(text)
         .withModifier(afterModifier(options))
         .withModifier(parentheticalModifier())
-        .withModifier(circaModifier(options))
+        .withModifier(circaIdentityModifier())
         .withModifier(zodiacModifier())
         .withModifier(earlyMidLateModifier())
         .flatMap((text) => textToYearAndMonth(text, options))

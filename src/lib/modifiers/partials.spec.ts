@@ -81,6 +81,8 @@ describe("middleHalfModifier", () => {
     ["middle half of the 19th century", "19th century"],
     ["middle half of 1989", "1989"],
     ["middle half 1989", "1989"],
+    ["middle of the 6th century", "6th century"],
+    ["middle of 6th century", "6th century"],
     ["mid half of the 19th century", "19th century"],
     ["mid half 14th century", "14th century"],
   ])(

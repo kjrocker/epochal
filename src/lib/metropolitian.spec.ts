@@ -93,29 +93,29 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   ["1896", 1896, 1896],
   ["1896, cast ca. 1906", 1896, 1906],
   ["late 17th, mid 18th century", 1667, 1767],
-  // ["ca. 12500 BCE–ca. 4th or 3rd century BCE", -12499, -299]
-  // ["mid–late17th century",1601,1700]
-  // ["1675–1700 and later", 1675, 1700]
-  // ["ca. 1450–1525 and later", 1450, 1525]
-  // ["mid- to late 19th century"]
-  // first third 19th century
-  // first three quarters of first century
-  // First three quarters of the 1st century(?)
-  // fourth quarter of the 10th–century
-  // ca. second half of the 11th–century
-  // "late 17th, mid 18th century"
-  //   ca. 1981–1550 B.C.; reused dates to about 8th Century  B.C.,-1981,-1981,,,epochize returned null
-  // ca. 1295–1070B.C.,-1300,-1050,,,epochize returned null
-  // ca. 837–812B.C,-837,-812,,,epochize returned null
-  // ca. 1919–1800 B. C.,-1919,-1800,,,epochize returned null
-  // ca. 1327–1323 B. C.,-1327,-1323,,,epochize returned null
-  // ca/ 360–300 BC,-360,-300,,,epochize returned null
-  // ca. 1850–1802B.C.,-1855,-1800,,,epochize returned null
-  //   first quarter of the sixth century BCE,-650,-450,,,epochize returned null
-  // third quarter of the sixth century BCE,-650,-450,,,epochize returned null
-  // second quarter of the sixth century BCE,-650,-450,,,epochize returned null
-  //   second half of the fourth century BCE,-700,-300,,,epochize returned null
-  // second half of the sixth century BCE,-700,-300,,,epochize returned null
+  // ["ca. 12500 BCE–ca. 4th or 3rd century BCE", -12499, -299],
+  // ["mid–late17th century", 1601, 1700],
+  // ["1675–1700 and later", 1675, 1700],
+  // ["ca. 1450–1525 and later", 1450, 1525],
+  // ["mid- to late 19th century", 1834, 1900],
+  // ["first third 19th century", 1801, 1834],
+  // ["first three quarters of first century", 1, 75],
+  // ["First three quarters of the 1st century(?)", 1, 75],
+  // ["fourth quarter of the 10th–century", 976, 1000],
+  // ["ca. second half of the 11th–century", 1047, 1100],
+  // ["ca. 1981–1550 B.C.; reused dates to about 8th Century B.C.", -1980, -700],
+  // ["ca. 1295–1070B.C.", -1294, -1069],
+  // ["ca. 837–812B.C", -836, -811],
+  // ["ca. 1919–1800 B. C.", -1918, -1799],
+  // ["ca. 1327–1323 B. C.", -1326, -1322],
+  // ["ca/ 360–300 BC", -359, -299],
+  // ["ca. 1850–1802B.C.", -1849, -1801],
+  // ["first quarter of the sixth century BCE", -600, -575],
+  // ["third quarter of the sixth century BCE", -550, -525],
+  // ["second quarter of the sixth century BCE", -575, -550],
+  // ["second half of the fourth century BCE", -350, -300],
+  // ["second half of the sixth century BCE", -550, -500],
+  ["December, 5 1488", 1488, 1488],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

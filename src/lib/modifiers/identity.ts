@@ -7,7 +7,7 @@ const patterns = [
   /^datable\s+to\s+the\s+/,
   /^datable\s+to\s+/,
   /^published\s+in\s+/,
-  /^(dated|cast|carved|published|created)\s+/,
+  /^(dated|cast|carved|published|created|designed)\s+/,
   /^d\s+a\s+t\s+e\s+d\s+/,
   /^originally\s+published\s+/,
   /(probably|possibly|likely|about|patented|suggested|check|originally|publication|primarily|issued|reissued)\s+/,
@@ -86,4 +86,13 @@ export const zodiacModifier = (): ModifierConfig<string, [Date, Date]> => ({
   predicate: (text) => ZODIAC_PATTERN.test(text),
   extractor: (text) => text.replace(ZODIAC_PATTERN, "").trim(),
   transformer: (dates) => dates,
+});
+
+export const circaIdentityModifier = (): ModifierConfig<
+  string,
+  [Date, Date]
+> => ({
+  predicate: (text) => /ca\.|c\.|circa/.test(text),
+  extractor: (text) => text.replace(/ca\.|c\.|circa/, "").trim(),
+  transformer: (dates: [Date, Date]): [Date, Date] => dates,
 });
