@@ -1,4 +1,3 @@
-import { match } from "assert";
 import { parentheticalModifier } from "../modifiers/identity";
 import { islamicModifier } from "../modifiers/islamic";
 import { handleBrackets } from "../util/bracket-extractor";
@@ -47,9 +46,10 @@ export const matchYearShorthand = (input: string): [string, string] | null => {
   return null;
 };
 
+const ERA_REGEX = /(bc|ad|bce|ce|b\.c\.|b\sc|b\.\sc\.|a\.d\.|b\.c\.e\.|c\.e\.)/;
 const hasEra = (text: string): string | null => {
   // Look for era markers anywhere in the string, not just at the end
-  const match = text.match(/(bc|ad|bce|ce|b\.c\.|a\.d\.|b\.c\.e\.|c\.e\.)/i);
+  const match = text.match(ERA_REGEX);
   return match ? match[1] : null;
 };
 export const matchEraRange = (input: string): [string, string] | null => {
@@ -67,7 +67,7 @@ export const matchEraRange = (input: string): [string, string] | null => {
 
 export const matchCastingRange = (input: string): [string, string] | null => {
   const years = input.split(
-    /[,;]\s+(?:cast|carved|reworked|replica|published)\s+/
+    /[,;]\s+(?:cast|carved|reworked|replica|published|manufactured|produced|this\scast,)\s+/
   );
   return years.length === 2 ? (years as [string, string]) : null;
 };

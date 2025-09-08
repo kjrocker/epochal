@@ -9,7 +9,11 @@ import { startOfDay } from "date-fns/startOfDay";
 import { endOfDay } from "date-fns/endOfDay";
 import { EN_MONTHS } from "./util/regex";
 import { Modifier, ModifierConfig } from "./util/modifier";
-import { parentheticalModifier, printedModifier } from "./modifiers/identity";
+import {
+  circaIdentityModifier,
+  parentheticalModifier,
+  printedModifier,
+} from "./modifiers/identity";
 import { handleBrackets } from "./util/bracket-extractor";
 
 type GetMonthYearDay = (
@@ -67,6 +71,16 @@ const monthCommaDayYearEra: GetMonthYearDay = (input) => {
   return mapMatchGroups(matches.groups);
 };
 
+const monthCommaSpaceDayYearEra: GetMonthYearDay = (input) => {
+  const matches = input.match(
+    RegExp(
+      `^${EN_MONTHS.source},\\s+(?<day>[0-9]+)\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
+    )
+  );
+  if (!matches?.groups) return null;
+  return mapMatchGroups(matches.groups);
+};
+
 const textToYearMonthDay = (
   input: string
 ): Maybe<{ year: number; month: number; day: number }> => {
@@ -74,7 +88,8 @@ const textToYearMonthDay = (
     dayMonthNameYearEra,
     yearSlashMonthSlashDayEra,
     fullMonthNameDayYearEra,
-    monthCommaDayYearEra
+    monthCommaDayYearEra,
+    monthCommaSpaceDayYearEra
   );
 };
 
@@ -92,6 +107,7 @@ export const handleDay: InputHandler = (input) => {
         .withModifier(printedModifier())
         .withModifier(byHandler())
         .withModifier(parentheticalModifier())
+        .withModifier(circaIdentityModifier())
         .flatMap((text) => textToYearMonthDay(text))
         .map(({ year, month, day }) => {
           const date = new Date(year, month - 1, day);
