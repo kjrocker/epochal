@@ -258,7 +258,7 @@ describe("Maybe", () => {
     });
   });
 
-  describe("curvedTryEach", () => {
+  describe("dutchTryEach", () => {
     const acceptSome = (maybe: Maybe<number>): Maybe<string> => {
       const value = maybe.get();
       return value !== null ? Maybe.some(`value: ${value}`) : Maybe.none();
@@ -280,7 +280,7 @@ describe("Maybe", () => {
 
     it("should return first successful curved transformation", () => {
       const maybe = Maybe.some(4);
-      const result = maybe.curvedTryEach(
+      const result = maybe.dutchTryEach(
         (m) => Maybe.none<string>(),
         acceptEven,
         acceptPositive
@@ -290,13 +290,13 @@ describe("Maybe", () => {
 
     it("should work with None input", () => {
       const maybe = Maybe.none<number>();
-      const result = maybe.curvedTryEach(acceptSome, acceptEven);
+      const result = maybe.dutchTryEach(acceptSome, acceptEven);
       expect(result.get()).toBeNull();
     });
 
     it("should return None if all curved functions return None", () => {
       const maybe = Maybe.some(-3);
-      const result = maybe.curvedTryEach(acceptEven, acceptPositive);
+      const result = maybe.dutchTryEach(acceptEven, acceptPositive);
       expect(result.get()).toBeNull();
     });
   });

@@ -59,7 +59,7 @@ export class Maybe<T> {
 
   // Get it? Flat -> Regular -> Curved :D :D :D
   // Just like tryEach, but for functions that expect Maybe already.
-  curvedTryEach<R>(...args: Array<(wrapped: Maybe<T>) => Maybe<R>>): Maybe<R> {
+  dutchTryEach<R>(...args: Array<(wrapped: Maybe<T>) => Maybe<R>>): Maybe<R> {
     for (let idx = 0; idx < args.length; idx++) {
       const result = args[idx](this);
       if (result.value !== null) {
