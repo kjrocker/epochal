@@ -38,7 +38,7 @@ async function main(): Promise<void> {
     const metrics = resultWriter.getMetrics();
     metrics.duration = (endTime - startTime) / 1000;
 
-    console.log(`\nResults:`);
+    console.log(`Results:`);
     console.log(
       `- Exact matches: ${metrics.exactPassed} (${metrics.exactPassRate}%)`
     );

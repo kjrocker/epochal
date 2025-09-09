@@ -116,6 +116,7 @@ const METROPOLITAN_TEST_CASES: Array<[string, number, number]> = [
   // ["second half of the fourth century BCE", -350, -300],
   // ["second half of the sixth century BCE", -550, -500],
   ["December, 5 1488", 1488, 1488],
+  ["ca. 1800; inscription ca. 1810", 1800, 1810],
 ];
 
 const OPTIONED_METROPOLITAN_TEST_CASES: Array<

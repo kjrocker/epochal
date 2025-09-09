@@ -27,6 +27,11 @@ class InteractiveBlocklistManager {
       input: process.stdin,
       output: process.stdout,
     });
+    
+    // Set up raw mode for single keypress detection
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true);
+    }
   }
 
   async run(): Promise<void> {
@@ -35,10 +40,10 @@ class InteractiveBlocklistManager {
     console.log(`Input file: ${INPUT_CSV_FILE}`);
     console.log(`Blocklist files: ${BLOCKLIST_CSV}, ${BAD_DATA_BLOCKLIST_CSV}`);
     console.log("\nInstructions:");
-    console.log("- Press Enter to skip");
-    console.log('- Type "u" for general blocklist');
-    console.log('- Type "h" for bad-data blocklist');
-    console.log('- Type "q" to quit');
+    console.log("- Press Enter or any other key to skip");
+    console.log('- Press "u" for general blocklist');
+    console.log('- Press "h" for bad-data blocklist');
+    console.log('- Press "q" to quit');
     console.log("\n");
 
     // First, read all records into memory
@@ -109,24 +114,47 @@ class InteractiveBlocklistManager {
 
   private async promptUser(objectDate: string): Promise<string> {
     return new Promise((resolve) => {
-      this.rl.question(
-        `[${this.processedCount}] "${objectDate}" - Action (Enter/u/h/q): `,
-        (answer) => {
-          resolve(answer.trim().toLowerCase());
+      process.stdout.write(`[${this.processedCount}] "${objectDate}" - Press u/h/q or any other key to skip: `);
+      
+      const onData = (buffer: Buffer) => {
+        const input = buffer.toString('utf8');
+        const key = input.toLowerCase();
+        
+        // Handle special keys
+        if (input === '\r' || input === '\n') {
+          // Enter key - skip
+          console.log('(skip)');
+          process.stdin.off('data', onData);
+          resolve('skip');
+        } else if (key === 'u' || key === 'h' || key === 'q') {
+          console.log(key);
+          process.stdin.off('data', onData);
+          resolve(key);
+        } else {
+          // Any other key - skip
+          console.log('(skip)');
+          process.stdin.off('data', onData);
+          resolve('skip');
         }
-      );
+      };
+      
+      process.stdin.on('data', onData);
     });
   }
 
   private appendToBlocklist(filename: string, value: string): void {
     try {
-      appendFileSync(filename, `\n${value}`);
+      appendFileSync(filename, `\n"${value}"`);
     } catch (error) {
       console.error(`Error appending to ${filename}: ${error}`);
     }
   }
 
   private cleanup(): void {
+    // Restore normal terminal mode
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(false);
+    }
     this.rl.close();
   }
 }

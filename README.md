@@ -72,20 +72,37 @@ The interesting code.
 
 ### The 'Maybe' Monad
 
-Monads have a bad reputation. Basically every function in this library needs to abort if it runs into something it doesn't understand. The default behavior is to give up and hope another function can handle it.
+Monads have a bad reputation. Basically every function in this library needs to abort if it runs into something it doesn't understand, he default behavior is to give up and hope another function can handle it.
 
 I took a basic `Maybe` class off the internet, and extended it with some additional features like `tryEach` and `tryMany`. This flow of "creating a Maybe, and chaining functions on it" is the backbone of Epochal.
 
 ### The 'Modifier'....thingy.
 
-Okay I don't have a term for this. I'm sure there's a proper FP term, but I don't know it.
+I don't have a term for this. I'm sure there's a proper FP term, but I don't know it.
 
 I repeatedly ran into exceptions/code that looked like this:
 1. If a certain condition is true (such as 'contains "early"')
 2. Transform an input (remove the "early")
 3. Then at a later stage, adjust the result (adjust the date range to be only the first half of its original value)
 
-The `Modifier` class is the result.
+I distilled this pattern down to a `Modifier` object with a predicate, an extractor, and a transformer.
+
+```typescript
+Modifier.fromValue(text)
+  .withModifier(seasonModifier())
+  .withModifier(circaModifier(options))
+  .withModifier(earlyMidLateModifier())
+  .flatMap((text) => yearToNumber(text, options))
+  .map((num) => yearToDate(num))
+  .map((year): [Date, Date] => [startOfYear(year), endOfYear(year)])
+  .unwrap()
+```
+
+We can see a few modifiers here. `seasonModifier` detects "spring/summer/fall/winter", and restricts the returned year to the correct months. The `earlyMidLateModifier` is common across years, centuries, and millenia, and handles "early XXXX" syntax, adjusting it to be the first third of the range (or the first half, depending on settings).
+
+The `circaModifier` detects `ca./circa` and adjusts the start/end date based on `circaStartOffset` and `circaEndOffset`.
+
+Finally, going into `flatMap` and `map` processes the actual string, and `unwrap` chains the modifiers at the very end, resolving the pipeline. I managed to massage the types so that you can't call `unwrap` until the return type actually matches what the modifiers expect.
 
 ## License
 
