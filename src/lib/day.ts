@@ -7,7 +7,7 @@ import {
 } from "./util/util";
 import { startOfDay } from "date-fns/startOfDay";
 import { endOfDay } from "date-fns/endOfDay";
-import { EN_MONTHS } from "./util/regex";
+import { getMonthPattern } from "./util/regex";
 import { Modifier, ModifierConfig } from "./util/modifier";
 import {
   circaIdentityModifier,
@@ -36,7 +36,7 @@ const mapMatchGroups = (input: { [key: string]: string }) => {
 const dayMonthNameYearEra: GetMonthYearDay = (input) => {
   const matches = input.match(
     RegExp(
-      `^(?<day>[0-9]+)\\s+${EN_MONTHS.source}\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
+      `^(?<day>[0-9]+)\\s+${getMonthPattern()}\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
     )
   );
   if (!matches?.groups) return null;
@@ -54,7 +54,7 @@ const yearSlashMonthSlashDayEra: GetMonthYearDay = (input) => {
 const fullMonthNameDayYearEra: GetMonthYearDay = (input) => {
   const matches = input.match(
     RegExp(
-      `^${EN_MONTHS.source}\\s*(?<day>[0-9]+)\\w{0,2},?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
+      `^${getMonthPattern()}\\s*(?<day>[0-9]+)\\w{0,2},?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
     )
   );
   if (!matches?.groups) return null;
@@ -64,7 +64,7 @@ const fullMonthNameDayYearEra: GetMonthYearDay = (input) => {
 const monthCommaDayYearEra: GetMonthYearDay = (input) => {
   const matches = input.match(
     RegExp(
-      `^${EN_MONTHS.source},(?<day>[0-9]+)\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
+      `^${getMonthPattern()},(?<day>[0-9]+)\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
     )
   );
   if (!matches?.groups) return null;
@@ -74,7 +74,7 @@ const monthCommaDayYearEra: GetMonthYearDay = (input) => {
 const monthCommaSpaceDayYearEra: GetMonthYearDay = (input) => {
   const matches = input.match(
     RegExp(
-      `^${EN_MONTHS.source},\\s+(?<day>[0-9]+)\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
+      `^${getMonthPattern()},\\s+(?<day>[0-9]+)\\s+(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`
     )
   );
   if (!matches?.groups) return null;

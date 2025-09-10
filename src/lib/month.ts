@@ -9,7 +9,7 @@ import { earlyMidLateModifier } from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
 import { Modifier, ModifierConfig } from "./util/modifier";
 import { EpochizeOptions } from "./util/options";
-import { EN_MONTHS } from "./util/regex";
+import { getMonthPattern } from "./util/regex";
 import {
   attachMetadata,
   getYearWithCenturyBreakpoint,
@@ -48,7 +48,7 @@ const mapMatchGroups = (
 
 const shortMonthNameYearEra: GetMonthYear = (input, options) => {
   const matches = input.match(
-    RegExp(`^${EN_MONTHS.source}(?:,)?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`)
+    RegExp(`^${getMonthPattern()}(?:,)?\\s*(?<year>[0-9]+)\\s*(?<era>[a-z]*)$`)
   );
   if (!matches?.groups) return null;
   return mapMatchGroups(matches.groups, options);
