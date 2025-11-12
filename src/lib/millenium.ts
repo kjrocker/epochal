@@ -49,23 +49,21 @@ const circaModifier = (
 });
 
 export const handleMillenium: InputHandler = (input, options) => {
-  return input
-    .map(handleBrackets)
-    .flatMap((text) =>
-      Modifier.fromValue(text)
-        .withModifier(circaModifier(options))
-        .withModifier(earlyMidLateModifier())
-        .withModifier(firstQuarterModifier())
-        .withModifier(secondQuarterModifier())
-        .withModifier(thirdQuarterModifier())
-        .withModifier(fourthQuarterModifier())
-        .map(milleniumToOrdinal)
-        .map(milleniumToDate)
-        .map((date): [Date, Date] => [
-          startOfMillenium(date, options),
-          endOfMillenium(date, options),
-        ])
-        .unwrap()
-    )
-    .map(attachMetadata(Handler.MILLENNIUM));
+  return input.map(handleBrackets).flatMap((text) =>
+    Modifier.fromValue(text)
+      .withModifier(circaModifier(options))
+      .withModifier(earlyMidLateModifier())
+      .withModifier(firstQuarterModifier())
+      .withModifier(secondQuarterModifier())
+      .withModifier(thirdQuarterModifier())
+      .withModifier(fourthQuarterModifier())
+      .map(milleniumToOrdinal)
+      .map(milleniumToDate)
+      .map((date): [Date, Date] => [
+        startOfMillenium(date, options),
+        endOfMillenium(date, options),
+      ])
+      .map(attachMetadata(Handler.MILLENNIUM))
+      .unwrap()
+  );
 };

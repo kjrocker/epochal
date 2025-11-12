@@ -100,22 +100,20 @@ const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
 });
 
 export const handleDay: InputHandler = (input) => {
-  return input
-    .map(handleBrackets)
-    .flatMap((text) =>
-      Modifier.fromValue(text)
-        .withModifier(printedModifier())
-        .withModifier(byHandler())
-        .withModifier(parentheticalModifier())
-        .withModifier(circaIdentityModifier())
-        .flatMap((text) => textToYearMonthDay(text))
-        .map(({ year, month, day }) => {
-          const date = new Date(year, month - 1, day);
-          date.setFullYear(year);
-          return date;
-        })
-        .map((date): [Date, Date] => [startOfDay(date), endOfDay(date)])
-        .unwrap()
-    )
-    .map(attachMetadata(Handler.DAY));
+  return input.map(handleBrackets).flatMap((text) =>
+    Modifier.fromValue(text)
+      .withModifier(printedModifier())
+      .withModifier(byHandler())
+      .withModifier(parentheticalModifier())
+      .withModifier(circaIdentityModifier())
+      .flatMap((text) => textToYearMonthDay(text))
+      .map(({ year, month, day }) => {
+        const date = new Date(year, month - 1, day);
+        date.setFullYear(year);
+        return date;
+      })
+      .map((date): [Date, Date] => [startOfDay(date), endOfDay(date)])
+      .map(attachMetadata(Handler.DAY))
+      .unwrap()
+  );
 };

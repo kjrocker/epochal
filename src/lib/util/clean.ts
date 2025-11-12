@@ -8,9 +8,10 @@ export const clean = (input: string): string | null => {
   if (!input) return null;
   return Maybe.fromValue(input)
     .map((text) => text.trim().toLowerCase())
-    .map((text) => text.replace(/\s*\(\?\)\s*/g, "").replace(/\s*\?\s*$/, ""))
     .map((text) =>
       text
+        .replace(/\s*\(\?\)\s*/g, "")
+        .replace(/\s*\?\s*$/, "")
         .replace(/[-–—‒]/, "-")
         .replace(/^\s*\(\s*(.*?)\s*\)\s*$/, "$1")
         .replace(/^\s*\[\s*(.*?)\s*\]\s*$/, "$1")

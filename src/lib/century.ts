@@ -74,27 +74,26 @@ const orLaterModifier = (
 });
 
 export const handleCentury: InputHandler = (input, options) => {
-  return input
-    .flatMap((text) =>
-      Modifier.fromValue(text)
-        .withModifier(circaModifier(options))
-        .withModifier(orLaterModifier(options))
-        .withModifier(parentheticalModifier())
-        .withModifier(afterOriginalModifier())
-        .withModifier(firstHalfModifier())
-        .withModifier(secondHalfModifier())
-        .withModifier(earlyMidLateModifier())
-        .withModifier(firstQuarterModifier())
-        .withModifier(secondQuarterModifier())
-        .withModifier(thirdQuarterModifier())
-        .withModifier(fourthQuarterModifier())
-        .map((text) => centuryToOrdinal(text))
-        .map((ordinal) => centuryToDate(ordinal))
-        .map((date): [Date, Date] => [
-          startOfCentury(date, options),
-          endOfCentury(date, options),
-        ])
-        .unwrap()
-    )
-    .map(attachMetadata(Handler.CENTURY));
+  return input.flatMap((text) =>
+    Modifier.fromValue(text)
+      .withModifier(circaModifier(options))
+      .withModifier(orLaterModifier(options))
+      .withModifier(parentheticalModifier())
+      .withModifier(afterOriginalModifier())
+      .withModifier(firstHalfModifier())
+      .withModifier(secondHalfModifier())
+      .withModifier(earlyMidLateModifier())
+      .withModifier(firstQuarterModifier())
+      .withModifier(secondQuarterModifier())
+      .withModifier(thirdQuarterModifier())
+      .withModifier(fourthQuarterModifier())
+      .map((text) => centuryToOrdinal(text))
+      .map((ordinal) => centuryToDate(ordinal))
+      .map((date): [Date, Date] => [
+        startOfCentury(date, options),
+        endOfCentury(date, options),
+      ])
+      .map(attachMetadata(Handler.CENTURY))
+      .unwrap()
+  );
 };

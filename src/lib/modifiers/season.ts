@@ -1,12 +1,12 @@
 import { endOfMonth, startOfMonth } from "date-fns";
 import { ModifierConfig } from "../util/modifier";
+import { InputHandlerReturn } from "../util/util";
 
 const seasonSlashRegex =
   /(?:(?:spring|summer|fall|winter)(?:\/(?:spring|summer|fall|winter))?)/i;
 const seasonAndRegex =
   /(?:(?:spring|summer|fall|winter)\s+(?:and|&)\s+(?:spring|summer|fall|winter))/i;
-const seasonOfRegex =
-  /(?:(?:spring|summer|fall|winter)\s+of)/i;
+const seasonOfRegex = /(?:(?:spring|summer|fall|winter)\s+of)/i;
 
 const getSeasonStartMonth = (season: string) => {
   switch (season) {
@@ -38,14 +38,17 @@ const getSeasonEndMonth = (season: string) => {
   }
 };
 
-export const seasonModifier = (): ModifierConfig<string, [Date, Date]> => ({
-  predicate: (text) => 
-    seasonSlashRegex.test(text) || 
-    seasonAndRegex.test(text) || 
+export const seasonModifier = (): ModifierConfig<
+  string,
+  InputHandlerReturn
+> => ({
+  predicate: (text) =>
+    seasonSlashRegex.test(text) ||
+    seasonAndRegex.test(text) ||
     seasonOfRegex.test(text),
   extractor: (text: string): string => {
     let extracted = text;
-    
+
     // Try each regex in sequence to find and remove the season pattern
     if (seasonAndRegex.test(extracted)) {
       extracted = extracted.replace(seasonAndRegex, "").trim();
@@ -54,7 +57,7 @@ export const seasonModifier = (): ModifierConfig<string, [Date, Date]> => ({
     } else if (seasonSlashRegex.test(extracted)) {
       extracted = extracted.replace(seasonSlashRegex, "").trim();
     }
-    
+
     // For year ranges like "2027-28", extract just the first year
     const yearRangeMatch = extracted.match(/(\d{4})-\d{2,4}/);
     if (yearRangeMatch) {
@@ -62,7 +65,8 @@ export const seasonModifier = (): ModifierConfig<string, [Date, Date]> => ({
     }
     return extracted;
   },
-  transformer: (dates: [Date, Date], text): [Date, Date] => {
+  transformer: (dates, text) => {
+    const [first, second, meta] = dates;
     const seasons = text.match(/spring|summer|fall|winter/gi) || [];
     const firstSeason = seasons[0]?.toLowerCase();
     const lastSeason = seasons[seasons.length - 1]?.toLowerCase();
@@ -70,11 +74,11 @@ export const seasonModifier = (): ModifierConfig<string, [Date, Date]> => ({
     const startMonth = getSeasonStartMonth(firstSeason || "spring");
     const endMonth = getSeasonEndMonth(lastSeason || "spring");
     const startDate = new Date(dates[0].getFullYear(), startMonth - 1, 1);
-    
+
     // Check if there's an explicit year range like "2027-28"
     const yearRangeMatch = text.match(/\d{4}-(\d{2,4})/);
     let endYear = dates[1].getFullYear();
-    
+
     if (yearRangeMatch) {
       const secondYearStr = yearRangeMatch[1];
       if (secondYearStr.length === 2) {
@@ -89,8 +93,8 @@ export const seasonModifier = (): ModifierConfig<string, [Date, Date]> => ({
       // Default winter behavior - extend to next year
       endYear = dates[0].getFullYear() + 1;
     }
-    
+
     const endDate = new Date(endYear, endMonth, 0);
-    return [startOfMonth(startDate), endOfMonth(endDate)];
+    return [startOfMonth(startDate), endOfMonth(endDate), meta];
   },
 });

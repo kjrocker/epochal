@@ -75,6 +75,8 @@ export interface ResultMetadata extends HandlerMetadata {
 
 export type Metadata = ResultMetadata;
 
+export type InputHandlerReturn = [Date, Date, HandlerMetadata];
+
 export type InputHandler = (
   input: Maybe<string>,
   options: EpochizeOptions

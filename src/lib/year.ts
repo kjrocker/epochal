@@ -151,7 +151,7 @@ export const handleYear: InputHandler = (input, options) => {
         .flatMap((text) => yearToNumber(text, options))
         .map((num) => yearToDate(num))
         .map((year): [Date, Date] => [startOfYear(year), endOfYear(year)])
+        .map(attachMetadata(Handler.YEAR))
         .unwrap()
-    )
-    .map(attachMetadata(Handler.YEAR));
+    );
 };

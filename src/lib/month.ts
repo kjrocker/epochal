@@ -114,22 +114,21 @@ const afterModifier = (
 });
 
 export const handleMonth: InputHandler = (input, options) => {
-  return input
-    .flatMap((text) =>
-      Modifier.fromValue(text)
-        .withModifier(afterModifier(options))
-        .withModifier(parentheticalModifier())
-        .withModifier(circaIdentityModifier())
-        .withModifier(zodiacModifier())
-        .withModifier(earlyMidLateModifier())
-        .flatMap((text) => textToYearAndMonth(text, options))
-        .map(({ year, month }) => {
-          const date = new Date(year, month - 1);
-          date.setFullYear(year);
-          return date;
-        })
-        .map((date): [Date, Date] => [startOfMonth(date), endOfMonth(date)])
-        .unwrap()
-    )
-    .map(attachMetadata(Handler.MONTH));
+  return input.flatMap((text) =>
+    Modifier.fromValue(text)
+      .withModifier(afterModifier(options))
+      .withModifier(parentheticalModifier())
+      .withModifier(circaIdentityModifier())
+      .withModifier(zodiacModifier())
+      .withModifier(earlyMidLateModifier())
+      .flatMap((text) => textToYearAndMonth(text, options))
+      .map(({ year, month }) => {
+        const date = new Date(year, month - 1);
+        date.setFullYear(year);
+        return date;
+      })
+      .map((date): [Date, Date] => [startOfMonth(date), endOfMonth(date)])
+      .map(attachMetadata(Handler.MONTH))
+      .unwrap()
+  );
 };

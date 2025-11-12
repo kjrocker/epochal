@@ -1,4 +1,5 @@
 import { ModifierConfig } from "../util/modifier";
+import { InputHandlerReturn } from "../util/util";
 
 // Regular expressions for Islamic date patterns
 const AH_TO_CE_PATTERN = /(?:\w+:?\s+)?a\.h\.\s+[?0-9–\-\sor]+\s*\//;
@@ -9,7 +10,10 @@ const CE_GENERAL_PATTERN = /[0-9–\-\sor()?]+\s+ce.*\/.*a\.h\./;
 const AH_REMOVAL_PATTERN = /(?:\w+:?\s+)?a\.h\.\s+[?0-9–\-\sor]+\s*\/\s*/;
 const CE_TO_AH_REMOVAL_PATTERN = /\s*\/[0-9–\-\sor()?]*\s+a\.h\..*$/;
 
-export const islamicModifier = (): ModifierConfig<string, [Date, Date]> => ({
+export const islamicModifier = (): ModifierConfig<
+  string,
+  InputHandlerReturn
+> => ({
   predicate: (text) =>
     // Original pattern: "A.H. [date]/"
     AH_TO_CE_PATTERN.test(text) ||
@@ -27,5 +31,5 @@ export const islamicModifier = (): ModifierConfig<string, [Date, Date]> => ({
     }
     return text;
   },
-  transformer: (dates: [Date, Date]): [Date, Date] => dates,
+  transformer: (dates) => dates,
 });

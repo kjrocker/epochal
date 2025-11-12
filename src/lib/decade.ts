@@ -49,17 +49,16 @@ const circaModifier = (
 });
 
 export const handleDecade: InputHandler = (input, options) => {
-  return input
-    .flatMap((text) =>
-      Modifier.fromValue(text)
-        .withModifier(circaModifier(options))
-        .withModifier(printedModifier())
-        .withModifier(parentheticalModifier())
-        .withModifier(earlyMidLateModifier())
-        .flatMap(decadeToOrdinal)
-        .map(decadeToDate)
-        .map((date): [Date, Date] => [startOfDecade(date), endOfDecade(date)])
-        .unwrap()
-    )
-    .map(attachMetadata(Handler.DECADE));
+  return input.flatMap((text) =>
+    Modifier.fromValue(text)
+      .withModifier(circaModifier(options))
+      .withModifier(printedModifier())
+      .withModifier(parentheticalModifier())
+      .withModifier(earlyMidLateModifier())
+      .flatMap(decadeToOrdinal)
+      .map(decadeToDate)
+      .map((date): [Date, Date] => [startOfDecade(date), endOfDecade(date)])
+      .map(attachMetadata(Handler.DECADE))
+      .unwrap()
+  );
 };
