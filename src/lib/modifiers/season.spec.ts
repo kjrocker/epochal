@@ -34,7 +34,7 @@ describe("seasonModifier - year calculations", () => {
     "correctly calculates years for '%s'",
     (input, extracted, startYear, endYear) => {
       const result = seasonModifier().transformer(
-        [new Date(startYear, 0, 1), new Date(endYear, 0, 1)],
+        [new Date(startYear, 0, 1), new Date(endYear, 0, 1), { handler: [] }],
         input
       );
       expect(result[0].getFullYear()).toBe(startYear);

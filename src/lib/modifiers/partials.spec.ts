@@ -1,3 +1,4 @@
+import { HandlerMetadata } from "../util/util";
 import {
   earlyMidLateModifier,
   firstHalfModifier,
@@ -207,9 +208,10 @@ describe("earlyMidLateModifier", () => {
   const { predicate, extractor, transformer } = modifier;
 
   // Test dates: January 1 to December 31, 2000
-  const testDates: [Date, Date] = [
+  const testDates: [Date, Date, HandlerMetadata] = [
     new Date(2000, 0, 1), // Jan 1, 2000
     new Date(2000, 11, 31), // Dec 31, 2000
+    { handler: [] },
   ];
 
   describe("predicate", () => {
@@ -294,10 +296,12 @@ describe("earlyMidLateModifier", () => {
       expect(transformer(testDates, "early to mid 1900s")).toEqual([
         start,
         secondThird,
+        { handler: [] },
       ]);
       expect(transformer(testDates, "early-mid 1900s")).toEqual([
         start,
         secondThird,
+        { handler: [] },
       ]);
     });
 
@@ -307,6 +311,7 @@ describe("earlyMidLateModifier", () => {
       expect(transformer(testDates, "early to late 1900s")).toEqual([
         start,
         end,
+        { handler: [] },
       ]);
     });
 
@@ -316,10 +321,12 @@ describe("earlyMidLateModifier", () => {
       expect(transformer(testDates, "mid-to-late 1900s")).toEqual([
         firstThird,
         end,
+        { handler: [] },
       ]);
       expect(transformer(testDates, "mid-late 1900s")).toEqual([
         firstThird,
         end,
+        { handler: [] },
       ]);
     });
 
@@ -329,6 +336,7 @@ describe("earlyMidLateModifier", () => {
       expect(transformer(testDates, "early 1900s")).toEqual([
         start,
         firstThird,
+        { handler: [] },
       ]);
     });
 
@@ -338,17 +346,23 @@ describe("earlyMidLateModifier", () => {
       expect(transformer(testDates, "mid-1900s")).toEqual([
         firstThird,
         secondThird,
+        { handler: [] },
       ]);
       expect(transformer(testDates, "mid 1900s")).toEqual([
         firstThird,
         secondThird,
+        { handler: [] },
       ]);
     });
 
     it("transforms 'late' patterns to last third", () => {
       const [, , secondThird, end] = getThirds();
 
-      expect(transformer(testDates, "late 1900s")).toEqual([secondThird, end]);
+      expect(transformer(testDates, "late 1900s")).toEqual([
+        secondThird,
+        end,
+        { handler: [] },
+      ]);
     });
 
     it("returns original dates for unmatched patterns", () => {
@@ -394,7 +408,7 @@ describe("earlyMidLateModifier", () => {
       expect(extractor(input)).toBe(expectedText);
 
       const result = transformer(testDates, input);
-      expect(result).toHaveLength(2);
+      expect(result).toHaveLength(3);
       expect(result[0]).toBeInstanceOf(Date);
       expect(result[1]).toBeInstanceOf(Date);
       expect(result[0].getTime()).toBeLessThanOrEqual(result[1].getTime());
