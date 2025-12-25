@@ -1,5 +1,4 @@
 import { endOfCentury, startOfCentury } from "./date-fns";
-import { parentheticalModifier } from "./modifiers/identity";
 import {
   earlyMidLateModifier,
   firstHalfModifier,
@@ -75,7 +74,6 @@ export const handleCentury: InputHandler = (input, options) => {
     Modifier.fromValue(text)
       .withModifier(circaModifier(options))
       .withModifier(orLaterModifier(options))
-      .withModifier(parentheticalModifier())
       .withModifier(firstHalfModifier())
       .withModifier(secondHalfModifier())
       .withModifier(earlyMidLateModifier())

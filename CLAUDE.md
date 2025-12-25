@@ -7,8 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Build**: `npm run build` - Compiles TypeScript to JavaScript in the `build/` directory
 - **Test**: `npm test` - Runs Jest test suite
 - **Test Watch**: `npm run test:watch` - Runs tests in watch mode for development
-- **Lint**: `npm run lint` - Runs ESLint on the `src/` directory
-- **Process Metropolitan Dataset**: `npm run process:metropolitan` - Runs ts-node to process metropolitan museum dataset
+- **Lint**: `npm run lint` - Runs ESLint on the `src/` directory;
 
 ## Important API Usage Notes
 
@@ -38,7 +37,6 @@ This is a TypeScript library for parsing ambiguous historical dates into precise
 - **Date-fns Integration**: `src/lib/date-fns/` - Custom date manipulation utilities
 - **Modifier System**: `src/lib/modifiers/` - Handles temporal modifiers like "early", "mid", "late"
 - **Metadata Support**: Each parse result includes metadata with alternatives and original input
-- **Metropolitan Dataset Processing**: `src/lib/metropolitian/` - Specialized tooling for processing museum date data
 
 ### Dependencies
 
@@ -56,7 +54,6 @@ Tests use `.spec.ts` extension and are co-located with source files. Key test fi
 - `src/lib/properties.spec.ts` - Property-based tests using fast-check
 - `src/lib/metadata.spec.ts` - Metadata handling tests
 - Individual parser tests (e.g., `year.spec.ts`, `range.spec.ts`)
-- `src/lib/metropolitian/metropolitian.spec.ts` - Metropolitan dataset processing tests
 
 ### Build Configuration
 
