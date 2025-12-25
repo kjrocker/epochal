@@ -2,38 +2,6 @@ import { ModifierConfig } from "../util/modifier";
 import { getMonthPattern } from "../util/regex";
 import { InputHandlerReturn } from "../util/util";
 
-const patterns = [
-  /\?/,
-  /^dated\s+to\s+/,
-  /^datable\s+to\s+the\s+/,
-  /^datable\s+to\s+/,
-  /^published\s+in\s+/,
-  /^(dated|cast|carved|published|created|designed)\s+/,
-  /^d\s+a\s+t\s+e\s+d\s+/,
-  /^(originally|first)\s+published\s+/,
-  /(first\spublished|probably|possibly|likely|about|patented|suggested|check|originally|publication|primarily|issued|reissued)\s+/,
-  /,\s*(probably|suggested|check)\s*$/,
-  /\s+(probably|suggested|check)\s*$/,
-  /\s+or\searlier\s*$/,
-  /^(dated|undated),\s+/,
-  /,\s*undated\s*$/,
-];
-export const identityModifier = (): ModifierConfig<
-  string,
-  InputHandlerReturn
-> => ({
-  predicate: (text) => patterns.some((pattern) => pattern.test(text)),
-  extractor: (text) => {
-    for (const pattern of patterns) {
-      if (pattern.test(text)) {
-        return text.replace(pattern, "").trim();
-      }
-    }
-    return text;
-  },
-  transformer: (dates) => dates,
-});
-
 export const leadingWordModifier = (): ModifierConfig<
   string,
   InputHandlerReturn
@@ -84,17 +52,6 @@ export const afterOriginalModifier = (): ModifierConfig<
 > => ({
   predicate: (text) => AFTER_ORIGINAL_PATTERN.test(text),
   extractor: (text) => text.replace(AFTER_ORIGINAL_PATTERN, "").trim(),
-  transformer: (dates) => dates,
-});
-
-const ZODIAC_PATTERN =
-  /\s+\w+\s+year(?=\s|$)|^year\s+of\s+the\s+\w+\s+|,\s*year\s+of\s+the\s+\w+\s*$/;
-export const zodiacModifier = (): ModifierConfig<
-  string,
-  InputHandlerReturn
-> => ({
-  predicate: (text) => ZODIAC_PATTERN.test(text),
-  extractor: (text) => text.replace(ZODIAC_PATTERN, "").trim(),
   transformer: (dates) => dates,
 });
 

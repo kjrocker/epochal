@@ -12,7 +12,6 @@ import { Modifier, ModifierConfig } from "./util/modifier";
 import {
   circaIdentityModifier,
   parentheticalModifier,
-  printedModifier,
 } from "./modifiers/identity";
 import { handleBrackets } from "./util/bracket-extractor";
 
@@ -102,7 +101,6 @@ const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
 export const handleDay: InputHandler = (input) => {
   return input.map(handleBrackets).flatMap((text) =>
     Modifier.fromValue(text)
-      .withModifier(printedModifier())
       .withModifier(byHandler())
       .withModifier(parentheticalModifier())
       .withModifier(circaIdentityModifier())

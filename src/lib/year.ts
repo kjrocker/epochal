@@ -2,10 +2,8 @@ import { add, sub } from "date-fns";
 import { endOfYear } from "date-fns/endOfYear";
 import { startOfYear } from "date-fns/startOfYear";
 import {
-  afterOriginalModifier,
   leadingWordModifier,
   parentheticalModifier,
-  printedModifier,
 } from "./modifiers/identity";
 import { earlyMidLateModifier } from "./modifiers/partials";
 import { seasonModifier } from "./modifiers/season";
@@ -155,9 +153,7 @@ export const handleYear: InputHandler = (input, options) => {
     Modifier.fromValue(text)
       .withModifier(seasonModifier())
       .withModifier(leadingWordModifier())
-      .withModifier(printedModifier())
       .withModifier(parentheticalModifier())
-      .withModifier(afterOriginalModifier())
       .withModifier(circaModifier(options))
       .withModifier(afterModifier(options))
       .withModifier(orLaterModifier(options))
