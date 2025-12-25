@@ -20,6 +20,7 @@ import {
   getYearWithCenturyBreakpoint,
   Handler,
   InputHandler,
+  InputHandlerReturn,
 } from "./util/util";
 import { handleBrackets } from "./util/bracket-extractor";
 
@@ -76,54 +77,59 @@ const yearToDate = (year: number): Date | null => {
 const CIRCA_REGEX = /ca\.|^c\.|circa/;
 const circaModifier = (
   options: EpochizeOptions
-): ModifierConfig<string, [Date, Date]> => ({
+): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => CIRCA_REGEX.test(text),
   extractor: (text) => text.replace(CIRCA_REGEX, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    sub(dates[0], { years: options.circaStartOffset }),
-    add(dates[1], { years: options.circaEndOffset }),
+  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+    sub(first, { years: options.circaStartOffset }),
+    add(second, { years: options.circaEndOffset }),
+    meta,
   ],
 });
 
 const afterModifier = (
   options: EpochizeOptions
-): ModifierConfig<string, [Date, Date]> => ({
+): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /\bafter\b/.test(text),
   extractor: (text) => text.replace(/\bafter\b/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    add(dates[0], { years: 1 }),
-    add(dates[1], { years: options.afterOffset }),
+  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+    add(first, { years: 1 }),
+    add(second, { years: options.afterOffset }),
+    meta,
   ],
 });
 
 const orLaterModifier = (
   options: EpochizeOptions
-): ModifierConfig<string, [Date, Date]> => ({
+): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /(or|and) later/.test(text),
   extractor: (text) => text.replace(/(or|and) later/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    dates[0],
-    add(dates[1], { years: options.afterOffset }),
+  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+    first,
+    add(second, { years: options.afterOffset }),
+    meta,
   ],
 });
 
 const beforeModifier = (
   options: EpochizeOptions
-): ModifierConfig<string, [Date, Date]> => ({
+): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /before/.test(text),
   extractor: (text) => text.replace(/before/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    sub(dates[0], { years: options.afterOffset }),
-    sub(dates[1], { years: 1 }),
+  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+    sub(first, { years: options.afterOffset }),
+    sub(second, { years: 1 }),
+    meta,
   ],
 });
 
-const byHandler = (): ModifierConfig<string, [Date, Date]> => ({
+const byHandler = (): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /by/.test(text),
   extractor: (text) => text.replace(/by/, "").trim(),
-  transformer: (dates: [Date, Date]): [Date, Date] => [
-    sub(dates[0], { years: 1 }),
-    dates[1],
+  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+    sub(first, { years: 1 }),
+    second,
+    meta,
   ],
 });
 
