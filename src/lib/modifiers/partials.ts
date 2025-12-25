@@ -35,46 +35,6 @@ const quartersOfRange = (
   ];
 };
 
-const EARLY = /early/;
-// export const firstThirdModifier = (): ModifierConfig<string, [Date, Date]> => ({
-//   predicate: (text) => EARLY.test(text),
-//   extractor: (text) => text.replace(EARLY, "").trim(),
-//   transformer: (dates: [Date, Date]): [Date, Date] => {
-//     const [start, middle] = thirdsOfRange(dates);
-//     return [start, middle];
-//   },
-// });
-
-const MID = /mid[-\s]/;
-export const secondThirdModifier = (): ModifierConfig<
-  string,
-  InputHandlerReturn
-> => ({
-  predicate: (text) => MID.test(text),
-  extractor: (text) => text.replace(MID, "").trim(),
-  transformer: ([
-    first,
-    second,
-    metadata,
-  ]: InputHandlerReturn): InputHandlerReturn => {
-    const [start, middle, secondMiddle] = thirdsOfRange([first, second]);
-    return [middle, secondMiddle, metadata];
-  },
-});
-
-const LATE = /\blate\b/;
-export const thirdThirdModifier = (): ModifierConfig<
-  string,
-  InputHandlerReturn
-> => ({
-  predicate: (text) => LATE.test(text),
-  extractor: (text) => text.replace(LATE, "").trim(),
-  transformer: ([first, second, meta]) => {
-    const [start, middle, secondMiddle, end] = thirdsOfRange([first, second]);
-    return [secondMiddle, end, meta];
-  },
-});
-
 const FIRST_HALF = /(?:first|1st) half\s+(?:of\s*(?:the\s*)?)?/;
 export const firstHalfModifier = (): ModifierConfig<
   string,
@@ -183,6 +143,9 @@ const EARLY_TO_LATE = /early\s+(to|or)\s+late\b/;
 const MID_TO_LATE = /mid[-\s](to|or)[-\s]late\b/;
 const EARLY_MID = /early[-\s]mid[-\s]/;
 const MID_LATE = /mid[-\s]late\b/;
+const EARLY = /early/;
+const MID = /mid[-\s]/;
+const LATE = /\blate\b/;
 
 export const earlyMidLateModifier = (): ModifierConfig<
   string,

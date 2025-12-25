@@ -3,13 +3,10 @@ import { endOfYear } from "date-fns/endOfYear";
 import { startOfYear } from "date-fns/startOfYear";
 import {
   afterOriginalModifier,
-  identityModifier,
   leadingWordModifier,
   parentheticalModifier,
   printedModifier,
-  zodiacModifier,
 } from "./modifiers/identity";
-import { islamicModifier } from "./modifiers/islamic";
 import { earlyMidLateModifier } from "./modifiers/partials";
 import { seasonModifier } from "./modifiers/season";
 import { Maybe } from "./util/maybe";
@@ -80,7 +77,11 @@ const circaModifier = (
 ): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => CIRCA_REGEX.test(text),
   extractor: (text) => text.replace(CIRCA_REGEX, "").trim(),
-  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+  transformer: ([
+    first,
+    second,
+    meta,
+  ]: InputHandlerReturn): InputHandlerReturn => [
     sub(first, { years: options.circaStartOffset }),
     add(second, { years: options.circaEndOffset }),
     meta,
@@ -92,7 +93,11 @@ const afterModifier = (
 ): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /\bafter\b/.test(text),
   extractor: (text) => text.replace(/\bafter\b/, "").trim(),
-  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+  transformer: ([
+    first,
+    second,
+    meta,
+  ]: InputHandlerReturn): InputHandlerReturn => [
     add(first, { years: 1 }),
     add(second, { years: options.afterOffset }),
     meta,
@@ -104,7 +109,11 @@ const orLaterModifier = (
 ): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /(or|and) later/.test(text),
   extractor: (text) => text.replace(/(or|and) later/, "").trim(),
-  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+  transformer: ([
+    first,
+    second,
+    meta,
+  ]: InputHandlerReturn): InputHandlerReturn => [
     first,
     add(second, { years: options.afterOffset }),
     meta,
@@ -116,7 +125,11 @@ const beforeModifier = (
 ): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /before/.test(text),
   extractor: (text) => text.replace(/before/, "").trim(),
-  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+  transformer: ([
+    first,
+    second,
+    meta,
+  ]: InputHandlerReturn): InputHandlerReturn => [
     sub(first, { years: options.afterOffset }),
     sub(second, { years: 1 }),
     meta,
@@ -126,7 +139,11 @@ const beforeModifier = (
 const byHandler = (): ModifierConfig<string, InputHandlerReturn> => ({
   predicate: (text) => /by/.test(text),
   extractor: (text) => text.replace(/by/, "").trim(),
-  transformer: ([first, second, meta]: InputHandlerReturn): InputHandlerReturn => [
+  transformer: ([
+    first,
+    second,
+    meta,
+  ]: InputHandlerReturn): InputHandlerReturn => [
     sub(first, { years: 1 }),
     second,
     meta,
@@ -134,30 +151,23 @@ const byHandler = (): ModifierConfig<string, InputHandlerReturn> => ({
 });
 
 export const handleYear: InputHandler = (input, options) => {
-  return input
-    .map(handleBrackets)
-    .map((text) => {
-      const { predicate, extractor } = islamicModifier();
-      return predicate(text) ? extractor(text) : text;
-    })
-    .flatMap((text) =>
-      Modifier.fromValue(text)
-        .withModifier(seasonModifier())
-        .withModifier(leadingWordModifier())
-        .withModifier(printedModifier())
-        .withModifier(parentheticalModifier())
-        .withModifier(zodiacModifier())
-        .withModifier(afterOriginalModifier())
-        .withModifier(circaModifier(options))
-        .withModifier(afterModifier(options))
-        .withModifier(orLaterModifier(options))
-        .withModifier(beforeModifier(options))
-        .withModifier(byHandler())
-        .withModifier(earlyMidLateModifier())
-        .flatMap((text) => yearToNumber(text, options))
-        .map((num) => yearToDate(num))
-        .map((year): [Date, Date] => [startOfYear(year), endOfYear(year)])
-        .map(attachMetadata(Handler.YEAR))
-        .unwrap()
-    );
+  return input.map(handleBrackets).flatMap((text) =>
+    Modifier.fromValue(text)
+      .withModifier(seasonModifier())
+      .withModifier(leadingWordModifier())
+      .withModifier(printedModifier())
+      .withModifier(parentheticalModifier())
+      .withModifier(afterOriginalModifier())
+      .withModifier(circaModifier(options))
+      .withModifier(afterModifier(options))
+      .withModifier(orLaterModifier(options))
+      .withModifier(beforeModifier(options))
+      .withModifier(byHandler())
+      .withModifier(earlyMidLateModifier())
+      .flatMap((text) => yearToNumber(text, options))
+      .map((num) => yearToDate(num))
+      .map((year): [Date, Date] => [startOfYear(year), endOfYear(year)])
+      .map(attachMetadata(Handler.YEAR))
+      .unwrap()
+  );
 };

@@ -1,5 +1,4 @@
 import { parentheticalModifier } from "../modifiers/identity";
-import { islamicModifier } from "../modifiers/islamic";
 import { handleBrackets } from "../util/bracket-extractor";
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
@@ -75,10 +74,6 @@ export const matchCastingRange = (input: string): [string, string] | null => {
 export const handleYearRange: InputHandler = (input, options) => {
   return input
     .map(handleBrackets)
-    .map((text) => {
-      const { predicate, extractor } = islamicModifier();
-      return predicate(text) ? extractor(text) : text;
-    })
     .map((text) => {
       const { predicate, extractor } = parentheticalModifier();
       return predicate(text) ? extractor(text) : text;

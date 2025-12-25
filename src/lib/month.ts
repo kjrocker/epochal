@@ -2,7 +2,6 @@ import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
 import {
   parentheticalModifier,
-  zodiacModifier,
   circaIdentityModifier,
 } from "./modifiers/identity";
 import { earlyMidLateModifier } from "./modifiers/partials";
@@ -119,7 +118,6 @@ export const handleMonth: InputHandler = (input, options) => {
       .withModifier(afterModifier(options))
       .withModifier(parentheticalModifier())
       .withModifier(circaIdentityModifier())
-      .withModifier(zodiacModifier())
       .withModifier(earlyMidLateModifier())
       .flatMap((text) => textToYearAndMonth(text, options))
       .map(({ year, month }) => {
