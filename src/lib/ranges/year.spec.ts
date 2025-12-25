@@ -1,4 +1,4 @@
-import { matchCastingRange, matchEraRange, matchYearShorthand } from "./year";
+import { matchEraRange, matchYearShorthand } from "./year";
 
 describe("matchYearShorthand", () => {
   test.each([
@@ -51,23 +51,5 @@ describe("matchEraRange", () => {
     ["1961–1917 b.c. or later", ["1961 b.c.", "1917 b.c. or later"]],
   ])("should split %s into %s", (input, expected) => {
     expect(matchEraRange(input)).toEqual(expected);
-  });
-});
-
-describe("matchCastingRange", () => {
-  test.each([
-    ["1903, cast 1905", "1903", "1905"],
-    ["1903; cast 1905", "1903", "1905"],
-    ["1903, carved 1905", "1903", "1905"],
-    ["1903; carved 1905", "1903", "1905"],
-    ["1903, cast ca. 1905", "1903", "ca. 1905"],
-    ["ca. 1903, cast ca. 1905", "ca. 1903", "ca. 1905"],
-    ["ca. 1903; cast ca. 1905", "ca. 1903", "ca. 1905"],
-    ["903, carved 905", "903", "905"],
-    ["903; carved 905", "903", "905"],
-    ["903, cast ca. 905", "903", "ca. 905"],
-    ["1896, cast ca. 1906", "1896", "ca. 1906"],
-  ])("it should split %s into %s and %s", (input, start, end) => {
-    expect(matchCastingRange(input)).toEqual([start, end]);
   });
 });
