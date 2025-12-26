@@ -1,15 +1,13 @@
 {
   "name": "epochal",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "Convert ambiguous historical dates into precise start and end dates with ease ",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "lint": "eslint src",
-    "test:watch": "jest --watch",
-    "check": "npx ts-node src/metropolitian/main.ts",
-    "block": "npx ts-node src/metropolitian/interactive-blocklist-manager.ts"
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "date",
@@ -19,14 +17,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kjrocker/epochal.git"
+    "url": "git+https://codeberg.org/kehvyn/epochal.git"
   },
   "author": "Kevin Rocker",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kjrocker/epochal/issues"
+    "url": "https://codeberg.org/kehvyn/epochal/issues"
   },
-  "homepage": "https://github.com/kjrocker/epochal#readme",
+  "homepage": "https://codeberg.org/kehvyn/epochal#readme",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
     "@types/jest": "^29.5.8",
