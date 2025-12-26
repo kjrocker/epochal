@@ -1,8 +1,0 @@
-{
-  "packages": [
-    "nodejs@22"
-  ],
-  "env": {
-    "DEVBOX_COREPACK_ENABLED": "true"
-  }
-}
