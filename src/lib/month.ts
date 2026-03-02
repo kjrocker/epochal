@@ -1,9 +1,6 @@
 import { endOfMonth } from "date-fns";
 import { startOfMonth } from "date-fns/startOfMonth";
-import {
-  parentheticalModifier,
-  circaIdentityModifier,
-} from "./modifiers/identity";
+import { circaIdentityModifier } from "./modifiers/identity";
 import { earlyMidLateModifier } from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
 import { Modifier, ModifierConfig } from "./util/modifier";
@@ -116,7 +113,6 @@ export const handleMonth: InputHandler = (input, options) => {
   return input.flatMap((text) =>
     Modifier.fromValue(text)
       .withModifier(afterModifier(options))
-      .withModifier(parentheticalModifier())
       .withModifier(circaIdentityModifier())
       .withModifier(earlyMidLateModifier())
       .flatMap((text) => textToYearAndMonth(text, options))

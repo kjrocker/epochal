@@ -1,6 +1,5 @@
 import { add, sub } from "date-fns";
 import { endOfDecade, startOfDecade } from "./date-fns";
-import { parentheticalModifier } from "./modifiers/identity";
 import { earlyMidLateModifier } from "./modifiers/partials";
 import { Maybe } from "./util/maybe";
 import { Modifier, ModifierConfig } from "./util/modifier";
@@ -52,7 +51,6 @@ export const handleDecade: InputHandler = (input, options) => {
   return input.flatMap((text) =>
     Modifier.fromValue(text)
       .withModifier(circaModifier(options))
-      .withModifier(parentheticalModifier())
       .withModifier(earlyMidLateModifier())
       .flatMap(decadeToOrdinal)
       .map(decadeToDate)

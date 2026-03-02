@@ -1,5 +1,4 @@
 import { handleCentury } from "../century";
-import { PARENTHETICAL_PATTERN } from "../modifiers/identity";
 import { Maybe } from "../util/maybe";
 import { InputHandler } from "../util/util";
 import { matchComma, matchDash, matchSlash, matchTo } from "./util";
@@ -30,11 +29,6 @@ export const handleCenturyRange: InputHandler = (input, options) => {
         ? text.replace(/(or|and) later/, "").trim()
         : text.trim();
     })
-    .map((text) =>
-      PARENTHETICAL_PATTERN.test(text)
-        ? text.replace(PARENTHETICAL_PATTERN, "").trim()
-        : text.trim()
-    )
     .tryEach((text) => matchCenturyRange(text))
     .map(([start, end]) => {
       const startRange = handleCentury(Maybe.fromValue(start), options).get();
